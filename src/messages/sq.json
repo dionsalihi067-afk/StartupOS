@@ -1,0 +1,1616 @@
+{
+  "meta": {
+    "title": "StartupOS: sistemi operativ për ndërtimin e një biznesi",
+    "titleTemplate": "%s · StartupOS",
+    "description": "StartupOS e kthen një ide biznesi në një hapësirë pune të organizuar: brendi, uebfaqja, marketingu, hulumtimi i konkurrentëve, çmimet, rritja dhe plani i lansimit.",
+    "ogDescription": "Planifikoni, ndërtoni dhe lansoni biznesin tuaj nga një hapësirë pune e vetme."
+  },
+  "common": {
+    "skipToContent": "Kalo te përmbajtja",
+    "cancel": "Anulo",
+    "close": "Mbyll",
+    "continue": "Vazhdo",
+    "copy": "Kopjo",
+    "copied": "U kopjua",
+    "copyFailed": "Kopjimi dështoi",
+    "copyField": "Kopjo: {field}",
+    "download": "Shkarko",
+    "downloadFailed": "Shkarkimi dështoi",
+    "exportJson": "Eksporto JSON",
+    "open": "Hap",
+    "save": "Ruaj",
+    "loading": "Duke u ngarkuar…",
+    "loadingLabel": "Duke u ngarkuar",
+    "tryAgain": "Provo përsëri",
+    "optional": "Opsionale",
+    "none": "Asnjë",
+    "notAvailable": "(nuk është në dispozicion)",
+    "opensInNewTab": "(hapet në një skedë të re)",
+    "productHome": "Ballina e StartupOS"
+  },
+  "language": {
+    "label": "Gjuha",
+    "switcherLabel": "Gjuha e ndërfaqes",
+    "settingsDescription": "Gjuha e ndërfaqes së StartupOS. Përmbajtja e gjeneruar e biznesit nuk përkthehet.",
+    "names": { "sq": "Shqip", "en": "Anglisht" }
+  },
+  "navigation": {
+    "home": "Ballina",
+    "allBusinesses": "Të gjitha bizneset",
+    "newBusiness": "Biznes i ri",
+    "settings": "Cilësimet",
+    "workspace": "Hapësira e punës",
+    "overview": "Përmbledhje",
+    "strategy": "Strategjia",
+    "brand": "Brendi",
+    "website": "Uebfaqja",
+    "marketing": "Marketingu",
+    "competitors": "Konkurrentët",
+    "pricing": "Çmimet",
+    "growth": "Rritja",
+    "launch": "Lansimi",
+    "groupBusiness": "Biznesi",
+    "groupWorkspace": "Hapësira e punës",
+    "mainNavigation": "Navigimi kryesor",
+    "sections": "Seksionet",
+    "openNavigation": "Hap navigimin",
+    "closeNavigation": "Mbyll navigimin",
+    "breadcrumb": "Shtegu i navigimit"
+  },
+  "switcher": { "createFirst": "Krijoni biznesin tuaj të parë", "switchBusiness": "Ndërro biznesin", "businesses": "Bizneset" },
+  "status": {
+    "launchReady": "Gati për lansim",
+    "inProgress": "Në progres",
+    "planning": "Në planifikim",
+    "ready": "Gati",
+    "missing": "Mungon",
+    "complete": "E përfunduar",
+    "available": "Në dispozicion",
+    "notConfigured": "Nuk është konfiguruar",
+    "unavailable": "I padisponueshëm",
+    "noResults": "Pa rezultate",
+    "failed": "Dështoi",
+    "generated": "U gjenerua",
+    "configured": "I konfiguruar",
+    "connected": "I lidhur",
+    "active": "Aktiv"
+  },
+  "industries": {
+    "food": "Ushqim dhe pije",
+    "fitness": "Fitnes dhe mirëqenie",
+    "beauty": "Bukuri dhe kujdes personal",
+    "tech": "Teknologji dhe SaaS",
+    "ecommerce": "E-commerce dhe shitje me pakicë",
+    "services": "Shërbime profesionale",
+    "education": "Arsim dhe trajnim",
+    "home": "Shtëpi dhe zanate",
+    "cosmetics": "Kozmetikë dhe kujdes për lëkurën",
+    "automotive": "Automjete",
+    "travel": "Udhëtime dhe turizëm",
+    "logistics": "Logjistikë dhe dërgesa",
+    "agriculture": "Bujqësi dhe prodhim ushqimor",
+    "realEstate": "Patundshmëri",
+    "generic": "Biznes modern"
+  },
+  "styles": {
+    "premiumLuxury": { "label": "Premium / Luksoz", "hint": "Elegant, ekskluziv, i rafinuar" },
+    "modernMinimal": { "label": "Modern / Minimal", "hint": "I pastër, i qetë, i menduar" },
+    "boldEnergetic": { "label": "I guximshëm / Energjik", "hint": "I fuqishëm, plot ngjyra, me ndikim" },
+    "friendlyApproachable": { "label": "Miqësor / I afrueshëm", "hint": "I ngrohtë, njerëzor, mikpritës" },
+    "corporateProfessional": { "label": "Korporativ / Profesional", "hint": "I besueshëm, i saktë, i konsoliduar" },
+    "playfulCreative": { "label": "Lozonjar / Kreativ", "hint": "Argëtues, imagjinativ, origjinal" },
+    "techFuturistic": { "label": "Teknologjik / Futurist", "hint": "I mprehtë, inovativ, largpamës" },
+    "organicNatural": { "label": "Organik / Natyral", "hint": "Tokësor, i sinqertë, i qëndrueshëm" }
+  },
+  "dates": {
+    "today": "Sot",
+    "yesterday": "Dje",
+    "daysAgo": { "one": "{count} ditë më parë", "other": "{count} ditë më parë" },
+    "createdToday": "Krijuar sot",
+    "createdYesterday": "Krijuar dje",
+    "createdDaysAgo": { "one": "Krijuar {count} ditë më parë", "other": "Krijuar {count} ditë më parë" },
+    "createdOn": "Krijuar më {date}"
+  },
+  "provenance": {
+    "fact": { "label": "Nga kërkimi", "title": "Marrë nga një rezultat i kërkimit në ueb." },
+    "analysis": { "label": "Analizë", "title": "Interpretim i rezultateve të kërkimit. Nuk është verifikuar në mënyrë të pavarur." },
+    "recommendation": { "label": "Rekomandim", "title": "Sugjerim strategjik. Nuk është fakt." },
+    "ai": {
+      "label": "Përgatitur",
+      "title": "Përgatitur nga të dhënat e biznesit tuaj. Rishikojeni para publikimit."
+    },
+    "template": { "label": "Plan standard", "title": "Montuar nga të dhënat tuaja me planin standard." },
+    "sample": { "label": "Shembull", "title": "Përmbajtje shembull. Zëvendësojeni me informacion real para publikimit." },
+    "estimate": { "label": "Vlerësim", "title": "Supozim planifikimi, jo të dhëna të matura." }
+  },
+  "steps": {
+    "brand": "Identiteti i brendit",
+    "design": "Ngjyrat dhe tipografia",
+    "logo": "Logoja",
+    "persona": "Klienti i synuar",
+    "competitor": "Hulumtimi i konkurrentëve",
+    "market": "Hulumtimi i tregut",
+    "pricing": "Çmimet",
+    "strategy": "Strategjia dhe financat",
+    "website": "Përmbajtja e uebfaqes",
+    "seo": "SEO",
+    "marketing": "Plani i marketingut",
+    "email": "Seria e emailave",
+    "whatsapp": "Biseda në WhatsApp",
+    "growth": "Plani i rritjes",
+    "launch": "Plani i lansimit",
+    "publisher": "Përgatitja e hapësirës së punës"
+  },
+  "emptyState": {
+    "noBusinessTitle": "Ende nuk keni asnjë biznes",
+    "noBusinessDescription": "Përshkruani një ide biznesi dhe StartupOS do të përgatisë brendin, uebfaqen, marketingun, çmimet dhe planin e lansimit.",
+    "createBusiness": "Krijo një biznes",
+    "sectionNeedsBusiness": "Ky seksion krijohet si pjesë e një biznesi. Krijoni një biznes për të filluar."
+  },
+  "home": {
+    "title": "Ballina",
+    "description": "Vazhdoni aty ku e latë.",
+    "yourBusinesses": "Bizneset tuaja",
+    "savedCount": { "one": "{count} i ruajtur në llogarinë tuaj", "other": "{count} të ruajtura në llogarinë tuaj" },
+    "viewAll": "Shiko të gjitha",
+    "continueWorking": "Vazhdoni punën",
+    "continueHint": "Biznesi juaj aktiv — hapni hapësirën e punës ose kaloni te një seksion.",
+    "launchChecklist": "Lista e lansimit",
+    "checklistDone": "{done} nga {total} të kryera",
+    "checklistProgress": "Përparimi i listës së lansimit",
+    "jumpToSection": "Kalo te seksioni",
+    "openWorkspace": "Hap hapësirën e punës",
+    "nextSteps": "Kërkon vëmendje",
+    "nextStepsFor": "Për {name}",
+    "allComplete": "Nuk ka asgjë të mbetur. Të gjitha pikat e listës së lansimit janë kryer."
+  },
+  "onboarding": {
+    "title": "Mirë se vini në StartupOS",
+    "description": "Krijoni hapësirën e punës për biznesin tuaj të parë.",
+    "ctaTitle": "Filloni me një ide biznesi",
+    "ctaBody": "Përgjigjuni disa pyetjeve të shkurtra. StartupOS harton brendin, faqen, marketingun dhe materialet e lansimit në një hapësirë pune.",
+    "howItWorks": "Si funksionon",
+    "steps": {
+      "describe": {
+        "title": "Përshkruani biznesin",
+        "body": "Ideja juaj, për kë është, ku do të operojë, një buxhet i përafërt dhe stili që dëshironi."
+      },
+      "draft": {
+        "title": "StartupOS përgatit planin",
+        "body": "Brendi, përmbajtja e uebfaqes, marketingu, çmimet, një plan rritjeje 90-ditor dhe lista e lansimit. Përparimi shfaqet hap pas hapi."
+      },
+      "review": {
+        "title": "Rishikoni dhe përmirësoni",
+        "body": "Çdo seksion tregon nëse është shkruar nga modeli i AI-së apo nga shabllonet e integruara, që ta dini çfarë duhet kontrolluar."
+      }
+    },
+    "createFirst": "Krijoni biznesin tuaj të parë",
+    "whatYouGet": "Çfarë merrni",
+    "outputs": {
+      "brand": "Identiteti i brendit: emri, zëri, paleta e ngjyrave dhe tipografia",
+      "website": "Përmbajtja e uebfaqes dhe struktura SEO për disa faqe",
+      "marketing": "Strategjia e marketingut, postimet në rrjete sociale, reklamat, emailat dhe bisedat në WhatsApp",
+      "research": "Hulumtimi i konkurrentëve dhe i tregut (kërkon kërkim në ueb)",
+      "pricing": "Nivelet e çmimeve dhe arsyetimi",
+      "growth": "Plani i rritjes 90-ditor dhe lista e lansimit"
+    },
+    "storageNote": "Bizneset ruhen në llogarinë tuaj, ndaj mund t’i hapni nga çdo pajisje ku hyni."
+  },
+  "nextActions": {
+    "setupLogo": {
+      "title": "Aktivizoni gjenerimin e logos",
+      "reason": "Logoja krijohet bashkë me biznesin. Shtoni një çelës OpenAI që ta përfshini herën tjetër."
+    },
+    "logoFailed": {
+      "title": "Logoja nuk u gjenerua",
+      "reason": "Modeli i imazheve nuk arriti të krijonte logon. Mund ta provoni sërish te seksioni Brendi."
+    },
+    "connectSearch": {
+      "title": "Lidhni kërkimin në ueb",
+      "reason": "Hulumtimi i konkurrentëve dhe i tregut përdor një shërbim kërkimi në kohë reale."
+    },
+    "reviewResearch": { "title": "Rishikoni hulumtimin e konkurrentëve", "reason": "Kërkimi i fundit nuk dha rezultate të përdorshme." },
+    "checklistReason": "Hapi i radhës në listën e lansimit"
+  },
+  "workspaceStatus": {
+    "brand": {
+      "label": "Identiteti i brendit",
+      "detail": { "one": "{count} ngjyrë · {font}", "other": "{count} ngjyra · {font}" }
+    },
+    "logo": {
+      "label": "Logoja",
+      "generated": "Logoja dhe ikona e aplikacionit",
+      "unavailable": "Gjenerimi i imazheve nuk është konfiguruar",
+      "error": "Modeli i imazheve nuk ktheu logo"
+    },
+    "website": {
+      "label": "Uebfaqja",
+      "detail": { "one": "{count} faqe", "other": "{count} faqe" }
+    },
+    "marketing": {
+      "label": "Marketingu",
+      "posts": { "one": "{count} postim", "other": "{count} postime" },
+      "ads": { "one": "{count} reklamë", "other": "{count} reklama" },
+      "emails": { "one": "{count} email", "other": "{count} emaila" }
+    },
+    "competitors": {
+      "label": "Hulumtimi i konkurrentëve",
+      "competitorCount": { "one": "{count} konkurrent", "other": "{count} konkurrentë" },
+      "sourceCount": { "one": "{count} burim", "other": "{count} burime" },
+      "notConfigured": "Kërkimi në ueb nuk është konfiguruar",
+      "noResults": "Kërkimi nuk dha asgjë të përdorshme",
+      "error": "Kërkimi nuk mund të përfundonte"
+    },
+    "market": {
+      "label": "Hulumtimi i tregut",
+      "notConfigured": "Kërkimi në ueb nuk është konfiguruar",
+      "noData": "Nuk ka të dhëna të përdorshme për tregun"
+    },
+    "pricing": {
+      "label": "Çmimet",
+      "detail": { "one": "{count} nivel", "other": "{count} nivele" }
+    },
+    "growth": {
+      "label": "Plani i rritjes",
+      "phases": { "one": "{count} fazë", "other": "{count} faza" },
+      "tasks": { "one": "{count} detyrë", "other": "{count} detyra" }
+    },
+    "launch": {
+      "label": "Lista e lansimit",
+      "allDone": "Të gjitha pikat janë kryer",
+      "remaining": { "one": "Mbetet {count} pikë", "other": "Mbeten {count} pika" }
+    }
+  },
+  "projects": {
+    "title": "Të gjitha bizneset",
+    "descriptionCount": { "one": "{count} biznes në llogarinë tuaj.", "other": "{count} biznese në llogarinë tuaj." },
+    "descriptionEmpty": "Bizneset që krijoni ruhen këtu.",
+    "descriptionPartial": "Po shfaqen {count} bizneset e përditësuara së fundmi.",
+    "loadMore": "Shfaq bizneset më të vjetra",
+    "loadMoreFailed": "Bizneset më të vjetra nuk mund të ngarkoheshin. Provoni përsëri.",
+    "tableCaption": "Bizneset e ruajtura",
+    "columns": {
+      "business": "Biznesi",
+      "status": "Statusi",
+      "checklist": "Lista e lansimit",
+      "created": "Krijuar",
+      "actions": "Veprimet"
+    },
+    "setActive": "Bëje aktiv",
+    "deleteAria": "Fshi {name}",
+    "mobileMeta": "Lista {done}/{total} · {date}",
+    "deleteTitle": "Ta fshini {name}?",
+    "deleteDescription": "Kjo do ta heqë përgjithmonë këtë biznes dhe hapësirën e tij të punës së gjeneruar. Ky veprim nuk mund të zhbëhet.",
+    "deleteConfirm": "Fshi biznesin"
+  },
+  "projectPage": {
+    "notFoundTitle": "Biznesi nuk u gjet",
+    "notFoundDescription": "Mund të jetë fshirë, ose i përket një llogarie tjetër.",
+    "generatingTitle": "Ky biznes është ende duke u krijuar",
+    "generatingDescription": "Gjenerimi është në vazhdim. Kjo faqe përditësohet automatikisht kur të përfundojë.",
+    "failedTitle": "Ky biznes nuk mundi të krijohej",
+    "removeFailed": "Hiqe",
+    "startAgain": "Krijoje përsëri"
+  },
+  "businessStatus": { "untitled": "Biznes pa emër", "generating": "Po krijohet…", "failed": "Dështoi" },
+  "businessErrors": {
+    "generationFailed": "Diçka e ndërpreu gjenerimin. Përgjigjet tuaja nuk humbën, ndaj mund ta krijoni biznesin përsëri.",
+    "interrupted": "Gjenerimi ndaloi para se të përfundonte. Mund ta hiqni këtë hyrje dhe ta krijoni biznesin përsëri.",
+    "invalidData": "Të dhënat e ruajtura të këtij biznesi nuk mund të lexoheshin. Mund ta hiqni dhe ta krijoni biznesin përsëri."
+  },
+  "workspace": {
+    "tabsLabel": "Seksionet e biznesit",
+    "exportAria": "Eksporto gjithë paketën e biznesit si JSON",
+    "incomplete": {
+      "title": "Disa seksione janë të paplota",
+      "description": "Këto seksione nuk u gjeneruan plotësisht dhe shfaqin përmbajtje të reduktuar ose shabllon: {sections}.",
+      "providerRefused": "Ofruesi i AI-së i refuzoi kërkesat (çelës API i pavlefshëm, pa qasje, ose limiti i shpenzimeve apo kuota e llogarisë është shteruar). Rregullojeni këtë në llogarinë e ofruesit para se të provoni përsëri.",
+      "action": "Provoji përsëri"
+    }
+  },
+  "strategy": {
+    "emptyTitle": "Ende pa strategji",
+    "emptyDescription": "Ky biznes u krijua para se të ekzistonin strategjia dhe modeli financiar. Gjeneroji nga konteksti i ruajtur i biznesit.",
+    "generate": "Gjenero strategjinë",
+    "templateNotice": "Modeli gjuhësor nuk ishte i disponueshëm, prandaj kjo strategji vetëm përsërit përgjigjet tuaja. Provoni ta gjeneroni përsëri.",
+    "executive": {
+      "title": "Strategjia ekzekutive",
+      "description": "Një plan për këtë biznes konkret, bazuar në përgjigjet tuaja dhe në hulumtimin e gjetur. Rishikojeni para se të veproni.",
+      "problem": "Problemi",
+      "solution": "Zgjidhja",
+      "valueProposition": "Propozimi i vlerës",
+      "businessModel": "Modeli i biznesit",
+      "entryStrategy": "Si të fitoni klientët e parë",
+      "revenueStreams": "Burimet e të ardhurave",
+      "segments": "Segmentet e klientëve",
+      "differentiation": "Dallimi",
+      "assumptions": "Supozime për t'u verifikuar",
+      "risks": "Rreziqet dhe masat",
+      "missingInformation": "Informacion që ende mungon"
+    },
+    "profile": {
+      "title": "Si e kuptuam biznesin tuaj",
+      "description": "Çdo plan në këtë hapësirë pune përdor këtë lexim. Çdo fakt tregon nga erdhi."
+    },
+    "facts": {
+      "modelKind": "Modeli i biznesit",
+      "industry": "Industria",
+      "market": "Tregu",
+      "customers": "Klientët",
+      "customerType": "Lloji i klientit",
+      "stage": "Faza",
+      "budget": "Buxheti",
+      "salesChannels": "Kanalet e shitjes",
+      "revenueModel": "Modeli i të ardhurave",
+      "priceRange": "Gama e çmimeve",
+      "differentiator": "Dallimi"
+    },
+    "basis": {
+      "provided": "E thatë ju",
+      "inferred": "E nxjerrë",
+      "assumed": "E supozuar",
+      "unavailable": "E padhënë"
+    },
+    "models": {
+      "product": "Produkte fizike",
+      "saas": "Softuer / SaaS",
+      "localService": "Shërbim lokal",
+      "professionalService": "Shërbim profesional",
+      "foodVenue": "Lokal ushqimi dhe pijesh",
+      "marketplace": "Treg online (marketplace)",
+      "education": "Arsim dhe trajnim",
+      "general": "Ende i paqartë"
+    },
+    "considerations": {
+      "title": "Kontrolloni para lansimit",
+      "description": "Fusha ku mund të zbatohen rregulla lokale për këtë lloj biznesi. Janë kujtesa për t'u verifikuar me autoritetet ose një këshilltar, jo këshillë ligjore.",
+      "none": "Nuk u gjet asgjë specifike nga përshkrimi juaj. Rregullat e përgjithshme të regjistrimit të biznesit dhe tatimeve vlejnë gjithsesi.",
+      "items": {
+        "cosmeticsSafety": "Siguria e produkteve kozmetike, etiketimi i përbërësve dhe çdo njoftim i kërkuar i produktit",
+        "foodHygiene": "Regjistrimi, inspektimi dhe etiketimi për higjienën e ushqimit",
+        "alcoholTobacco": "Licencat për shitjen e alkoolit ose duhanit",
+        "healthClaims": "Rregullat për pretendimet shëndetësore ose mjekësore në marketing",
+        "financialServices": "Licencimi i shërbimeve financiare dhe rregullat e kreditimit të konsumatorit",
+        "vehicleImport": "Importi i automjeteve, dogana, homologimi dhe regjistrimi",
+        "construction": "Lejet e ndërtimit, licencimi i kontraktorëve dhe siguria në kantier",
+        "childcare": "Licencimi i kujdesit për fëmijë, raportet dhe verifikimi i stafit",
+        "transportLicensing": "Licencimi i transportit ose i korrierit dhe sigurimi i automjeteve",
+        "tourismLicensing": "Licencimi i turizmit ose i akomodimit",
+        "realEstate": "Rregullat për agjencitë e patundshmërive dhe trajtimin e parave të klientëve",
+        "personalData": "Mbrojtja e të dhënave personale: pëlqimi, politika e privatësisë dhe ruajtja e sigurt",
+        "importCustoms": "Detyrimet doganore, procedurat e importit dhe konformiteti i produkteve",
+        "employment": "Kontratat e punës, kontributet sociale dhe siguria në punë"
+      }
+    },
+    "finance": {
+      "title": "Modeli financiar",
+      "description": "Çdo shifër llogaritet nga supozimet e listuara më poshtë. Ndryshoni një supozim dhe rezultatet ndjekin prej tij.",
+      "estimateTitle": "Vlerësim planifikimi, jo parashikim",
+      "insufficientTitle": "Nuk ka informacion të mjaftueshëm për një vlerësim financiar",
+      "limitations": {
+        "noLlm": "Modeli gjuhësor nuk është konfiguruar, prandaj nuk u propozuan supozime për kostot ose sasitë.",
+        "invalidOutput": "Modeli gjuhësor nuk ktheu supozime të përdorshme. Provoni ta gjeneroni strategjinë përsëri.",
+        "providerUnavailable": "Ofruesi i AI-së nuk u arrit ose e refuzoi kërkesën, prandaj nuk u propozuan supozime për kostot ose sasitë. Nuk u plotësua asnjë shifër. Provoni përsëri kur ofruesi të jetë i disponueshëm.",
+        "aiEstimate": "Kostot, çmimet dhe sasitë janë supozime të propozuara nga AI, jo oferta ose të dhëna të matura.",
+        "pricesUnverified": "Nuk u vëzhguan çmime të konkurrentëve, prandaj çmimet nuk janë krahasuar me tregun.",
+        "noBudget": "Nuk dhatë buxhet, prandaj kostot fillestare u mbajtën në minimumin për një provë.",
+        "foreignPriceEvidence": "Çmimet e konkurrentëve të gjetura janë në një monedhë dhe treg tjetër, prandaj çmimet këtu u vendosën veçmas dhe duhen verifikuar në tregun vendor.",
+        "overBudget": "Kostot fillestare e kalojnë buxhetin tuaj. Zvogëloni versionin e parë ose gjeni më shumë fonde para se të angazhoheni."
+      },
+      "startupCosts": "Kostot fillestare",
+      "monthlyFixedCosts": "Kostot fikse mujore",
+      "revenueStreams": "Burimet e të ardhurave",
+      "breakEven": "Pika e barazimit",
+      "breakEvenUnits": "{units} {unit} / muaj",
+      "breakEvenRevenue": "Rreth {revenue} shitje në muaj",
+      "noBreakEven": "Me këto supozime, çdo shitje nuk e mbulon koston e saj direkte.",
+      "scenariosTitle": "Rezultatet mujore sipas skenarit",
+      "metric": "Treguesi",
+      "scenarios": { "conservative": "Konservativ", "base": "Bazë", "optimistic": "Optimist" },
+      "rows": {
+        "revenue": "Të ardhurat",
+        "variableCosts": "Kostot direkte",
+        "grossProfit": "Fitimi bruto",
+        "grossMargin": "Marzha bruto",
+        "fixedCosts": "Kostot fikse",
+        "operatingProfit": "Fitimi operativ",
+        "payback": "Kostot fillestare kthehen për"
+      },
+      "months": { "one": "{count} muaj", "other": "{count} muaj" },
+      "notReached": "Nuk arrihet",
+      "assumptionsTitle": "Supozimet pas këtyre shifrave",
+      "optionalCost": "opsionale",
+      "streamLine": "{name}: {price} për {unit}, kosto direkte {cost}; {conservative} / {base} / {optimistic} në muaj (konservativ / bazë / optimist)",
+      "budget": {
+        "unknown": "Nuk u dha buxhet, prandaj plani nuk mund të krahasohet me të.",
+        "withinTitle": "Brenda buxhetit tuaj",
+        "overTitle": "Mbi buxhetin tuaj",
+        "detail": "Buxheti {budget}, kostot fillestare {startup}, mbeten {remaining}.",
+        "overDetail": "Buxheti {budget}, kostot fillestare {startup}: mungojnë {shortfall}.",
+        "deferOptional": "Zërat thelbësorë arrijnë në {essential}, që përshtatet; shtyjini zërat opsionalë për një fazë të mëvonshme.",
+        "essentialOver": "Edhe zërat thelbësorë ({essential}) e kalojnë buxhetin. Filloni me një version të parë më të vogël, nisni me faza ose siguroni më shumë para para se të angazhoheni.",
+        "reduceScope": "Filloni me një version të parë më të vogël, nisni me faza ose siguroni më shumë para para se të angazhoheni.",
+        "runway": { "one": "Pjesa e mbetur mbulon rreth {count} muaj humbje në skenarin konservativ.", "other": "Pjesa e mbetur mbulon rreth {count} muaj humbje në skenarin konservativ." }
+      }
+    },
+    "roadmap": {
+      "title": "Prioritetet 30/60/90 ditore",
+      "description": "Çfarë të bëni së pari, çfarë duhet të arrijë çdo hap dhe si ta dini nëse funksionoi.",
+      "empty": "Nuk u gjeneruan prioritete. Gjenerojeni strategjinë përsëri kur modeli gjuhësor të jetë i disponueshëm.",
+      "outcome": "Rezultati",
+      "metric": "Matja",
+      "resources": "Burimet",
+      "dependsOn": "Varet nga",
+      "assumption": "Supozon",
+      "priority": { "high": "I lartë", "medium": "Mesatar", "low": "I ulët" }
+    }
+  },
+  "sectionMeta": { "research": "Hulumtimi: {status}", "searchVia": "Kërkim në ueb i disponueshëm" },
+  "overview": {
+    "snapshotTitle": "Pamje e shpejtë",
+    "snapshotDescription": "Nga përgjigjet tuaja të zbulimit.",
+    "fields": {
+      "idea": "Ideja",
+      "customer": "Klienti",
+      "budget": "Buxheti",
+      "category": "Kategoria",
+      "stage": "Faza",
+      "market": "Tregu",
+      "model": "Modeli i biznesit",
+      "offer": "Oferta kryesore",
+      "priority": "Prioriteti"
+    },
+    "launchReadiness": "Gatishmëria për lansim",
+    "checklistItemsDone": "{done} nga {total} pika të listës të kryera",
+    "openLaunchChecklist": "Hap listën e lansimit",
+    "nextSteps": "Hapat e ardhshëm",
+    "nothingOutstanding": "Nuk ka asgjë të mbetur.",
+    "generation": {
+      "title": "Detajet e gjenerimit",
+      "summary": "{ai} nga {total} hapa të shkruar nga modeli i AI-së · {duration} gjithsej",
+      "fallback": "U përdor shablloni rezervë",
+      "error": "U rikuperua nga një gabim",
+      "degradedTitle": "U gjenerua me kufizime",
+      "degradedBody": "Kjo hapësirë pune u ruajt dhe mund të përdoret, por disa seksione kryesore përdorën shabllone rezervë ose u rikuperuan nga gabime. Rishikojini para se t'u mbështeteni.",
+      "provisionalTitle": "Draft i gatshëm — rishikojeni para se të mbështeteni",
+      "provisionalBody": "Gjenerimi përfundoi dhe hapësira e punës është e përdorshme, por disa pjesë kërkojnë inputin tuaj ose nuk kanë prova të verifikuara tregu. Trajtojini rekomandimet si draft fillestar.",
+      "successWithNotesTitle": "U gjenerua me shënime",
+      "successWithNotesBody": "Hapësira e punës është gati. Rishikoni shënimet më poshtë — p.sh. kufizime kërkimi ose logo që mungon — para publikimit.",
+      "consistencySoftTitle": "Shënime të lehta konsistence",
+      "consistencySoftBody": "Kontrollet ndër-seksione gjetën mospërputhje të lehta. Hapësira e punës është e përdorshme — rishikojini para publikimit.",
+      "limitations": {
+        "criticalFallback": "Një ose më shumë seksione kryesore përdorën një shabllon rezervë.",
+        "researchLimited": "Kërkimi i tregut ishte i kufizuar ose i padisponueshëm. Pretendimet e tregut nuk u verifikuan në mënyrë të pavarur.",
+        "logoUnavailable": "Imazhi i logos së gjeneruar nuk ishte i disponueshëm.",
+        "optionalFallback": "Një seksion dytësor përdori një shabllon rezervë.",
+        "consistencyWarnings": "Kontrollet ndër-seksione gjetën mospërputhje (p.sh. konkurrentë jashtë sektorit ose pretendime të fabrikuara).",
+        "genericContent": "Disa tekste marketingu ose brandi duken shumë gjenerike për këtë ofertë. Redaktojini para publikimit.",
+        "needsOwnerReview": "Fakte të rëndësishme biznesi mungonin në momentin e gjenerimit. Rekomandimet përkatëse janë supozime derisa t'i plotësoni.",
+        "thinEvidence": "Provat për konkurrentët dhe tregun janë të hollë ose mungojnë. Mos e trajtoni SWOT ose trendet si kërkim i verifikuar."
+      }
+    },
+    "context": {
+      "gapsTitle": "Konteksti i biznesit ka boshllëqe",
+      "gapsBody": "Gjenerimi u krye, por këto fakte materiale nuk u dhanë. Trajtoni rekomandimet e lidhura si supozime.",
+      "facts": {
+        "customers": "Kush janë klientët",
+        "market": "Ku operon biznesi",
+        "industry": "Në cilën industri është biznesi"
+      }
+    },
+    "businessTitle": "Biznesi",
+    "positioning": "Pozicionimi",
+    "editBrand": "Ndrysho markën",
+    "snapshotLegacy": "Nga të dhënat e futura kur u krijua ky biznes.",
+    "readinessDescription": "Bazuar në listën e nisjes që plotësoni.",
+    "activity": {
+      "title": "Aktiviteti i fundit",
+      "created": "Hapësira e punës u krijua",
+      "edited": "Ndryshimi i fundit",
+      "checklist": "{done} nga {total} detyra nisjeje të përfunduara"
+    }
+  },
+  "brand": {
+    "pageDescription": "Identiteti, logoja, ngjyrat, tipografia dhe rregullat për përdorimin e tyre.",
+    "palette": {
+      "title": "Paleta e ngjyrave",
+      "description": "Zgjidhni një ngjyrë për të kopjuar vlerën HEX ose për ta ndryshuar.",
+      "copyAria": "Kopjo {name} {hex}"
+    },
+    "typography": {
+      "title": "Tipografia",
+      "description": "Ngarkuar nga Google Fonts.",
+      "copyLink": "Kopjo lidhjen e fontit",
+      "headings": "Titujt",
+      "body": "Teksti",
+      "scale": "Shkalla tipografike"
+    },
+    "missionVision": "Misioni dhe vizioni",
+    "mission": "Misioni",
+    "vision": "Vizioni",
+    "valuesVoice": "Vlerat dhe zëri",
+    "values": "Vlerat",
+    "toneOfVoice": "Toni i komunikimit",
+    "logo": {
+      "primary": "Kryesore",
+      "onDark": "Në sfond të errët",
+      "appIcon": "Ikona e aplikacionit",
+      "downloadPng": "Shkarko PNG",
+      "notGenerated": "Nuk u gjenerua logo",
+      "failed": "Gjenerimi i logos dështoi",
+      "notGeneratedDescription": "Gjenerimi i imazheve nuk është konfiguruar, prandaj nuk u krijua asnjë logo zëvendësuese.",
+      "failedDescription": "Modeli i imazheve nuk ktheu logo për këtë biznes.",
+      "missing": "Skedari i logos mungon",
+      "missingDescription": "Kjo logo u ruajt në një mënyrë që nuk i mbijetoi një përditësimi të serverit, prandaj imazhi nuk ekziston më. Gjenerojeni përsëri për ta ruajtur përgjithmonë.",
+      "regenerate": "Gjenero logon përsëri",
+      "checkIntegrations": "Kontrollo integrimet",
+      "logoAlt": "Logoja e {name}",
+      "iconAlt": "Ikona e {name}",
+      "avatarAlt": "Avatari i {name}"
+    },
+    "identity": {
+      "title": "Identiteti i markës",
+      "description": "Çdo element mund të ndryshohet më vete. Ndryshimi i njërit nuk ndryshon të tjerët.",
+      "name": "Emri",
+      "tagline": "Slogani",
+      "positioning": "Pozicionimi",
+      "positioningHint": "Si e përshkruani markën në dy ose tre fjali.",
+      "personality": "Personaliteti",
+      "personalityHint": "Disa tipare që udhëheqin sjelljen e markës."
+    },
+    "visual": {
+      "title": "Identiteti vizual",
+      "description": "Logoja, ngjyrat, tipografia dhe drejtimi vizual.",
+      "logo": "Logoja",
+      "direction": "Drejtimi vizual",
+      "directionDescription": "Stili i zgjedhur për markën dhe rregullat për zbatimin e tij.",
+      "style": "Stili",
+      "preferredColors": "Ngjyrat e preferuara",
+      "avoidColors": "Ngjyrat për t'u shmangur",
+      "references": "Marka që ju pëlqejnë"
+    },
+    "edit": {
+      "save": "Ruaj",
+      "saving": "Duke ruajtur…",
+      "saveFailed": "Ndryshimi nuk u ruajt. Provoni përsëri.",
+      "required": "Kjo nuk mund të jetë bosh.",
+      "none": "Ende asnjë",
+      "editAria": "Ndrysho {field}",
+      "editColorAria": "Ndrysho ngjyrën {name}",
+      "colorPicker": "Zgjidhni ngjyrën për {name}",
+      "hexLabel": "Vlera HEX për {name}",
+      "invalidHex": "Përdorni një vlerë HEX si #1A2B3C.",
+      "traitsHint": "Ndani tiparet me presje. Deri në 8, secili nën 40 karaktere."
+    }
+  },
+  "website": {
+    "pageDescription": "Përmbajtja e faqeve dhe struktura SEO, e paraqitur me brendin tuaj.",
+    "emptyTitle": "Nuk ka faqe të uebfaqes",
+    "emptyDescription": "Hapi i uebfaqes nuk krijoi një uebfaqe të përdorshme për këtë biznes. Rigjeneroni uebfaqen për ta ndërtuar përsëri.",
+    "previewNoticeTitle": "Parapamje e uebfaqes së renderuar",
+    "previewNoticeBody": "Kjo është një parapamje reale e faqeve me brendin dhe përmbajtjen tuaj. Publikimi krijon një URL publike në StartupOS kur zgjidhni ta publikoni. Mund të shkarkoni edhe një uebfaqe statike HTML ose modelin JSON.",
+    "pagesLabel": "Faqet e uebfaqes",
+    "previewSize": "Madhësia e parapamjes",
+    "desktopPreview": "Parapamje në desktop",
+    "mobilePreview": "Parapamje në celular",
+    "exportContent": "Eksporto JSON",
+    "exportAria": "Eksporto përmbajtjen e uebfaqes si JSON",
+    "exportHtml": "Eksporto uebfaqen HTML",
+    "exportHtmlAria": "Shkarko një uebfaqe statike HTML (jo URL e publikuar)",
+    "pageDetails": "Detajet e faqes",
+    "path": "Shtegu",
+    "pageTitle": "Titulli i faqes",
+    "description": "Përshkrimi",
+    "sectionsOnPage": "Seksionet në këtë faqe",
+    "seo": "SEO",
+    "titleTag": "Etiketa e titullit",
+    "metaDescription": "Meta-përshkrimi",
+    "socialTitle": "Titulli për rrjetet sociale",
+    "targetKeywords": "Fjalët kyçe të synuara",
+    "sitemap": "Harta e faqes",
+    "structuredData": "Të dhëna të strukturuara (JSON-LD)",
+    "previewNavigation": "Navigimi i parapamjes",
+    "canonical": "Shtegu kanonik",
+    "contactPending": "Shtoni të dhënat reale të kontaktit (email, telefon, adresë ose profile sociale) para publikimit. Nuk u dhanë, prandaj nuk shfaqen.",
+    "setup": {
+      "title": "Konfigurimi i uebfaqes",
+      "description": "Na tregoni për çfarë shërben uebfaqja dhe si ju kontaktojnë klientët. Faqet, butonat dhe paraqitja rindërtohen nga përgjigjet tuaja.",
+      "notSaved": "Sugjeruar nga përgjigjet për biznesin. Rishikojeni dhe ruajeni për ta zbatuar.",
+      "open": "Ndrysho konfigurimin",
+      "close": "Mbyll konfigurimin",
+      "save": "Ruaj dhe rindërto uebfaqen",
+      "saving": "Duke rindërtuar…",
+      "saved": "U ruajt. Uebfaqja u rindërtua nga konfigurimi juaj.",
+      "failed": "Konfigurimi nuk mund të ruhej. Asgjë nuk u ndryshua. Provoni përsëri.",
+      "rewrite": "Rishkruaj tekstin me AI",
+      "rewriteHint": "Opsionale. Rindërtimi përdor fjalët tuaja; kjo i kërkon AI-së të përmirësojë përshkrimet pa shtuar fakte.",
+      "kindTitle": "Lloji dhe qëllimi i uebfaqes",
+      "archetype": "Lloji i uebfaqes",
+      "archetypes": {
+        "restaurant": "Restorant, kafene ose bar",
+        "hospitality": "Hotel ose akomodim",
+        "shop": "Dyqan ose dyqan online",
+        "software": "Softuer ose aplikacion",
+        "professional": "Shërbime profesionale",
+        "localService": "Shërbime lokale ose në shtëpi",
+        "creative": "Studio krijuese ose freelancer",
+        "general": "Biznes tjetër"
+      },
+      "goal": "Çfarë duhet të bëjnë kryesisht vizitorët",
+      "goalHint": "Ky bëhet butoni kryesor në çdo faqe.",
+      "goals": {
+        "contact": "T'ju kontaktojnë",
+        "call": "T'ju telefonojnë",
+        "visit": "Të vijnë në vendndodhjen tuaj",
+        "book": "Të rezervojnë",
+        "quote": "Të kërkojnë ofertë",
+        "order": "Të porositin ose blejnë",
+        "signup": "Të regjistrohen ose provojnë falas"
+      },
+      "layout": "Paraqitja vizuale",
+      "layoutHint": "Automatike zgjedh paraqitjen që i përshtatet stilit të brendit.",
+      "layouts": {
+        "auto": "Automatike",
+        "classic": "Klasike — e qendërzuar dhe miqësore",
+        "editorial": "Editoriale — e rafinuar, me shumë hapësirë",
+        "split": "E ndarë — hero moderne me dy kolona",
+        "bold": "E guximshme — shkronja të mëdha dhe forma të forta"
+      },
+      "contactTitle": "Si ju kontaktojnë klientët",
+      "contactHint": "Shfaqet vetëm ajo që shkruani këtu. Asgjë nuk shpiket.",
+      "email": "Email",
+      "phone": "Telefon",
+      "whatsapp": "Numri i WhatsApp",
+      "phoneHint": "Përfshini kodin e shtetit, p.sh. +355 69 123 4567.",
+      "address": "Adresa",
+      "serviceArea": "Zonat ku shërbeni",
+      "actionUrl": "Faqja e rezervimit, porosisë ose regjistrimit",
+      "actionUrlHint": "Një faqe që e përdorni tashmë (sistem rezervimi, dyqan online, regjistrim në aplikacion). Duhet të fillojë me https://.",
+      "social": "Profilet sociale",
+      "socialHint": "Deri në 3 lidhje, një për rresht, secila duke filluar me https://.",
+      "hoursTitle": "Orari",
+      "hoursDays": "Ditët",
+      "hoursTime": "Orët",
+      "daysPlaceholder": "E hënë–E premte",
+      "timePlaceholder": "08:00–18:00",
+      "addHours": "Shto orar",
+      "remove": "Hiq",
+      "itemsTitle": "Çfarë shisni",
+      "itemsHint": "Emrat vijnë nga përgjigjet tuaja. Shtoni një përshkrim të shkurtër dhe çmim vetëm nëse e aplikoni realisht.",
+      "itemName": "Emri",
+      "itemDescription": "Përshkrimi",
+      "itemPrice": "Çmimi",
+      "itemPricePlaceholder": "p.sh. 350 ALL",
+      "addItem": "Shto artikull",
+      "pagesTitle": "Faqet",
+      "pageAbout": "Përfshi seksionin Rreth nesh",
+      "pageFaq": "Përfshi pyetjet e shpeshta",
+      "photoTitle": "Fotoja e faqes kryesore",
+      "photoHint": "Opsionale. Një foto e vërtetë e vendit, produktit ose punës suaj, e shfaqur në krye të faqes kryesore. Mbetet private derisa ta publikoni.",
+      "photoChoose": "Ngarko një foto",
+      "photoUploading": "Po ngarkohet…",
+      "photoAlt": "Çfarë tregon fotoja",
+      "photoAltHint": "Lexohet me zë për ata që nuk e shohin foton, p.sh. \"Bukë e freskët në banakun e furrës sonë\".",
+      "photoRemove": "Hiq foton",
+      "errors": {
+        "invalidEmail": "Shkruani një adresë email të vlefshme.",
+        "invalidPhone": "Shkruani një numër telefoni të vlefshëm.",
+        "invalidUrl": "Shkruani një lidhje të plotë https://.",
+        "itemName": "Çdo artikull duhet të ketë emër.",
+        "tooManySocial": "Shtoni të shumtën 3 lidhje sociale.",
+        "hoursIncomplete": "Plotësoni edhe ditët edhe orët, ose hiqeni rreshtin.",
+        "photoAlt": "Përshkruani çfarë tregon fotoja.",
+        "photoType": "Përdorni një imazh JPEG, PNG ose WebP.",
+        "photoSize": "Fotoja duhet të jetë 4 MB ose më e vogël.",
+        "photoRateLimited": "Shumë ngarkime në orën e fundit. Provoni më vonë.",
+        "photoFailed": "Fotoja nuk u ngarkua. Provoni përsëri."
+      }
+    },
+    "checks": {
+      "title": "Kontrollet e uebfaqes",
+      "allGood": "Nuk u gjet asnjë problem.",
+      "blocking": "Rregulloni problemet e shënuara si të detyrueshme para publikimit.",
+      "required": "E detyrueshme",
+      "suggested": "Sugjerim",
+      "items": {
+        "placeholderText": "Një pjesë e tekstit duket si tekst shembull (p.sh. “TODO” ose “lorem ipsum”). Zëvendësojeni para publikimit.",
+        "missingHomeHero": "Faqja kryesore nuk ka seksion hero. Rindërtoni ose rigjeneroni uebfaqen para publikimit.",
+        "noContactChannel": "Vizitorët nuk kanë si t'ju kontaktojnë. Shtoni email, telefon, WhatsApp ose lidhje rezervimi te Konfigurimi i uebfaqes.",
+        "goalUnavailable": "Butoni kryesor kthehet në “Na kontaktoni” sepse mungojnë të dhënat që i duhen (telefoni, lidhja e rezervimit ose adresa).",
+        "missingAddress": "Shtoni adresën që vizitorët t'ju gjejnë.",
+        "missingHours": "Shtoni orarin që vizitorët ta dinë kur të vijnë.",
+        "thinOffer": "Produktet ose shërbimet nuk kanë ende përshkrime. Shtoni përshkrime të shkurtra te Konfigurimi i uebfaqes ose rishkruani tekstin me AI.",
+        "shortSeoTitle": "Titulli i një faqeje është shumë i shkurtër për kërkimet.",
+        "shortSeoDescription": "Përshkrimi i një faqeje është shumë i shkurtër për kërkimet.",
+        "duplicateSeoTitle": "Dy faqe kanë të njëjtin titull.",
+        "duplicateSeoDescription": "Dy faqe kanë të njëjtin përshkrim."
+      }
+    },
+    "publish": {
+      "title": "Publikimi",
+      "action": "Përgatit për publikim",
+      "publishAction": "Publiko uebfaqen",
+      "republishAction": "Publiko ndryshimet",
+      "unpublishAction": "Hiq nga publikimi",
+      "preparing": "Duke përgatitur…",
+      "publishing": "Duke publikuar…",
+      "unpublishing": "Duke hequr…",
+      "draftBadge": "Gati për përgatitje",
+      "preparedBadge": "E përgatitur",
+      "publishedBadge": "E publikuar",
+      "outdatedBadge": "Ndryshimet nuk janë publike",
+      "unpublishedBadge": "E hequr nga publikimi",
+      "unavailableBadge": "Jo gati",
+      "draftBody": "Kontrolloni faqet, pastaj përgatitni dhe publikoni. Publikimi e bën uebfaqen të disponueshme në një lidhje publike në këtë aplikacion — kushdo me lidhjen mund ta hapë pa u identifikuar.",
+      "preparedBody": "U përgatit më {date}. Publikoni kur të jeni gati ta bëni publike.",
+      "publishedBody": "Është e hapur në lidhjen publike më poshtë. Ndryshimet në StartupOS mbeten private derisa të publikoni përsëri.",
+      "outdatedBody": "E ndryshuat uebfaqen pas publikimit të fundit. Lidhja publike ende tregon versionin e mëparshëm derisa të publikoni përsëri.",
+      "unpublishedBody": "Kjo uebfaqe nuk është më publike. Publikoni përsëri për të rikthyer të njëjtën lidhje.",
+      "unavailableBody": "Kjo uebfaqe u krijua para uebfaqeve të strukturuara. Rigjeneroni uebfaqen para publikimit.",
+      "publicUrl": "Lidhja publike",
+      "openSite": "Hap uebfaqen",
+      "copyLink": "Kopjo lidhjen",
+      "unpublishTitle": "Ta hiqni këtë uebfaqe nga publikimi?",
+      "unpublishDescription": "Lidhja publike do të ndalojë së funksionuari. Uebfaqja në StartupOS ruhet dhe mund ta publikoni përsëri më vonë.",
+      "failed": "Veprimi nuk mund të përfundonte. Asgjë publike nuk u ndryshua gabimisht. Provoni përsëri.",
+      "failedPrepare": "Uebfaqja nuk mund të përgatitej. Asgjë nuk u ndryshua. Provoni përsëri.",
+      "needsFixes": "Publikimi është i bllokuar derisa të rregullohen kontrollet e detyrueshme më poshtë."
+    }
+  },
+  "marketing": {
+    "pageDescription": "Pozicionimi, klienti i synuar, plani i përmbajtjes dhe materialet e gatshme për fushata.",
+    "areasLabel": "Fushat e marketingut",
+    "tabs": {
+      "strategy": "Strategjia",
+      "content": "Plani i përmbajtjes",
+      "social": "Postimet sociale",
+      "ads": "Reklamat",
+      "email": "Emaili",
+      "whatsapp": "WhatsApp"
+    },
+    "positioning": "Pozicionimi",
+    "keyMessages": "Mesazhet kryesore",
+    "channelMix": {
+      "title": "Ndarja sipas kanaleve",
+      "description": "Pjesa e sugjeruar e buxhetit të marketingut për secilin kanal."
+    },
+    "suggestedTargets": "Objektivat e sugjeruara",
+    "targetsNote": "Supozime planifikimi për t’u matur, jo standarde të tregut.",
+    "persona": {
+      "title": "Klienti i synuar",
+      "description": "Një hipotezë për klientin tuaj për të udhëhequr komunikimin. Nuk është person real as gjetje hulumtimi; verifikojeni duke folur me klientë të vërtetë.",
+      "exampleName": "Emër shembull",
+      "age": "Mosha",
+      "occupation": "Profesioni",
+      "channels": "Kanalet",
+      "goals": "Qëllimet",
+      "painPoints": "Problemet",
+      "objections": "Kundërshtimet"
+    },
+    "contentPillars": { "title": "Shtyllat e përmbajtjes", "description": "Temat e përsëritura ku duhet të kthehet përmbajtja juaj." },
+    "calendar": "Kalendari katërjavor",
+    "week": "Java {week}",
+    "social": {
+      "emptyTitle": "Nuk ka postime sociale",
+      "emptyDescription": "Nuk u gjeneruan postime për këtë biznes.",
+      "format": "Instagram · {format}",
+      "downloadPngAria": "Shkarko postimin {number} si PNG",
+      "downloadSvgAria": "Shkarko postimin {number} si SVG",
+      "copyCaption": "Kopjo përshkrimin"
+    },
+    "ads": {
+      "emptyTitle": "Nuk ka skica reklamash",
+      "emptyDescription": "Teksti i reklamës përgatitet kur kanalet sociale janë pjesë e planit. Kjo është skicë krijuese, jo fushatë e gjallë në Meta.",
+      "draftNotice": "Këto janë skica gati për Meta Ads Manager. StartupOS nuk krijon, nuk publikon dhe nuk shpenzon në fushata të gjalla.",
+      "objective": "Facebook · {objective}",
+      "cpc": "CPC {cpc}, ilustrues",
+      "headline": "Titulli",
+      "primaryText": "Teksti kryesor",
+      "audience": "Audienca",
+      "copyText": "Kopjo tekstin e reklamës",
+      "downloadPng": "Shkarko PNG",
+      "downloadPngAria": "Shkarko reklamën {number} si PNG"
+    },
+    "email": {
+      "emptyTitle": "Nuk ka seri emailash",
+      "emptyDescription": "Nuk u gjeneruan emaila për këtë biznes. Skicat janë vetëm tekst — StartupOS nuk dërgon email.",
+      "listLabel": "Emailat në seri",
+      "draftNotice": "Vetëm skica emailash. StartupOS nuk lidhet me ESP dhe nuk dërgon mesazhe te klientët.",
+      "day": "Dita {day}",
+      "copyText": "Kopjo tekstin",
+      "downloadHtmlAria": "Shkarko emailin si HTML",
+      "previewTitle": "Parapamja e emailit: {subject}"
+    },
+    "whatsapp": {
+      "conversationPreview": "Parapamje e bisedës në aplikacion",
+      "customer": "Klienti",
+      "business": "Biznesi",
+      "restart": "Rifillo bisedën",
+      "simulatedNote": "Vetëm chatbot në aplikacion. Nuk është i lidhur me mesazhet e WhatsApp Business.",
+      "flowTitle": "Rrjedha e bisedës",
+      "messageCount": { "one": "{count} mesazh", "other": "{count} mesazhe" },
+      "copyJson": "Kopjo si JSON",
+      "composerLabel": "Mesazhi juaj",
+      "composerPlaceholder": "Shkruani një pyetje…",
+      "send": "Dërgo"
+    }
+  },
+  "competitors": {
+    "pageDescription": "Me kë konkurroni, si duket tregu dhe ku mund të fitoni.",
+    "listTitle": "Konkurrentët",
+    "listDescription": "Biznese të gjetura përmes kërkimit në ueb, me një analizë për secilin.",
+    "marketTitle": "Gjetjet për tregun",
+    "marketDescription": "Gjetje të përmbledhura nga rezultatet e kërkimit, me burime.",
+    "statusBar": {
+      "competitorResearch": "Hulumtimi i konkurrentëve",
+      "marketResearch": "Hulumtimi i tregut",
+      "provider": "Kërkimi",
+      "webSearch": "Kërkim në ueb i disponueshëm",
+      "evidence": "Dëshmitë",
+      "queries": { "one": "{count} kërkim", "other": "{count} kërkime" },
+      "sources": { "one": "{count} burim", "other": "{count} burime" },
+      "howToRead": "Si ta lexoni këtë faqe",
+      "legendFact": "marrë nga një rezultat kërkimi",
+      "legendAnalysis": "interpretim, i paverifikuar",
+      "legendRecommendation": "strategji e sugjeruar",
+      "queriesUsed": "Kërkimet e përdorura"
+    },
+    "types": { "direct": "I drejtpërdrejtë", "indirect": "I tërthortë", "local": "Lokal", "uncertain": "I pakonfirmuar" },
+    "noCompetitorsTitle": "Nuk u identifikua asnjë konkurrent",
+    "noCompetitorsDescription": "Kërkimi u krye, por nga rezultatet nuk u identifikua asnjë konkurrent.",
+    "noConfirmedTitle": "Nuk ka konkurrentë të konfirmuar",
+    "noConfirmedDescription": {
+      "one": "Kërkimi ktheu {count} listim që duket si direktori, hartë ose artikull — jo një rival i verifikuar.",
+      "other": "Kërkimi ktheu {count} listime që duken si direktori, harta ose artikuj — jo rivalë të verifikuar."
+    },
+    "filteredPlatformNote": {
+      "one": "{count} listim i ruajtur fshihet nga kjo listë sepse duket si direktori ose hartë, jo biznes rival.",
+      "other": "{count} listime të ruajtura fshihen nga kjo listë sepse duken si direktori ose harta, jo biznese rivale."
+    },
+    "landscapeSummary": "Përmbledhje e tregut",
+    "identityProvenance": "Identitet nga kërkimi",
+    "platformListingBadge": "Direktori / hartë",
+    "platformListingHint": "Duket si listim direktorie ose harte, jo një rival i verifikuar. Rigjeneroni hulumtimin kur të mundeni.",
+    "descriptionProvenance": "Përshkrim nga burimi / AI",
+    "assessment": "Vlerësimi",
+    "strengths": "Pikat e forta",
+    "weaknesses": "Pikat e dobëta",
+    "opportunities": "Mundësitë",
+    "threats": "Rreziqet",
+    "basedOn": { "one": "Bazuar në {count} burim:", "other": "Bazuar në {count} burime:" },
+    "market": {
+      "summary": "Përmbledhje",
+      "trends": "Trendet",
+      "painPoints": "Problemet e klientëve",
+      "demandSignals": "Sinjalet e kërkesës",
+      "opportunities": "Mundësitë",
+      "nothingFound": "Në burime nuk u gjet asgjë për këtë temë.",
+      "cited": "Me burim",
+      "unsourced": "Pa burim"
+    },
+    "strategy": {
+      "title": "Pozicioni juaj strategjik",
+      "description": "Sugjerime për hyrjen në këtë treg. Përdorini si pikënisje, jo si fakte.",
+      "noneIdentified": "Asnjë e identifikuar.",
+      "differentiate": "Si të dalloheni",
+      "gaps": "Boshllëqet në treg"
+    },
+    "unavailable": {
+      "notConfiguredTitle": "Kërkimi në ueb nuk është konfiguruar",
+      "noResultsTitle": "Nuk ka rezultate të përdorshme",
+      "failedTitle": "Hulumtimi nuk mund të përfundonte",
+      "notConfiguredCompetitors": "StartupOS nuk shpik konkurrentë. Lidhni një shërbim kërkimi në ueb dhe krijoni biznesin përsëri për t’i përfshirë.",
+      "notConfiguredMarket": "StartupOS nuk shpik hulumtim tregu. Lidhni një shërbim kërkimi në ueb dhe krijoni biznesin përsëri për ta përfshirë.",
+      "noResults": "Kërkimi nuk dha asgjë të përdorshme. Një ide ose vendndodhje më specifike mund të ndihmojë kur ta krijoni biznesin përsëri.",
+      "failedCompetitors": "Hapi i hulumtimit të konkurrentëve dështoi. Pjesa tjetër e biznesit nuk preket.",
+      "failedMarket": "Hapi i hulumtimit të tregut dështoi. Pjesa tjetër e biznesit nuk preket.",
+      "viewIntegrations": "Shiko integrimet"
+    },
+    "sources": {
+      "title": "Të gjitha burimet",
+      "count": {
+        "one": "{count} rezultat kërkimi i përdorur në këtë hulumtim",
+        "other": "{count} rezultate kërkimi të përdorura në këtë hulumtim"
+      }
+    }
+  },
+  "pricing": {
+    "pageDescription": "Modeli i sugjeruar i çmimeve, nivelet dhe arsyetimi pas tyre.",
+    "model": "Modeli i çmimeve",
+    "recommended": "I rekomanduar",
+    "suggestedCta": "Teksti i sugjeruar i butonit:",
+    "tactics": { "title": "Taktikat e çmimeve", "description": "Pse nivelet janë strukturuar kështu." },
+    "upsells": {
+      "title": "Mënyra për të rritur të ardhurat",
+      "description": "Shtesa dhe oferta plotësuese për t’u marrë parasysh."
+    },
+    "grounding": {
+      "title": "Mbi çfarë bazohen këto çmime",
+      "observed": "Çmimet e vëzhguara të konkurrentëve (dëshmi)",
+      "signals": "Çfarë tregojnë dëshmitë",
+      "limitations": "Kufizimet",
+      "status": {
+        "observed": "Nivelet më sipër janë rekomandime. Çmimet e konkurrentëve më poshtë u vëzhguan gjatë kërkimit.",
+        "unavailable": "Nivelet më sipër janë rekomandime. Kërkimi nuk gjeti çmime të publikuara nga konkurrentët.",
+        "researchFailed": "Nivelet më sipër janë rekomandime. Kërkimi dështoi, prandaj nuk u përdorën çmime konkurrentësh.",
+        "notResearched": "Nivelet më sipër janë rekomandime. Nuk u përdor kërkim, prandaj nuk u morën parasysh çmime konkurrentësh."
+      }
+    },
+    "disclaimer": "Çmimet janë sugjerime bazuar në të dhënat dhe kategorinë tuaj. Krahasojini me çmimet reale të konkurrentëve dhe me kostot tuaja."
+  },
+  "growth": {
+    "pageDescription": "Një plan zbatimi 90-ditor me detyra javore, piketa dhe rrugëtimin e klientit.",
+    "emptyTitle": "Nuk ka plan rritjeje",
+    "emptyDescription": "Nuk u gjenerua plan rritjeje për këtë biznes.",
+    "planTitle": "Plani 90-ditor",
+    "phaseLabel": "Faza e planit",
+    "days": "Ditët {range}",
+    "taskCount": { "one": "{count} detyrë", "other": "{count} detyra" },
+    "mainGoal": "Qëllimi kryesor i kësaj faze",
+    "weeklyTasks": "Detyrat javore",
+    "week": "Java {week}",
+    "categories": { "marketing": "Marketing", "product": "Produkt", "sales": "Shitje", "ops": "Operacione", "brand": "Brend" },
+    "milestones": "Piketat",
+    "targets": "Objektivat",
+    "journeyTitle": "Rrugëtimi i klientit",
+    "journeyDescription": "Si një i panjohur bëhet klient i rregullt dhe çfarë duhet matur në çdo hap.",
+    "conversionAssumption": "Objektivat e konvertimit janë supozime",
+    "step": "Hapi {number}"
+  },
+  "launch": {
+    "pageDescription": "Çfarë duhet bërë para, gjatë dhe pas ditës së lansimit, dhe sa gati jeni.",
+    "planTitle": "Plani i lansimit",
+    "readiness": "Gatishmëria",
+    "readinessAria": "Gatishmëria për lansim",
+    "itemsDone": "{done} nga {total} pika të listës të kryera",
+    "checklist": "Lista e lansimit",
+    "savedNote": "Përparimi juaj ruhet në llogarinë tuaj.",
+    "timeline": "Afati kohor",
+    "before": "Para lansimit",
+    "launchDay": "Dita e lansimit",
+    "after": "Pas lansimit",
+    "noTasks": "Nuk ka detyra të planifikuara."
+  },
+  "generate": {
+    "title": "Biznes i ri",
+    "description": "Përgjigjuni disa pyetjeve për biznesin tuaj. StartupOS përdor përgjigjet tuaja për të hartuar markën, faqen e internetit, marketingun dhe planin e nisjes.",
+    "whatWillBeCreated": "Çfarë do të krijohet",
+    "outputs": {
+      "brand": "Identiteti i brendit, ngjyrat dhe tipografia",
+      "logo": "Logoja dhe ikona e aplikacionit",
+      "website": "Përmbajtja e uebfaqes dhe SEO",
+      "marketing": "Plani i marketingut, postimet, reklamat, emailat dhe biseda në WhatsApp",
+      "research": "Hulumtimi i konkurrentëve dhe i tregut",
+      "plan": "Çmimet, plani i rritjes 90-ditor dhe lista e lansimit"
+    },
+    "aiOn": "Përmbajtja do të shkruhet nga modeli i AI-së.",
+    "aiOff": "AI nuk është konfiguruar. Përmbajtja do të vijë nga shabllonet e integruara dhe nuk do të gjenerohet logo.",
+    "aiLocalhostBlocked": "Është konfiguruar një endpoint lokal AI, por prodhimi refuzon providerë localhost. Përmbajtja do të përdorë shabllone derisa të vendoset një provider cloud.",
+    "aiDeterministicNote": "Ky ekzekutim do të përdorë motorin deterministik të shablloneve. Seksionet do të etiketohet si shabllone, jo si të shkruara nga AI.",
+    "imageOff": "Gjenerimi i imazheve nuk është konfiguruar në këtë mjedis, prandaj logoja nuk do të krijohet. Vetëm chat AI nuk mund të krijojë skedarë imazhi për logo.",
+    "searchOff": "Kërkimi në ueb nuk është konfiguruar, prandaj seksionet e hulumtimit do të shënohen si të padisponueshme.",
+    "errorTitle": "Biznesi nuk mund të krijohej",
+    "progress": {
+      "ready": "Hapësira juaj e punës është gati",
+      "readyLimited": "Hapësira u ruajt me kufizime",
+      "readyLimitedBody": "Disa seksione kryesore përdorën shabllone rezervë sepse modeli AI skadoi kohën ose ktheu dalje të papërdorshme. Rishikojini para se t'u mbështeteni.",
+      "readyProvisional": "Draft i hapësirës gati — rishikoni më pas",
+      "readyProvisionalBody": "Gjenerimi përfundoi, por disa dalje ende kërkojnë rishikimin tuaj (p.sh. kërkim i hollë ose kontekst biznesi i paplotë). Trajtojeni si draft.",
+      "creating": "Po krijohet hapësira e punës për biznesin tuaj",
+      "opening": "Po hapet hapësira e punës…",
+      "openingLimited": "Po hapet hapësira — rishikoni seksionet e kufizuara…",
+      "starting": "Po fillon…",
+      "current": "{step}…",
+      "stepCount": "{done} nga {total} hapa",
+      "progressAria": "Përparimi i gjenerimit",
+      "keepOpen": "Mbajeni këtë skedë të hapur derisa të përfundojë gjenerimi.",
+      "done": "përfundoi",
+      "inProgress": "në progres",
+      "fallback": "u përdor zgjidhja rezervë",
+      "waiting": "në pritje",
+      "fallbackUsed": "U përdor zgjidhja rezervë",
+      "phasesLabel": "Fazat e gjenerimit",
+      "showSteps": "Shfaq hapat e detajuar",
+      "phases": {
+        "identity": {
+          "title": "Identiteti",
+          "body": "Emri i brendit, sistemi i dizajnit, logoja dhe persona e klientit"
+        },
+        "research": {
+          "title": "Hulumtimi",
+          "body": "Konkurrentët dhe konteksti i tregut"
+        },
+        "strategy": {
+          "title": "Strategjia",
+          "body": "Çmimet dhe strategjia e biznesit"
+        },
+        "presence": {
+          "title": "Prania",
+          "body": "Uebfaqja, SEO, marketingu, emaili dhe WhatsApp"
+        },
+        "launch": {
+          "title": "Lansimi",
+          "body": "Plani i rritjes, lista e lansimit dhe përgatitja e publikimit"
+        }
+      }
+    }
+  },
+  "errors": {
+    "generation": {
+      "invalidInput": "Disa përgjigje nuk u pranuan. Kontrolloni formularin dhe provoni përsëri.",
+      "network": "StartupOS nuk mund të lidhej me serverin. Kontrolloni lidhjen dhe provoni përsëri.",
+      "requestFailed": "Serveri nuk mund ta niste gjenerimin. Provoni përsëri pas pak.",
+      "forbidden": "Kërkesa u bllokua për arsye sigurie. Rifreskoni faqen dhe provoni përsëri nga e njëjta adresë ku hapët StartupOS.",
+      "rateLimited": "Keni nisur shumë gjenerime së fundmi. Prisni pak, pastaj provoni përsëri.",
+      "rateLimitedRetry": "Keni nisur shumë gjenerime së fundmi. Mund të krijoni një biznes tjetër pas rreth {minutes} min. Përgjigjet tuaja ruhen.",
+      "connectionClosed": "Lidhja u mbyll para se të përfundonte gjenerimi. Përgjigjet tuaja janë ende këtu, ndaj mund të provoni përsëri.",
+      "detached": "Lidhja u mbyll, por biznesi juaj është ende duke u krijuar. Do të shfaqet te Të gjitha bizneset kur të jetë gati.",
+      "server": "Diçka e ndërpreu gjenerimin. Përgjigjet tuaja janë ende këtu, ndaj mund të provoni përsëri."
+    },
+    "data": {
+      "loadFailed": "Nuk mundëm t’i ngarkojmë të dhënat. Provo përsëri.",
+      "saveFailed": "Nuk mundëm ta ruajmë ndryshimin. Provo përsëri.",
+      "deleteFailed": "Nuk mundëm ta fshijmë këtë biznes. Provo përsëri.",
+      "unavailableTitle": "StartupOS nuk është i disponueshëm përkohësisht",
+      "unavailable": "Nuk mundëm t’i ngarkojmë të dhënat. Provo përsëri pas pak."
+    },
+    "page": {
+      "title": "Diçka shkoi keq",
+      "description": "Kjo faqe hasi një gabim të papritur. Bizneset tuaja të ruajtura nuk janë prekur.",
+      "goToDashboard": "Shko te paneli"
+    },
+    "notFound": {
+      "title": "Faqja nuk u gjet",
+      "description": "Kjo faqe nuk ekziston ose është zhvendosur.",
+      "goToDashboard": "Shko te paneli",
+      "home": "Ballina"
+    }
+  },
+  "settings": {
+    "title": "Cilësimet",
+    "description": "Llogaria juaj, preferencat, statusi i integrimeve dhe të dhënat e ruajtura.",
+    "sectionsLabel": "Seksionet e cilësimeve",
+    "appearance": {
+      "title": "Pamja",
+      "description": "Vlen vetëm për këtë shfletues.",
+      "theme": "Tema",
+      "system": "Sistemi",
+      "light": "E çelët",
+      "dark": "E errët"
+    },
+    "language": { "title": "Gjuha" },
+    "defaults": {
+      "title": "Parazgjedhjet për biznes të ri",
+      "description": "Plotëson paraprakisht formularin kur krijoni një biznes.",
+      "brandStyle": "Stili i brendit",
+      "noDefault": "Pa parazgjedhje",
+      "hint": "Mund ta ndryshoni përsëri për çdo biznes."
+    },
+    "integrations": {
+      "title": "Integrimet",
+      "description": "Vetëm konfigurim lokal në server — jo kontroll i gjallë i ofruesit. Ndryshimet vlejnë për bizneset që krijohen më pas.",
+      "loadFailed": "Statusi i integrimeve nuk mund të ngarkohej. Rifreskoni faqen për të provuar përsëri.",
+      "ai": {
+        "name": "Gjenerimi i tekstit me AI",
+        "description": "Shkruan përmbajtjen e brendit, uebfaqes, marketingut dhe strategjisë. Pa të, përdoren shabllonet e integruara."
+      },
+      "logo": {
+        "name": "Gjenerimi i logos",
+        "description": "Krijon një logo dhe ikonë aplikacioni përmes një endpoint-i për gjenerim imazhesh. Providerët vetëm për chat (p.sh. Ollama lokale) nuk aktivizojnë logot."
+      },
+      "search": {
+        "name": "Hulumtimi në ueb",
+        "description": "Gjen konkurrentë realë dhe të dhëna tregu. Pa të, këto seksione shënohen si të padisponueshme në vend që të shpiken."
+      },
+      "model": "Modeli: {model}",
+      "provider": "Shërbimi: {provider}",
+      "howToConnect": "Si të lidhni integrimet",
+      "envIntro": "Vendosni këto variabla mjedisi në server (për zhvillim lokal, në {file}), pastaj rinisni aplikacionin.",
+      "env": {
+        "openai": "Gjenerimi i tekstit me AI; aktivizon edhe logot kur hosti mbështet API për imazhe",
+        "ollama": "Chat opsional përmes Ollama Cloud ose Ollama lokale (nuk aktivizon gjenerimin e logos)",
+        "tavily": "Hulumtim në ueb përmes Tavily",
+        "serper": "Hulumtim në ueb përmes Serper",
+        "brave": "Hulumtim në ueb përmes Brave Search"
+      },
+      "oneSearchKey": "Mjafton vetëm një çelës për hulumtimin në ueb."
+    },
+    "data": {
+      "title": "Të dhënat",
+      "description": "Bizneset ruhen në llogarinë tuaj.",
+      "exportTitle": "Eksporto të gjitha bizneset",
+      "exportDescription": {
+        "one": "Shkarkoni {count} biznes si skedar rezervë JSON.",
+        "other": "Shkarkoni {count} biznese si skedar rezervë JSON."
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Hyni në StartupOS",
+      "description": "Mirë se u kthyet. Hyni për të hapur bizneset tuaja.",
+      "submit": "Hyr",
+      "noAccount": "Nuk keni llogari?",
+      "createAccount": "Krijoni një"
+    },
+    "register": {
+      "title": "Krijoni llogarinë tuaj",
+      "description": "Bizneset tuaja ruhen në llogarinë tuaj dhe janë të disponueshme kudo ku hyni.",
+      "submit": "Krijo llogarinë",
+      "haveAccount": "Keni tashmë llogari?",
+      "signIn": "Hyni"
+    },
+    "panel": {
+      "title": "Një hapësirë pune për çdo fazë të ndërtimit.",
+      "body": "Përshkruani idenë një herë. StartupOS harton brendin, uebfaqen, marketingun dhe materialet e lansimit — dhe i mban së bashku.",
+      "points": {
+        "workspace": "Hapësira pune me brend, faqe dhe marketing të lidhur",
+        "continuity": "Vazhdoni punën e papërfunduar nga çdo pajisje ku jeni hyrë",
+        "honest": "Status i qartë kur AI, logoja ose hulumtimi nuk janë të disponueshëm"
+      },
+      "footer": "Nuk kërkohet pagesë për të krijuar një llogari."
+    },
+    "fields": {
+      "name": "Emri",
+      "email": "Emaili",
+      "password": "Fjalëkalimi",
+      "passwordHint": "Të paktën {count} karaktere.",
+      "currentPassword": "Fjalëkalimi aktual",
+      "newPassword": "Fjalëkalimi i ri"
+    },
+    "validation": {
+      "nameRequired": "Shkruani emrin tuaj.",
+      "emailInvalid": "Shkruani një adresë emaili të vlefshme.",
+      "passwordRequired": "Shkruani fjalëkalimin.",
+      "passwordTooShort": "Përdorni të paktën 8 karaktere."
+    },
+    "errors": {
+      "invalidCredentials": "Emaili ose fjalëkalimi nuk është i saktë.",
+      "emailTaken": "Ekziston tashmë një llogari me këtë email. Hyni në vend të kësaj.",
+      "invalidEmail": "Shkruani një adresë emaili të vlefshme.",
+      "passwordTooShort": "Përdorni të paktën 8 karaktere.",
+      "passwordTooLong": "Përdorni më së shumti 128 karaktere.",
+      "wrongPassword": "Fjalëkalimi nuk është i saktë.",
+      "tooManyAttempts": "Shumë përpjekje. Prisni një minutë dhe provoni përsëri.",
+      "unavailable": "Shërbimi nuk është përkohësisht i disponueshëm. Provoni përsëri pas pak.",
+      "invalidToken": "Ky link rivendosjeje është i pavlefshëm ose ka skaduar. Kërkoni një të ri.",
+      "resetDisabled": "Rivendosja e fjalëkalimit nuk është e disponueshme në këtë server.",
+      "generic": "Diçka shkoi keq. Provo përsëri."
+    },
+    "forgot": {
+      "link": "Keni harruar fjalëkalimin?",
+      "title": "Rivendosni fjalëkalimin",
+      "description": "Shkruani emailin e llogarisë suaj. Nëse ekziston, do t’ju dërgojmë një link rivendosjeje.",
+      "submit": "Dërgo linkun",
+      "sentTitle": "Kontrolloni emailin",
+      "sentBody": "Nëse ekziston një llogari për atë adresë, linku i rivendosjes është duke ardhur. Linku skadon pas rreth një ore.",
+      "backToLogin": "Kthehu te hyrja",
+      "unavailable": "Rivendosja e fjalëkalimit nuk është e disponueshme",
+      "unavailableBody": "Ky mjedis nuk ka dërgim emaili të konfiguruar. Administratori duhet të vendosë EMAIL_FROM dhe RESEND_API_KEY."
+    },
+    "reset": {
+      "title": "Zgjidhni një fjalëkalim të ri",
+      "description": "Shkruani një fjalëkalim të ri për llogarinë tuaj StartupOS.",
+      "confirm": "Konfirmoni fjalëkalimin",
+      "submit": "Përditëso fjalëkalimin",
+      "mismatch": "Fjalëkalimet nuk përputhen.",
+      "invalidTitle": "Linku ka skaduar ose është i pavlefshëm",
+      "invalidBody": "Kërkoni një link të ri nga faqja e hyrjes.",
+      "successTitle": "Fjalëkalimi u përditësua",
+      "successBody": "Mund të hyni me fjalëkalimin e ri. Pajisjet e tjera u çkyçën."
+    },
+    "google": {
+      "continue": "Vazhdoni me Google",
+      "or": "ose vazhdoni me email"
+    },
+    "expired": "Seanca juaj përfundoi. Hyni përsëri për të vazhduar.",
+    "showPassword": "Shfaq fjalëkalimin",
+    "hidePassword": "Fshih fjalëkalimin"
+  },
+  "account": {
+    "menuLabel": "Menyja e llogarisë për {name}",
+    "signOut": "Dil",
+    "saved": "U ruajt.",
+    "profile": {
+      "title": "Profili",
+      "description": "Si shfaqeni në StartupOS.",
+      "emailHint": "Emaili përdoret për të hyrë dhe nuk mund të ndryshohet këtu."
+    },
+    "security": {
+      "title": "Siguria",
+      "description": "Fjalëkalimi dhe seancat tuaja.",
+      "changePassword": "Ndrysho fjalëkalimin",
+      "updatePassword": "Përditëso fjalëkalimin",
+      "passwordUpdated": "Fjalëkalimi u përditësua. Pajisjet e tjera u nxorën nga llogaria.",
+      "signOutDescription": "Dilni nga StartupOS në këtë pajisje."
+    },
+    "delete": {
+      "title": "Fshi llogarinë",
+      "description": "Fshin përgjithmonë llogarinë tuaj dhe çdo biznes të ruajtur në të. Bizneset e ruajtura në këtë shfletues para se të ekzistonin llogaritë nuk preken.",
+      "button": "Fshi llogarinë",
+      "dialogTitle": "Ta fshini llogarinë tuaj?",
+      "dialogDescription": "Llogaria juaj dhe të gjitha bizneset e saj do të fshihen përgjithmonë. Nëse mund t’ju duhen, eksportoni më parë një kopje rezervë. Ky veprim nuk mund të zhbëhet.",
+      "passwordLabel": "Shkruani fjalëkalimin për ta konfirmuar",
+      "confirm": "Fshi llogarinë"
+    }
+  },
+  "migration": {
+    "title": "Importo bizneset nga ky shfletues",
+    "found": {
+      "one": "Gjetëm {count} biznes të ruajtur në këtë shfletues.",
+      "other": "Gjetëm {count} biznese të ruajtura në këtë shfletues."
+    },
+    "description": "Importojini në llogarinë tuaj për t’i mbajtur të sigurta dhe për t’i hapur nga çdo pajisje. Asgjë në këtë shfletues nuk fshihet.",
+    "import": "Importo bizneset",
+    "skip": "Kapërceje tani për tani",
+    "importing": "Po importohet…",
+    "progress": "Po importohet {done} nga {total}…",
+    "imported": { "one": "{count} biznes u importua në llogarinë tuaj.", "other": "{count} biznese u importuan në llogarinë tuaj." },
+    "someFailed": { "one": "{count} biznes nuk mundi të importohej.", "other": "{count} biznese nuk mundën të importoheshin." },
+    "reasonInvalid": "të dhënat e tij të ruajtura nuk mund të lexoheshin.",
+    "reasonRetry": "nuk mundi të importohej tani. Provo përsëri.",
+    "keptLocally": "Kopjet në këtë shfletues nuk u ndryshuan.",
+    "dismiss": "Mbyll",
+    "settingsTitle": "Bizneset në këtë shfletues",
+    "settingsDescription": "Kopjoni në llogarinë tuaj bizneset e krijuara para se të ekzistonin llogaritë. Importimi dy herë nuk krijon kurrë dublikata.",
+    "nothingToImport": "Nuk ka më biznese në këtë shfletues për t’u importuar."
+  },
+  "landing": {
+    "nav": {
+      "main": "Kryesore",
+      "what": "Çfarë është",
+      "capabilities": "Çfarë merrni",
+      "how": "Si funksionon",
+      "ventures": "Bizneset e mia",
+      "generate": "Krijo Biznes",
+      "engineActive": "Motori AI aktiv",
+      "engineHint": "Tregues vizual i produktit — jo një kontroll i gjallë i ofruesit.",
+      "openApp": "Hap aplikacionin",
+      "openMenu": "Hap menynë",
+      "closeMenu": "Mbyll menynë"
+    },
+    "hero": {
+      "title": "Ktheni një ide në një sistem të koordinuar biznesi.",
+      "body": "Përshkruani ndërmarrjen. StartupOS bashkon brendin, uebfaqen, marketingun, çmimet, rritjen dhe lansimin në një hapësirë pune — materiale të lidhura, jo draftë të shpërndara.",
+      "primary": "Krijo Biznes",
+      "secondary": "Hap panelin",
+      "note": "Parapamja më poshtë është ilustruese. Hapësira juaj ndërtohet nga përgjigjet tuaja. Krijoni një llogari falas për të ruajtur bizneset."
+    },
+    "what": {
+      "title": "Çfarë është",
+      "body": "Një hapësirë pune që e kthen një ide në versionin e parë të gjithçkaje që i duhet një biznesi të ri, që të filloni nga një draft dhe jo nga një faqe e bardhë.",
+      "pillars": {
+        "onePlace": {
+          "title": "Një vend për çdo biznes",
+          "body": "Brendi, uebfaqja, marketingu, çmimet dhe lansimi janë bashkë dhe mbeten të qëndrueshme."
+        },
+        "sources": {
+          "title": "Transparencë për burimet",
+          "body": "Draftet, përmbajtja nga shabllonet, rezultatet e kërkimit dhe vlerësimet shënohen qartë."
+        },
+        "yours": {
+          "title": "Gjithçka është e juaja",
+          "body": "Kopjoni çdo gjë, shkarkoni materialet vizuale dhe eksportoni gjithë biznesin si skedar."
+        }
+      }
+    },
+    "capabilities": {
+      "title": "Çfarë merrni",
+      "body": "Çdo biznes ka hapësirën e vet të punës me këto seksione.",
+      "items": {
+        "brand": {
+          "title": "Brendi",
+          "body": "Emri, slogani, zëri, vlerat, paleta e ngjyrave dhe sistemi tipografik. Edhe logoja, kur gjenerimi i imazheve është i lidhur."
+        },
+        "website": {
+          "title": "Përmbajtja e uebfaqes",
+          "body": "Tekstet dhe struktura për disa faqe, si dhe titujt, meta-përshkrimet dhe të dhënat e strukturuara për motorët e kërkimit."
+        },
+        "marketing": {
+          "title": "Marketingu",
+          "body": "Pozicionimi, profili i klientit të synuar, plani katërjavor i përmbajtjes, postimet sociale, reklamat, një seri emailash dhe një bisedë në WhatsApp."
+        },
+        "competitors": {
+          "title": "Hulumtimi i konkurrentëve",
+          "body": "Konkurrentë realë dhe sinjale tregu nga kërkimi në ueb, me burime. Nëse kërkimi nuk është i lidhur, kjo thuhet qartë."
+        },
+        "pricing": {
+          "title": "Çmimet",
+          "body": "Një model çmimesh me nivele dhe arsyetimin pas tyre, gati për t’u krahasuar me kostot tuaja."
+        },
+        "growth": {
+          "title": "Plani i rritjes",
+          "body": "Një plan 90-ditor i ndarë në detyra javore, piketa dhe rrugëtimin e klientit."
+        },
+        "launch": {
+          "title": "Lansimi",
+          "body": "Çfarë duhet bërë para, gjatë dhe pas ditës së lansimit, me një listë që ndjek përparimin tuaj."
+        },
+        "export": {
+          "title": "Eksporti",
+          "body": "Shkarkoni materialet vizuale si PNG ose SVG, emailat si HTML dhe gjithë biznesin si skedar JSON."
+        }
+      }
+    },
+    "how": {
+      "title": "Si funksionon",
+      "step": "Hapi {number}",
+      "steps": {
+        "describe": {
+          "title": "Përshkruani biznesin",
+          "body": "Ideja juaj, klienti i synuar, vendndodhja, buxheti dhe stili i brendit që dëshironi."
+        },
+        "review": {
+          "title": "Rishikoni draftin",
+          "body": "StartupOS ndërton çdo pjesë me radhë dhe tregon përparimin hap pas hapi."
+        },
+        "work": {
+          "title": "Punoni mbi të",
+          "body": "Çdo seksion tregon nga vjen: nga modeli i AI-së, nga shabllonet e integruara apo nga kërkimi në ueb."
+        }
+      }
+    },
+    "cta": {
+      "title": "Filloni me idenë tuaj.",
+      "body": "Mjafton një formular i shkurtër për të krijuar hapësirën tuaj të parë të punës."
+    },
+    "footer": "Përmbajtja e gjeneruar është pikënisje. Rishikojeni para se ta publikoni ose të mbështeteni tek ajo.",
+    "preview": {
+      "businessName": "Kafeja Lindja",
+      "slogan": "E pjekur ngadalë, pranë jush.",
+      "statusTitle": "Statusi i hapësirës së punës",
+      "readiness": "Gatishmëria për lansim",
+      "caption": "Shembull hapësire pune për një biznes fiktiv. Hapësira juaj pasqyron të dhënat tuaja."
+    }
+  },
+  "discovery": {
+    "steps": {
+      "business": { "title": "Biznesi", "description": "Bazat: çfarë po ndërtoni dhe ku." },
+      "customer": { "title": "Klienti", "description": "Kë shërbeni dhe çfarë i nevojitet." },
+      "offer": { "title": "Oferta", "description": "Çfarë shisni dhe çfarë e bën të ndryshme." },
+      "model": { "title": "Modeli i biznesit", "description": "Si fiton para biznesi dhe si arrin te klientët." },
+      "market": { "title": "Tregu", "description": "Çfarë dini tashmë për konkurrentët dhe tregun." },
+      "brand": { "title": "Marka", "description": "Si duhet të duket dhe të tingëllojë marka." },
+      "goals": { "title": "Objektivat", "description": "Çfarë doni të arrini fillimisht." },
+      "review": { "title": "Rishikimi", "description": "Kontrolloni përgjigjet përpara se të krijohet hapësira e punës." }
+    },
+    "nav": {
+      "back": "Prapa",
+      "next": "Vazhdo",
+      "toReview": "Ruaj dhe rishiko",
+      "stepOf": "Hapi {current} nga {total}",
+      "stepsLabel": "Hapat e zbulimit"
+    },
+    "errors": {
+      "required": "Kjo fushë është e detyrueshme.",
+      "tooShort": "Përdorni të paktën {min} karaktere.",
+      "tooLong": "Mbajeni nën {max} karaktere.",
+      "choose": "Zgjidhni një opsion.",
+      "chooseOne": "Zgjidhni të paktën një opsion."
+    },
+    "business": {
+      "name": {
+        "label": "Emri i biznesit",
+        "hint": "Lëreni bosh dhe StartupOS do t'ju sugjerojë një.",
+        "placeholder": "p.sh. Kafe Drita"
+      },
+      "idea": {
+        "label": "Ideja e biznesit",
+        "hint": "Një ose dy fjali për atë që doni të ndërtoni.",
+        "placeholder": "Një kafene me kafe speciale dhe një hapësirë të qetë për punë në distancë"
+      },
+      "offering": { "label": "Çfarë shet", "placeholder": "Kafe, ëmbëlsira dhe hyrje ditore për coworking" },
+      "stage": { "label": "Faza" },
+      "type": { "label": "Lloji i biznesit" },
+      "category": { "label": "Kategoria", "hint": "Përdoret për t'ju bërë disa pyetje më të përshtatshme." },
+      "location": { "label": "Vendndodhja", "placeholder": "Tiranë, Shqipëri" }
+    },
+    "customer": {
+      "ideal": { "label": "Klienti ideal", "placeholder": "Profesionistë të pavarur dhe punonjës në distancë, 25–40" },
+      "type": { "label": "Kujt i shisni?" },
+      "problem": { "label": "Problemi që kanë", "placeholder": "Nuk kanë një vend të qetë për të punuar jashtë shtëpisë" },
+      "need": { "label": "Çfarë u nevojitet", "placeholder": "Wi-Fi i besueshëm, kafe e mirë dhe qetësi" },
+      "geography": { "label": "Zona gjeografike", "placeholder": "Qendra e Tiranës" }
+    },
+    "offer": {
+      "main": { "label": "Produkti ose shërbimi kryesor", "placeholder": "Kafe speciale" },
+      "others": {
+        "label": "Produkte ose shërbime të tjera të rëndësishme",
+        "placeholder": "Ëmbëlsira, qira e sallës së takimeve"
+      },
+      "priceRange": { "label": "Gama e pritshme e çmimeve", "placeholder": "€2–€6 për artikull" },
+      "priceUnknown": "Nuk e di ende",
+      "differentiator": { "label": "Çfarë e bën të ndryshme", "placeholder": "Kokrra të pjekura në vend dhe një zonë e qetë e dedikuar" },
+      "status": { "label": "A është oferta tashmë e disponueshme?" },
+      "adaptiveTitle": "Disa detaje për {category}"
+    },
+    "model": {
+      "revenue": { "label": "Si fiton para?", "hint": "Zgjidhni të gjitha që vlejnë." },
+      "budget": {
+        "label": "Buxheti fillestar",
+        "hint": "Përdoret për çmimet dhe ndarjen e marketingut.",
+        "placeholder": "€10,000"
+      },
+      "budgetUnknown": "Nuk e di ende",
+      "channels": { "label": "Kanalet e shitjes", "hint": "Ku do të blejnë klientët." },
+      "existingTitle": "Biznesi aktual",
+      "existingHint": "Vetëm nëse dëshironi ta ndani. Shifrat e përafërta janë në rregull.",
+      "currentRevenue": { "label": "Të ardhurat mujore", "placeholder": "Rreth €4,000" },
+      "currentCustomers": { "label": "Klientët aktualë", "placeholder": "Rreth 300 klientë të rregullt" }
+    },
+    "market": {
+      "notice": "Ndani atë që dini tashmë. Këto përgjigje janë këndvështrimi juaj dhe nuk do të paraqiten kurrë si kërkim.",
+      "competitors": { "label": "Konkurrentët që njihni", "placeholder": "Emra kafenesh ose markash afër" },
+      "alternatives": { "label": "Çfarë përdorin klientët sot në vend të kësaj", "placeholder": "Punë nga shtëpia, kafene zinxhir" },
+      "positioning": { "label": "Si doni të pozicionoheni", "placeholder": "Vendi i qetë dhe premium për punë në qendër" },
+      "difference": { "label": "Çfarë doni të bëni ndryshe", "placeholder": "Orë të qeta, ulëse më të mira, kafe vendase" },
+      "challenges": { "label": "Vështirësitë që shihni tashmë", "placeholder": "Qira e lartë, turizëm sezonal" }
+    },
+    "brand": {
+      "style": { "label": "Stili i markës", "hint": "Përcakton drejtimin për emrin, ngjyrat, tipografinë dhe tekstet." },
+      "tone": { "label": "Toni i komunikimit" },
+      "colors": { "label": "Ngjyrat e preferuara", "placeholder": "Kafe të ngrohta, krem" },
+      "avoidColors": { "label": "Ngjyrat për t'u shmangur", "placeholder": "E gjelbër neon" },
+      "references": { "label": "Marka që ju pëlqejnë", "placeholder": "Aesop, Blue Bottle" },
+      "language": { "label": "Gjuha e përmbajtjes së gjeneruar", "hint": "Gjuha që do të lexojnë klientët." },
+      "notes": { "label": "Shënime të tjera", "placeholder": "Çdo gjë tjetër që marka duhet të pasqyrojë" }
+    },
+    "goals": {
+      "priority": { "label": "Prioriteti kryesor tani" },
+      "goal": { "label": "Objektivi kryesor", "placeholder": "Të hap kafenenë dhe të krijoj klientë të rregullt" },
+      "outcome": { "label": "Rezultati i dëshiruar", "placeholder": "200 klientë të rregullt në muajt e parë" },
+      "timeframe": { "label": "Afati kohor" }
+    },
+    "options": {
+      "stage": {
+        "idea": { "label": "Ide", "hint": "Ende duke eksploruar konceptin" },
+        "preparing": { "label": "Në përgatitje", "hint": "Duke u përgatitur për nisje" },
+        "operating": { "label": "Në funksionim", "hint": "Tashmë shet" },
+        "growing": { "label": "Në rritje", "hint": "Duke zgjeruar një biznes ekzistues" }
+      },
+      "type": {
+        "online": { "label": "Online", "hint": "Shet kryesisht online" },
+        "physical": { "label": "Fizik", "hint": "Dyqan, lokal ose shërbim vendor" },
+        "both": { "label": "Të dyja", "hint": "Online dhe fizikisht" }
+      },
+      "category": {
+        "food": "Ushqim dhe mikpritje",
+        "software": "Softuer / SaaS",
+        "services": "Shërbime",
+        "ecommerce": "Tregti elektronike",
+        "general": "Tjetër"
+      },
+      "customerType": {
+        "b2c": { "label": "Konsumatorë", "hint": "B2C" },
+        "b2b": { "label": "Biznese", "hint": "B2B" },
+        "both": { "label": "Të dyja", "hint": "B2C dhe B2B" }
+      },
+      "offerStatus": { "planned": "E planifikuar", "existing": "Tashmë e disponueshme" },
+      "revenue": {
+        "oneTime": "Shitje të njëhershme",
+        "recurring": "Blerje të përsëritura",
+        "subscription": "Abonim",
+        "commission": "Komision",
+        "custom": "Tjetër"
+      },
+      "channels": {
+        "website": "Faqja e internetit",
+        "social": "Rrjetet sociale",
+        "marketplace": "Platforma tregtare",
+        "store": "Dyqan fizik",
+        "direct": "Shitje direkte",
+        "messaging": "WhatsApp / mesazhe",
+        "partners": "Partnerë / rishitës"
+      },
+      "tone": {
+        "professional": "Profesional",
+        "friendly": "Miqësor",
+        "bold": "I guximshëm",
+        "calm": "I qetë",
+        "playful": "Lozonjar",
+        "expert": "Ekspert"
+      },
+      "language": { "sq": "Shqip", "en": "Anglisht", "both": "Shqip dhe anglisht" },
+      "priority": {
+        "launch": "Nisja",
+        "customers": "Gjetja e klientëve",
+        "sales": "Rritja e shitjeve",
+        "brand": "Ndërtimi i markës",
+        "website": "Faqja e internetit",
+        "growth": "Rritja"
+      },
+      "timeframe": { "1m": "1 muaj", "3m": "3 muaj", "6m": "6 muaj", "12m": "12 muaj" }
+    },
+    "adaptive": {
+      "food": {
+        "service": "Formati i shërbimit",
+        "cuisine": "Kuzhina ose fokusi i menusë",
+        "serviceArea": "Zona e dorëzimit ose e shërbimit"
+      },
+      "software": {
+        "targetCompanies": "Kompanitë e synuara",
+        "productType": "Lloji i produktit",
+        "pricingModel": "Qasja e çmimeve"
+      },
+      "services": {
+        "serviceType": "Lloji i shërbimit",
+        "serviceArea": "Zona e shërbimit",
+        "capacity": "Kapaciteti (klientë në javë/muaj)"
+      },
+      "ecommerce": { "productCategory": "Kategoria e produkteve", "fulfillment": "Përmbushja e porosive", "shipsTo": "Dërgon në" },
+      "options": {
+        "dineIn": "Në lokal",
+        "takeaway": "Për ta marrë me vete",
+        "delivery": "Dorëzim",
+        "catering": "Catering",
+        "webApp": "Aplikacion web",
+        "mobileApp": "Aplikacion celulari",
+        "api": "API",
+        "desktop": "Desktop",
+        "freemium": "Freemium",
+        "trial": "Provë falas",
+        "perSeat": "Për përdorues",
+        "usage": "Sipas përdorimit",
+        "flat": "Çmim fiks",
+        "ownStock": "Stok i vetin",
+        "dropshipping": "Dropshipping",
+        "printOnDemand": "Shtyp sipas kërkesës",
+        "madeToOrder": "Me porosi"
+      }
+    },
+    "review": {
+      "edit": "Ndrysho",
+      "editAria": "Ndrysho {section}",
+      "empty": "Asgjë e shtuar.",
+      "notDecided": "Ende e pavendosur",
+      "generate": "Gjenero biznesin tim",
+      "disclaimerTitle": "Çfarë ndodh më pas",
+      "disclaimer": "StartupOS përgatit një draft të parë të markës, përmbajtjes së faqes, marketingut dhe planit të nisjes nga këto përgjigje. Çdo gjë mbetet e ndryshueshme dhe asgjë në të nuk garanton rezultate.",
+      "contextGapsTitle": "Disa detaje ende mungojnë",
+      "contextGapsBody": "Mund të gjeneroni tani. Faktet materiale që mungojnë do të trajtohen si supozime, jo si informacion i verifikuar i shpikur.",
+      "contextGaps": {
+        "customers": "Përshkrimi i klientëve",
+        "market": "Tregu / vendndodhja",
+        "industry": "Industria"
+      }
+    },
+    "edit": {
+      "action": "Ndrysho kontekstin e biznesit",
+      "title": "Ndrysho kontekstin e biznesit",
+      "description": "Përditësoni informacionin që keni dhënë për këtë biznes. Përmbajtja e gjeneruar nuk ndryshon.",
+      "stepDescription": "Përditësoni këtë seksion, pastaj vazhdoni. Asgjë nuk ruhet derisa të konfirmoni te Rishikimi.",
+      "reviewTitle": "Rishikoni ndryshimet",
+      "reviewDescription": "Konfirmoni kontekstin e përditësuar të biznesit. Marka, faqja dhe planet e gjeneruara mbeten siç janë.",
+      "save": "Ruaj ndryshimet",
+      "saving": "Duke ruajtur…",
+      "saveFailed": "Konteksti i biznesit nuk u ruajt. Provoni përsëri.",
+      "savedTitle": "Konteksti i biznesit u përditësua",
+      "savedDescription": "Përgjigjet tuaja u ruajtën. Përmbajtja e gjeneruar nuk u rigjenerua.",
+      "disclaimerTitle": "Çfarë bën ky ruajtje",
+      "disclaimer": "Përditësohet vetëm informacioni që keni dhënë për biznesin. Marka, faqja, marketingu dhe rezultatet e tjera të gjeneruara mbeten të pandryshuara derisa të zgjidhni t'i rigjeneroni më vonë."
+    }
+  },
+  "regeneration": {
+    "title": "Disa seksione të gjeneruara mund të jenë të vjetruara",
+    "description": "Konteksti i biznesit ndryshoi. Zgjidhni cilat seksione të rigjenerohen — gjithçka tjetër mbetet siç është.",
+    "hint": "Vetëm seksionet e listuara më poshtë u prekën nga ndryshimet tuaja. Rigjenerimi përdor kontekstin e përditësuar të biznesit.",
+    "incomplete": {
+      "title": "Provo përsëri seksionet e paplota",
+      "description": "Zgjidhni cilat seksione të gjenerohen përsëri. Gjithçka tjetër mbetet siç është.",
+      "hint": "Këto seksione dështuan ose u kthyen në përmbajtje të reduktuar herën e kaluar. Nëse një shërbim ishte jashtë funksionit, tani mund të funksionojë."
+    },
+    "confirm": "Rigjenero të zgjedhurat",
+    "running": "Duke rigjeneruar…",
+    "keepExisting": "Mbaj ekzistueset",
+    "failed": "Rigjenerimi nuk përfundoi. Përmbajtja e mëparshme e gjeneruar është ende e ruajtur.",
+    "rateLimited": "Keni rigjeneruar shumë së fundmi. Prisni pak, pastaj provoni përsëri. Përmbajtja aktuale është ende e ruajtur.",
+    "partialFailed": "Disa seksione nuk u rigjeneruan. Ato mbajtën përmbajtjen e mëparshme.",
+    "templateOnly": "Këto seksione nuk u shkruan nga modeli i AI-së, prandaj përmbajnë sërish përmbajtje shabllon.",
+    "status": {
+      "running": "Në punë…",
+      "done": "U përditësua",
+      "failed": "U mbajt e mëparshmja",
+      "template": "Vetëm shabllon"
+    }
+  }
+}

@@ -1,313 +1,336 @@
 "use client";
 
 import * as React from "react";
-import { Globe, Monitor, Smartphone } from "lucide-react";
-import type { Brand, Website, WebsitePage, WebsiteSection as WSection } from "@/lib/types";
-import { Card, CardBody, SectionTitle, Badge } from "@/components/ui/primitives";
+import { ChevronDown, Monitor, Smartphone } from "lucide-react";
+import type { BusinessPackage } from "@/lib/types";
+import { Badge, Button, Card, CardBody, CardHeader, DataList } from "@/components/ui/primitives";
 import { CopyButton, DownloadButton } from "@/components/ui/actions";
-import { downloadJson } from "@/lib/client/download";
-import { getSwatch, readableTextColor } from "@/lib/engine/color";
+import { Tabs } from "@/components/ui/Tabs";
+import { Provenance } from "@/components/ui/Provenance";
+import { InlineNotice, EmptyState } from "@/components/dashboard/EmptyState";
+import { BrandFonts } from "@/components/workspace/BrandSection";
+import { SiteRenderer } from "@/components/website/SiteRenderer";
+import { ApiError, prepareWebsitePublication, publishWebsite, unpublishWebsite } from "@/lib/client/businesses";
+import { WebsiteChecks, WebsiteSetup } from "@/components/workspace/WebsiteSetup";
+import { checkWebsite } from "@/lib/website/quality";
+import { downloadHtml, downloadJson } from "@/lib/client/download";
+import { buildStaticWebsiteBundleHtml } from "@/lib/website/static-html";
+import { agentProvenance } from "@/lib/client/insights";
+import { ConfirmDialog } from "@/components/ui/Dialog";
+import { websiteSpecOf } from "@/lib/website/legacy";
+import { buildPublishableWebsite, publicationStatus, publicSiteUrl, resolvePublishedPage } from "@/lib/website/publish";
+import { useFormat, useT } from "@/i18n/client";
 import { cn, slugify } from "@/lib/utils";
 
-export function WebsiteSection({ website, brand }: { website: Website; brand: Brand }) {
-  const [pageIdx, setPageIdx] = React.useState(0);
+export function WebsiteSection({ pkg, onRewrite }: { pkg: BusinessPackage; onRewrite?: () => void }) {
+  const t = useT();
+  const { website, brand } = pkg;
+  const site = React.useMemo(() => {
+    const built = buildPublishableWebsite(websiteSpecOf(website, brand));
+    return built.ok ? built.site : null;
+  }, [website, brand]);
+  const checks = React.useMemo(() => (site ? checkWebsite(site, pkg.input) : []), [site, pkg.input]);
+  const [pageSlug, setPageSlug] = React.useState("/");
   const [device, setDevice] = React.useState<"desktop" | "mobile">("desktop");
-  const page = website.pages[pageIdx] ?? website.pages[0];
+  const resolved = site ? resolvePublishedPage(site, pageSlug) : null;
+  const page = resolved?.ok ? resolved.page : site?.pages[0];
 
-  if (!page) return <p className="text-ink-muted">No website pages generated.</p>;
+  if (!site || !page) {
+    return <EmptyState title={t("website.emptyTitle")} description={t("website.emptyDescription")} action={null} />;
+  }
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <SectionTitle eyebrow="Website Agent" title="Live website preview" description="A real, multi-page website rendered with your brand system." />
-        <div className="flex items-center gap-2">
-          <div className="flex rounded-lg border border-border bg-surface p-0.5">
-            <button onClick={() => setDevice("desktop")} className={cn("flex h-8 w-9 items-center justify-center rounded-md transition", device === "desktop" ? "bg-brand text-white" : "text-ink-muted")} aria-label="Desktop">
-              <Monitor size={16} />
-            </button>
-            <button onClick={() => setDevice("mobile")} className={cn("flex h-8 w-9 items-center justify-center rounded-md transition", device === "mobile" ? "bg-brand text-white" : "text-ink-muted")} aria-label="Mobile">
-              <Smartphone size={16} />
-            </button>
-          </div>
-          <DownloadButton label="Export JSON" onDownload={() => downloadJson(`${slugify(brand.name)}-website.json`, website)} />
-        </div>
-      </div>
+    <div className="space-y-4">
+      <BrandFonts href={brand.typography.googleFontsHref} />
 
-      {/* Page tabs */}
-      <div className="flex flex-wrap gap-2">
-        {website.pages.map((p, i) => (
-          <button
-            key={p.slug}
-            onClick={() => setPageIdx(i)}
+      <InlineNotice title={t("website.previewNoticeTitle")}>{t("website.previewNoticeBody")}</InlineNotice>
+
+      <WebsiteSetup key={pkg.id} pkg={pkg} onRewrite={onRewrite} />
+
+      <PublishPanel pkg={pkg} />
+
+      <WebsiteChecks checks={checks} />
+
+      <Card className="overflow-hidden">
+        <div className="flex flex-col gap-3 border-b border-border px-4 py-3 md:flex-row md:items-center md:justify-between">
+          <Tabs
+            variant="segmented"
+            label={t("website.pagesLabel")}
+            idPrefix="site-pages"
+            items={site.pages.map((p) => ({ id: p.slug, label: p.label }))}
+            value={page.slug}
+            onChange={setPageSlug}
+          />
+          <div className="flex items-center gap-2">
+            <div role="group" aria-label={t("website.previewSize")} className="inline-flex rounded-md bg-surface-2 p-0.5">
+              {(
+                [
+                  { id: "desktop", icon: Monitor, label: t("website.desktopPreview") },
+                  { id: "mobile", icon: Smartphone, label: t("website.mobilePreview") },
+                ] as const
+              ).map((d) => (
+                <button
+                  key={d.id}
+                  type="button"
+                  onClick={() => setDevice(d.id)}
+                  aria-pressed={device === d.id}
+                  aria-label={d.label}
+                  className={cn(
+                    "flex h-7 w-8 items-center justify-center rounded transition-colors",
+                    device === d.id ? "bg-surface text-ink shadow-[var(--shadow-card)]" : "text-ink-muted hover:text-ink",
+                  )}
+                >
+                  <d.icon size={15} aria-hidden />
+                </button>
+              ))}
+            </div>
+            <DownloadButton
+              label={t("website.exportHtml")}
+              ariaLabel={t("website.exportHtmlAria")}
+              onDownload={() => downloadHtml(`${slugify(brand.name)}-website.html`, buildStaticWebsiteBundleHtml(site))}
+            />
+            <DownloadButton
+              label={t("website.exportContent")}
+              ariaLabel={t("website.exportAria")}
+              onDownload={() => downloadJson(`${slugify(brand.name)}-website.json`, { site, seo: website.seo })}
+            />
+          </div>
+        </div>
+
+        <div className="bg-[linear-gradient(180deg,var(--color-surface-3),color-mix(in_srgb,var(--color-surface-2)_70%,var(--color-surface-3)))] p-3 sm:p-8">
+          <div
             className={cn(
-              "rounded-lg border px-3.5 py-2 text-sm font-medium transition",
-              i === pageIdx ? "border-brand bg-brand-soft text-white" : "border-border bg-surface text-ink-muted hover:text-ink",
+              "mx-auto transition-[max-width,transform] duration-300 ease-[var(--ease-out-soft)]",
+              device === "mobile" ? "max-w-[390px]" : "max-w-[1100px]",
             )}
           >
-            {p.slug === "/" ? "Home" : p.title.split("—")[0]!.trim()}
-          </button>
-        ))}
-      </div>
-
-      {/* Browser frame */}
-      <Card className="overflow-hidden">
-        <div className="flex items-center gap-2 border-b border-border bg-bg-elevated px-4 py-2.5">
-          <div className="flex gap-1.5">
-            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-          </div>
-          <div className="ml-3 flex flex-1 items-center gap-2 rounded-md border border-border bg-surface px-3 py-1 text-[12px] text-ink-subtle">
-            <Globe size={12} />
-            {slugify(brand.name)}.com{page.slug === "/" ? "" : page.slug}
-          </div>
-        </div>
-        <div className="overflow-x-auto bg-[#0a0a0f] p-4 sm:p-6">
-          <div className={cn("mx-auto transition-all duration-300", device === "mobile" ? "max-w-[390px]" : "max-w-full")}>
-            <SitePreview page={page} brand={brand} navItems={website.navItems} mobile={device === "mobile"} />
+            <div className="overflow-hidden rounded-xl border border-border bg-surface shadow-[var(--shadow-elevated)] ring-1 ring-black/5">
+              <div className="flex items-center gap-2 border-b border-border bg-surface-2/80 px-3 py-2.5">
+                <span className="flex gap-1.5" aria-hidden>
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#f87171]/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#fbbf24]/80" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#34d399]/80" />
+                </span>
+                <span className="ml-2 min-w-0 flex-1 truncate rounded-md border border-border bg-surface px-2.5 py-1 font-mono text-[11.5px] text-ink-subtle">
+                  {page.slug}
+                </span>
+              </div>
+              <div className="overflow-hidden">
+                <SiteRenderer
+                  site={site}
+                  page={page}
+                  mobile={device === "mobile"}
+                  onNavigate={setPageSlug}
+                  labels={{ navigation: t("website.previewNavigation"), contactPending: t("website.contactPending") }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </Card>
 
-      {/* SEO */}
-      <section>
-        <SectionTitle eyebrow="SEO Agent" title="SEO structure" />
-        <div className="mt-5 grid gap-5 lg:grid-cols-2">
-          <Card>
-            <CardBody className="space-y-4">
-              <SeoRow label="Title tag" value={website.seo.title} />
-              <SeoRow label="Meta description" value={website.seo.metaDescription} />
-              <SeoRow label="OG title" value={website.seo.ogTitle} />
-              <div>
-                <div className="mb-2 text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">Target keywords</div>
-                <div className="flex flex-wrap gap-2">
-                  {website.seo.keywords.map((k) => (
-                    <Badge key={k}>{k}</Badge>
-                  ))}
-                </div>
-              </div>
-            </CardBody>
-          </Card>
-          <Card>
-            <CardBody>
-              <div className="mb-2 flex items-center justify-between">
-                <div className="text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">JSON-LD structured data</div>
-                <CopyButton text={JSON.stringify(website.seo.jsonLd, null, 2)} />
-              </div>
-              <pre className="max-h-64 overflow-auto rounded-lg border border-border bg-bg p-3 text-[12px] leading-relaxed text-ink-muted">
-                {JSON.stringify(website.seo.jsonLd, null, 2)}
-              </pre>
-              <div className="mt-4 text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">Sitemap</div>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {website.seo.sitemap.map((s) => (
-                  <code key={s} className="rounded bg-surface-2 px-2 py-1 text-[12px] text-accent">{s}</code>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <Card>
+          <CardHeader title={t("website.pageDetails")} description={page.label} />
+          <CardBody className="space-y-5">
+            <DataList
+              items={[
+                { label: t("website.path"), value: <code className="font-mono text-[12.5px]">{page.slug}</code> },
+                { label: t("website.pageTitle"), value: page.metadata.title },
+                { label: t("website.description"), value: page.metadata.description },
+                { label: t("website.canonical"), value: <code className="font-mono text-[12.5px]">{page.metadata.canonicalPath}</code> },
+              ]}
+            />
+            <div>
+              <h3 className="mb-2 text-[12.5px] font-medium text-ink-subtle">{t("website.sectionsOnPage")}</h3>
+              <ol className="flex flex-wrap gap-1.5">
+                {page.sections.map((s) => (
+                  <li key={s.id} className="max-w-full">
+                    <Badge tone="outline" wrap>
+                      {s.heading}
+                    </Badge>
+                  </li>
                 ))}
+              </ol>
+            </div>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardHeader title={t("website.seo")} actions={<Provenance kind={agentProvenance(pkg, "SEO Agent")} />} />
+          <CardBody className="space-y-4">
+            <SeoRow label={t("website.titleTag")} value={website.seo.title} />
+            <SeoRow label={t("website.metaDescription")} value={website.seo.metaDescription} />
+            <SeoRow label={t("website.socialTitle")} value={website.seo.ogTitle} />
+            <div>
+              <h3 className="mb-2 text-[12.5px] font-medium text-ink-subtle">{t("website.targetKeywords")}</h3>
+              <ul className="flex flex-wrap gap-1.5">
+                {website.seo.keywords.map((k) => (
+                  <li key={k} className="max-w-full">
+                    <Badge wrap>{k}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="mb-2 text-[12.5px] font-medium text-ink-subtle">{t("website.sitemap")}</h3>
+              <ul className="flex flex-wrap gap-1.5">
+                {website.seo.sitemap.map((s) => (
+                  <li key={s}>
+                    <code className="rounded bg-surface-2 px-1.5 py-0.5 font-mono text-[12px] text-ink-muted">{s}</code>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <details className="group rounded-lg border border-border">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-[13px] font-medium text-ink [&::-webkit-details-marker]:hidden">
+                {t("website.structuredData")}
+                <ChevronDown size={15} className="shrink-0 text-ink-subtle transition-transform group-open:rotate-180" aria-hidden />
+              </summary>
+              <div className="border-t border-border p-3">
+                <div className="mb-2 flex justify-end">
+                  <CopyButton text={JSON.stringify(website.seo.jsonLd, null, 2)} />
+                </div>
+                <pre className="max-h-64 overflow-auto rounded-md bg-surface-2 p-3 font-mono text-[12px] leading-relaxed text-ink-muted">
+                  {JSON.stringify(website.seo.jsonLd, null, 2)}
+                </pre>
               </div>
-            </CardBody>
-          </Card>
-        </div>
-      </section>
+            </details>
+          </CardBody>
+        </Card>
+      </div>
     </div>
+  );
+}
+
+/**
+ * Publication lifecycle for the workspace. "Published" is shown only after the
+ * server confirms a public slug; the link is the real `/s/<slug>` path on this app.
+ */
+function PublishPanel({ pkg }: { pkg: BusinessPackage }) {
+  const t = useT();
+  const format = useFormat();
+  const [busy, setBusy] = React.useState<"prepare" | "publish" | "unpublish" | null>(null);
+  const [failed, setFailed] = React.useState<"failed" | "needsFixes" | null>(null);
+  const [confirmUnpublish, setConfirmUnpublish] = React.useState(false);
+  const status = publicationStatus(pkg.website);
+  const pub = pkg.website.publication;
+  const preparedAt = pub?.preparedAt;
+  const publicPath = pub?.publicSlug && pub.live ? publicSiteUrl(pub.publicSlug, "/") : null;
+  const publicHref = publicPath;
+
+  const run = async (kind: "prepare" | "publish" | "unpublish", fn: () => Promise<unknown>) => {
+    setBusy(kind);
+    setFailed(null);
+    try {
+      await fn();
+    } catch (err) {
+      setFailed(err instanceof ApiError && err.code === "websiteNeedsFixes" ? "needsFixes" : "failed");
+      throw new Error("publish-failed");
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const badge = {
+    unavailable: { tone: "neutral" as const, label: t("website.publish.unavailableBadge") },
+    draft: { tone: "accent" as const, label: t("website.publish.draftBadge") },
+    prepared: { tone: "accent" as const, label: t("website.publish.preparedBadge") },
+    published: { tone: "success" as const, label: t("website.publish.publishedBadge") },
+    outdated: { tone: "warning" as const, label: t("website.publish.outdatedBadge") },
+    unpublished: { tone: "neutral" as const, label: t("website.publish.unpublishedBadge") },
+  };
+  const body = {
+    unavailable: t("website.publish.unavailableBody"),
+    draft: t("website.publish.draftBody"),
+    prepared: t("website.publish.preparedBody", { date: preparedAt ? format.date(preparedAt) : "—" }),
+    published: t("website.publish.publishedBody"),
+    outdated: t("website.publish.outdatedBody"),
+    unpublished: t("website.publish.unpublishedBody"),
+  }[status];
+
+  const busyLabel =
+    busy === "publish" ? t("website.publish.publishing") : busy === "unpublish" ? t("website.publish.unpublishing") : busy === "prepare" ? t("website.publish.preparing") : null;
+
+  return (
+    <Card>
+      <CardHeader
+        title={t("website.publish.title")}
+        description={body}
+        actions={
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <Badge tone={busy ? "neutral" : badge[status].tone} dot>
+              {busyLabel ?? badge[status].label}
+            </Badge>
+            {(status === "draft" || (status === "outdated" && !pub?.live)) && (
+              <Button size="sm" variant="secondary" onClick={() => void run("prepare", () => prepareWebsitePublication(pkg.id))} disabled={!!busy} aria-busy={busy === "prepare"}>
+                {busy === "prepare" ? t("website.publish.preparing") : t("website.publish.action")}
+              </Button>
+            )}
+            {(status === "prepared" || status === "unpublished") && (
+              <Button size="sm" onClick={() => void run("publish", () => publishWebsite(pkg.id))} disabled={!!busy} aria-busy={busy === "publish"}>
+                {busy === "publish" ? t("website.publish.publishing") : t("website.publish.publishAction")}
+              </Button>
+            )}
+            {status === "draft" && (
+              <Button size="sm" onClick={() => void run("publish", () => publishWebsite(pkg.id))} disabled={!!busy} aria-busy={busy === "publish"}>
+                {busy === "publish" ? t("website.publish.publishing") : t("website.publish.publishAction")}
+              </Button>
+            )}
+            {status === "outdated" && (
+              <Button size="sm" onClick={() => void run("publish", () => publishWebsite(pkg.id))} disabled={!!busy} aria-busy={busy === "publish"}>
+                {busy === "publish" ? t("website.publish.publishing") : pub?.live ? t("website.publish.republishAction") : t("website.publish.publishAction")}
+              </Button>
+            )}
+            {(status === "published" || (status === "outdated" && pub?.live)) && (
+              <Button size="sm" variant="secondary" onClick={() => setConfirmUnpublish(true)} disabled={!!busy}>
+                {t("website.publish.unpublishAction")}
+              </Button>
+            )}
+          </div>
+        }
+      />
+      {publicHref && (
+        <CardBody className="flex flex-col gap-3 border-t border-border sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <h3 className="text-[12.5px] font-medium text-ink-subtle">{t("website.publish.publicUrl")}</h3>
+            <p className="mt-0.5 truncate font-mono text-[13px] text-ink">{publicHref}</p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <CopyButton text={publicHref} ariaLabel={t("website.publish.copyLink")} />
+            <Button size="sm" variant="secondary" onClick={() => window.open(publicHref, "_blank", "noopener,noreferrer")}>
+              {t("website.publish.openSite")}
+            </Button>
+          </div>
+        </CardBody>
+      )}
+      {failed && (
+        <p role="alert" className="px-5 py-3 text-[13px] text-danger">
+          {failed === "needsFixes" ? t("website.publish.needsFixes") : t("website.publish.failed")}
+        </p>
+      )}
+      <ConfirmDialog
+        open={confirmUnpublish}
+        title={t("website.publish.unpublishTitle")}
+        description={t("website.publish.unpublishDescription")}
+        confirmLabel={t("website.publish.unpublishAction")}
+        destructive
+        onClose={() => setConfirmUnpublish(false)}
+        onConfirm={() => run("unpublish", () => unpublishWebsite(pkg.id))}
+      />
+    </Card>
   );
 }
 
 function SeoRow({ label, value }: { label: string; value: string }) {
+  const t = useT();
   return (
     <div>
-      <div className="mb-1 flex items-center justify-between">
-        <span className="text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">{label}</span>
-        <CopyButton text={value} variant="ghost" />
+      <div className="mb-0.5 flex items-center justify-between gap-2">
+        <h3 className="text-[12.5px] font-medium text-ink-subtle">{label}</h3>
+        <CopyButton text={value} variant="ghost" size="icon" ariaLabel={t("common.copyField", { field: label })} />
       </div>
-      <p className="text-sm leading-relaxed">{value}</p>
+      <p className="text-sm leading-relaxed text-ink">{value}</p>
     </div>
   );
-}
-
-/* --------------------- Rendered website preview ------------------------ */
-
-function SitePreview({
-  page,
-  brand,
-  navItems,
-  mobile,
-}: {
-  page: WebsitePage;
-  brand: Brand;
-  navItems: { label: string; href: string }[];
-  mobile: boolean;
-}) {
-  const primary = getSwatch(brand.palette, "primary");
-  const ink = getSwatch(brand.palette, "neutral-dark");
-  const surface = getSwatch(brand.palette, "surface");
-  const onPrimary = readableTextColor(primary);
-  const headingFont = `${brand.typography.headingFont}, system-ui, sans-serif`;
-
-  return (
-    <div className="overflow-hidden rounded-xl shadow-2xl" style={{ background: surface, color: ink, fontFamily: `${brand.typography.bodyFont}, system-ui, sans-serif` }}>
-      {/* Nav */}
-      <header className="flex items-center justify-between px-5 py-4" style={{ background: surface, borderBottom: `1px solid ${primary}1a` }}>
-        <span style={{ fontFamily: headingFont, fontWeight: 800, color: ink, fontSize: 18 }}>{brand.name}</span>
-        {!mobile && (
-          <nav className="flex items-center gap-5 text-[13px]" style={{ color: `${ink}b3` }}>
-            {navItems.map((n) => (
-              <span key={n.href}>{n.label}</span>
-            ))}
-            <span style={{ background: primary, color: onPrimary, padding: "6px 14px", borderRadius: 8, fontWeight: 600 }}>Get started</span>
-          </nav>
-        )}
-        {mobile && <span style={{ color: ink }}>≡</span>}
-      </header>
-
-      {page.sections.map((s) => (
-        <SectionRenderer key={s.id} section={s} brand={brand} mobile={mobile} />
-      ))}
-
-      {/* Footer */}
-      <footer className="px-5 py-6 text-center text-[12px]" style={{ background: ink, color: "#ffffffb3" }}>
-        © {new Date().getFullYear()} {brand.name}. {brand.slogan}
-      </footer>
-    </div>
-  );
-}
-
-function SectionRenderer({ section, brand, mobile }: { section: WSection; brand: Brand; mobile: boolean }) {
-  const primary = getSwatch(brand.palette, "primary");
-  const secondary = getSwatch(brand.palette, "secondary");
-  const accentColor = getSwatch(brand.palette, "accent");
-  const ink = getSwatch(brand.palette, "neutral-dark");
-  const onPrimary = readableTextColor(primary);
-  const headingFont = `${brand.typography.headingFont}, system-ui, sans-serif`;
-  const cols = mobile ? "1fr" : "repeat(auto-fit, minmax(180px, 1fr))";
-
-  const heading = (size: number, text: string, color = ink) => (
-    <h3 style={{ fontFamily: headingFont, fontWeight: 800, fontSize: mobile ? size * 0.7 : size, color, letterSpacing: "-0.02em", lineHeight: 1.1 }}>{text}</h3>
-  );
-
-  switch (section.type) {
-    case "hero":
-      return (
-        <div style={{ background: `linear-gradient(135deg, ${primary}, ${secondary})`, color: onPrimary, padding: mobile ? "48px 24px" : "72px 48px", textAlign: "center" }}>
-          {heading(mobile ? 30 : 46, section.heading, onPrimary)}
-          {section.subheading && <p style={{ marginTop: 16, fontSize: mobile ? 14 : 17, opacity: 0.9, maxWidth: 620, marginInline: "auto", lineHeight: 1.6 }}>{section.subheading}</p>}
-          {(section.primaryCta || section.secondaryCta) && (
-            <div style={{ marginTop: 28, display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              {section.primaryCta && <span style={{ background: onPrimary, color: primary, padding: "12px 26px", borderRadius: 10, fontWeight: 700, fontSize: 14 }}>{section.primaryCta}</span>}
-              {section.secondaryCta && <span style={{ border: `1px solid ${onPrimary}66`, color: onPrimary, padding: "12px 26px", borderRadius: 10, fontWeight: 600, fontSize: 14 }}>{section.secondaryCta}</span>}
-            </div>
-          )}
-        </div>
-      );
-    case "stats":
-      return (
-        <div style={{ padding: mobile ? "32px 24px" : "44px 48px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2,1fr)" : "repeat(4,1fr)", gap: 20, textAlign: "center" }}>
-            {section.items?.map((it, i) => (
-              <div key={i}>
-                <div style={{ fontFamily: headingFont, fontWeight: 800, fontSize: mobile ? 24 : 32, color: primary }}>{it.title}</div>
-                <div style={{ fontSize: 13, color: `${ink}99`, marginTop: 4 }}>{it.description}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    case "features":
-    case "services":
-      return (
-        <div style={{ padding: mobile ? "40px 24px" : "60px 48px" }}>
-          <div style={{ textAlign: "center", marginBottom: 36 }}>
-            {heading(mobile ? 24 : 32, section.heading)}
-            {section.subheading && <p style={{ marginTop: 10, color: `${ink}99`, fontSize: 15 }}>{section.subheading}</p>}
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: cols, gap: 18 }}>
-            {section.items?.map((it, i) => (
-              <div key={i} style={{ background: "#fff", border: `1px solid ${ink}12`, borderRadius: 14, padding: 22 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: `${primary}1a`, color: primary, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>{i + 1}</div>
-                <div style={{ marginTop: 14, fontWeight: 700, fontSize: 16, color: ink }}>{it.title}</div>
-                {it.description && <p style={{ marginTop: 6, fontSize: 13.5, color: `${ink}99`, lineHeight: 1.6 }}>{it.description}</p>}
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    case "social-proof":
-    case "testimonials":
-      return (
-        <div style={{ padding: mobile ? "40px 24px" : "60px 48px", background: "#fff" }}>
-          <div style={{ textAlign: "center", marginBottom: 32 }}>{heading(mobile ? 24 : 30, section.heading)}</div>
-          <div style={{ display: "grid", gridTemplateColumns: cols, gap: 18 }}>
-            {section.items?.map((it, i) => (
-              <div key={i} style={{ background: surfaceTint(ink), borderRadius: 14, padding: 22 }}>
-                <div style={{ color: accentColor, fontSize: 18 }}>★★★★★</div>
-                <p style={{ marginTop: 10, fontSize: 14, color: ink, lineHeight: 1.6 }}>{it.description}</p>
-                <div style={{ marginTop: 12, fontWeight: 700, fontSize: 13, color: ink }}>— {it.title}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    case "about":
-      return (
-        <div style={{ padding: mobile ? "40px 24px" : "60px 48px", maxWidth: 760, margin: "0 auto" }}>
-          {heading(mobile ? 24 : 30, section.heading)}
-          <p style={{ marginTop: 16, fontSize: 16, lineHeight: 1.8, color: `${ink}cc` }}>{section.body}</p>
-        </div>
-      );
-    case "pricing":
-      return (
-        <div style={{ padding: mobile ? "40px 24px" : "60px 48px", background: "#fff" }}>
-          <div style={{ textAlign: "center", marginBottom: 32 }}>
-            {heading(mobile ? 24 : 30, section.heading)}
-            {section.subheading && <p style={{ marginTop: 8, color: `${ink}99` }}>{section.subheading}</p>}
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: cols, gap: 18 }}>
-            {section.items?.map((it, i) => (
-              <div key={i} style={{ border: `1px solid ${ink}14`, borderRadius: 14, padding: 22, textAlign: "center" }}>
-                <div style={{ fontWeight: 800, color: ink, fontSize: 18 }}>{it.title}</div>
-                <p style={{ marginTop: 8, fontSize: 13, color: `${ink}99` }}>{it.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    case "faq":
-      return (
-        <div style={{ padding: mobile ? "40px 24px" : "60px 48px", maxWidth: 760, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 28 }}>{heading(mobile ? 24 : 30, section.heading)}</div>
-          {section.items?.map((it, i) => (
-            <div key={i} style={{ borderBottom: `1px solid ${ink}14`, padding: "16px 0" }}>
-              <div style={{ fontWeight: 700, color: ink, fontSize: 15 }}>{it.title}</div>
-              <p style={{ marginTop: 6, fontSize: 14, color: `${ink}99`, lineHeight: 1.6 }}>{it.description}</p>
-            </div>
-          ))}
-        </div>
-      );
-    case "contact":
-      return (
-        <div style={{ padding: mobile ? "40px 24px" : "60px 48px" }}>
-          <div style={{ textAlign: "center", marginBottom: 28 }}>{heading(mobile ? 24 : 30, section.heading)}</div>
-          <div style={{ display: "grid", gridTemplateColumns: cols, gap: 18, maxWidth: 760, margin: "0 auto" }}>
-            {section.items?.map((it, i) => (
-              <div key={i} style={{ background: "#fff", border: `1px solid ${ink}12`, borderRadius: 12, padding: 18 }}>
-                <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: primary, fontWeight: 700 }}>{it.title}</div>
-                <div style={{ marginTop: 6, fontSize: 14, color: ink }}>{it.description}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    case "cta":
-      return (
-        <div style={{ background: ink, color: "#fff", padding: mobile ? "48px 24px" : "64px 48px", textAlign: "center" }}>
-          {heading(mobile ? 26 : 36, section.heading, "#fff")}
-          {section.subheading && <p style={{ marginTop: 12, opacity: 0.8, fontSize: 15 }}>{section.subheading}</p>}
-          {section.primaryCta && <div style={{ marginTop: 24 }}><span style={{ background: primary, color: onPrimary, padding: "13px 30px", borderRadius: 10, fontWeight: 700 }}>{section.primaryCta}</span></div>}
-        </div>
-      );
-    default:
-      return null;
-  }
-}
-
-function surfaceTint(ink: string): string {
-  return `${ink}0a`;
 }

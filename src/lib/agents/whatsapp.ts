@@ -1,120 +1,247 @@
-import type { Brand, WhatsAppFlow, WhatsAppKit, WhatsAppNode } from "@/lib/types";
+import type { Brand, WhatsAppFlow, WhatsAppNode } from "@/lib/types";
 import type { AgentOutput, GenerationContext } from "@/lib/agents/context";
+import { midSentence } from "@/lib/utils";
+import { audiencePhrase, copyBrief } from "@/lib/agents/copy-brief";
 
 /**
- * WhatsApp Agent — builds FOUR real, distinct chatbot flows as navigable node
- * graphs (greeting, FAQ, lead qualification, appointment booking). Every option
- * routes to an existing node id within its flow, so each can be previewed
- * interactively and exported to a chatbot builder.
+ * WhatsApp Agent — builds a real, branching chatbot flow as a graph of nodes.
+ * Copy is grounded in the owner's offer and audience; it never invents price
+ * tiers, popularity, testimonials, or that the visitor already asked to buy.
+ * In-app chatbot preview only — not WhatsApp Business API.
  */
-export function runWhatsAppAgent(ctx: GenerationContext, brand: Brand): AgentOutput<WhatsAppKit> {
-  const { input, industry } = ctx;
-  const svc = industry.services;
-  const city = input.location.split(",")[0]!;
 
-  const greeting: WhatsAppFlow = {
-    key: "greeting",
-    name: "Greeting & Menu",
-    goal: "Welcome every contact and route them to the right place.",
-    nodes: [
-      {
-        id: "start",
-        speaker: "bot",
-        message: `👋 Hi! Welcome to ${brand.name}. ${brand.slogan} How can we help you today?`,
-        options: [
-          { label: "Tell me about you", next: "about" },
-          { label: "Opening hours", next: "hours" },
-          { label: "Where are you?", next: "location" },
-          { label: "Talk to the team", next: "handoff" },
-        ],
-      },
-      { id: "about", speaker: "bot", message: `${brand.description.split(".")[0]}. We help ${input.audience.toLowerCase()} with ${(svc[0]?.title ?? "our services").toLowerCase()} and more.`, options: [{ label: "Sounds great 👍", next: "end" }, { label: "Back to menu", next: "start" }] },
-      { id: "hours", speaker: "bot", message: `We're open Mon–Sat, 9am–6pm. Messages here are answered within one business day. 🕒`, options: [{ label: "Thanks!", next: "end" }, { label: "Back to menu", next: "start" }] },
-      { id: "location", speaker: "bot", message: `📍 We proudly serve ${input.location} and the surrounding area. Want directions or to book a visit?`, options: [{ label: "Back to menu", next: "start" }, { label: "That's all", next: "end" }] },
-      { id: "handoff", speaker: "bot", message: `Of course — connecting you with the ${brand.name} team now. Feel free to share what you need so we can help faster. 💬`, next: "end" },
-      { id: "end", speaker: "bot", message: `Thanks for messaging ${brand.name}! 💛 Talk soon.` },
-    ],
-  };
+function flowLanguage(ctx: GenerationContext): "en" | "sq" {
+  const lang = ctx.input.discovery?.brand.language;
+  // both → Albanian-first shell (same policy as website chrome); bilingual LLM paths use languageInstruction elsewhere.
+  if (lang === "en") return "en";
+  return "sq";
+}
 
-  const faq: WhatsAppFlow = {
-    key: "faq",
-    name: "FAQ",
-    goal: "Instantly answer the most common questions.",
-    nodes: [
-      {
-        id: "start",
-        speaker: "bot",
-        message: `Happy to help! What would you like to know about ${brand.name}?`,
-        options: [
-          { label: "What do you offer?", next: "services" },
-          { label: "How much does it cost?", next: "pricing" },
-          { label: `Why choose ${brand.name}?`, next: "why" },
-          { label: "How do I get started?", next: "getstarted" },
-        ],
-      },
-      { id: "services", speaker: "bot", message: `We offer ${svc.map((s) => s.title).join(", ")}. ${svc[0]?.description ?? ""}`, options: [{ label: "Another question", next: "start" }, { label: "I'm ready", next: "getstarted" }] },
-      { id: "pricing", speaker: "bot", message: `Our pricing is transparent with options for every need — Starter, Growth and Premium. Most customers pick the middle tier for the best value. Want the full breakdown?`, options: [{ label: "Yes, send it", next: "getstarted" }, { label: "Another question", next: "start" }] },
-      { id: "why", speaker: "bot", message: `Great question. ${industry.valueProps[0] ?? "Quality"} and ${(industry.valueProps[1] ?? "real care").toLowerCase()} — built specifically for ${input.audience.toLowerCase()} in ${city}.`, options: [{ label: "Another question", next: "start" }, { label: "Let's go", next: "getstarted" }] },
-      { id: "getstarted", speaker: "bot", message: `Getting started is easy — just share your name and the best way to reach you, and we'll take it from there. ✅`, next: "end" },
-      { id: "end", speaker: "bot", message: `Thanks for your questions! We're here whenever you need us. 💛` },
-    ],
-  };
+export function runWhatsAppAgent(ctx: GenerationContext, brand: Brand): AgentOutput<WhatsAppFlow> {
+  const brief = copyBrief(ctx);
+  const offering = brief.offering;
+  const lang = flowLanguage(ctx);
+  const aud = midSentence(audiencePhrase(brief) || (lang === "sq" ? "njerëz si ju" : "people like you"));
+  const place = brief.location ? ` (${brief.location})` : "";
+  const industrySvc = ctx.industry.services;
+  const offerLabel =
+    brief.modelKind === "saas" || brief.modelKind === "product"
+      ? lang === "sq"
+        ? "produktet"
+        : "products"
+      : lang === "sq"
+        ? "shërbimet"
+        : "services";
+  const primaryLabel = industrySvc[0]?.title && !brief.offering ? industrySvc[0].title : offering.slice(0, 40);
+  const secondaryLabel = industrySvc[1]?.title ?? (lang === "sq" ? "Diçka tjetër" : "Something else");
 
-  const qualification: WhatsAppFlow = {
-    key: "qualification",
-    name: "Lead Qualification",
-    goal: "Understand the prospect's needs and capture a qualified lead.",
-    nodes: [
-      { id: "start", speaker: "bot", message: `Let's find the right fit for you. First — what's most important to you right now?`, options: [
-        { label: industry.goals[0] ?? "Quality", next: "budget" },
-        { label: industry.goals[1] ?? "Value", next: "budget" },
-        { label: "Just exploring", next: "nurture" },
-      ] },
-      { id: "budget", speaker: "bot", message: `Got it. And roughly what timeframe are you working with?`, options: [
-        { label: "As soon as possible", next: "recommend" },
-        { label: "In the next few weeks", next: "recommend" },
-        { label: "Still researching", next: "nurture" },
-      ] },
-      { id: "recommend", speaker: "bot", message: `Perfect — based on that, I'd recommend our most popular option. It's a strong fit for ${input.audience.toLowerCase()}. Can I grab your details so the team can tailor a plan?`, options: [{ label: "Yes, let's do it", next: "collect" }, { label: "Send info first", next: "nurture" }] },
-      { id: "collect", speaker: "user", message: "[Customer shares name, contact + needs]", next: "confirm" },
-      { id: "confirm", speaker: "bot", message: `Thank you! ✅ A ${brand.name} specialist will reach out shortly with a tailored recommendation.`, options: [{ label: "Great, thanks!", next: "end" }] },
-      { id: "nurture", speaker: "bot", message: `No problem at all! 😊 I'll send a few helpful resources. Message us anytime when you're ready.`, options: [{ label: "Sounds good", next: "end" }] },
-      { id: "end", speaker: "bot", message: `Thanks for chatting with ${brand.name}! 💛` },
-    ],
-  };
+  const pricingMessage =
+    lang === "sq"
+      ? brief.earlyStage
+        ? `Nuk kemi ende një listë fikse çmimesh për ${offering}. Na thoni çfarë ju duhet dhe do t'ju shpjegojmë si funksionon çmimi — pa zbritje të shpikura këtu.`
+        : `Çmimi për ${offering} varet nga ajo që ju duhet. Përshkruani shkurt dhe do t'ju tregojmë hapin e radhës — pa shpikur nivele ose oferta në chat.`
+      : brief.earlyStage
+        ? `We have not published a fixed price list yet for ${offering}. Tell us what you need and we will explain how pricing works — we will not invent discounts here.`
+        : `Pricing for ${offering} depends on what you need. Share a short description and we will point you to the right next step — we do not invent tiers or promotions in chat.`;
 
-  const booking: WhatsAppFlow = {
-    key: "booking",
-    name: "Appointment Booking",
-    goal: "Let customers book or request an appointment end-to-end.",
-    nodes: [
-      { id: "start", speaker: "bot", message: `Let's get you booked in! 📅 Which would you like?`, options: [
-        { label: svc[0]?.title ?? "Standard appointment", next: "day" },
-        { label: svc[1]?.title ?? "Consultation", next: "day" },
-        { label: "Not sure — help me choose", next: "help" },
-      ] },
-      { id: "help", speaker: "bot", message: `No worries! Most first-timers start with a quick consultation so we can understand your needs. Shall I book that?`, options: [{ label: "Yes, book consultation", next: "day" }, { label: "Back", next: "start" }] },
-      { id: "day", speaker: "bot", message: `Great choice. What day works best for you?`, options: [
-        { label: "This week", next: "time" },
-        { label: "Next week", next: "time" },
-        { label: "Weekend", next: "time" },
-      ] },
-      { id: "time", speaker: "bot", message: `And what time of day suits you?`, options: [
-        { label: "Morning", next: "collect" },
-        { label: "Afternoon", next: "collect" },
-        { label: "Evening", next: "collect" },
-      ] },
-      { id: "collect", speaker: "user", message: "[Customer shares name + phone/email]", next: "confirm" },
-      { id: "confirm", speaker: "bot", message: `All set! ✅ We've noted your preferred slot and the ${brand.name} team will confirm your appointment shortly. You'll get a reminder before your visit.`, options: [{ label: "Perfect, thank you!", next: "end" }] },
-      { id: "end", speaker: "bot", message: `See you soon at ${brand.name}! 💛` },
-    ],
-  };
+  const nodes: WhatsAppNode[] =
+    lang === "sq"
+      ? [
+          {
+            id: "start",
+            speaker: "bot",
+            message: `Përshëndetje — këtu është ${brand.name}${place}. Fokusi ynë është ${offering}. Si mund t'ju ndihmojmë?`,
+            options: [
+              { label: `Rreth ${offerLabel}`, next: "services" },
+              { label: "Pyetje për çmimin", next: "pricing" },
+              { label: "Bëj një pyetje", next: "qualify" },
+              { label: "Fol me një person", next: "human" },
+            ],
+          },
+          {
+            id: "services",
+            speaker: "bot",
+            message: `${brand.name} ofron ${offering}. Cila është më e afërta me atë që ju duhet?`,
+            options: [
+              { label: primaryLabel, next: "service_detail" },
+              { label: secondaryLabel, next: "service_detail" },
+              { label: "Nuk jam i sigurt ende", next: "qualify" },
+            ],
+          },
+          {
+            id: "service_detail",
+            speaker: "bot",
+            message: `${offering}${brief.differentiator ? ` — ${brief.differentiator}` : industrySvc[0]?.description ? ` — ${industrySvc[0].description}` : "."} Dëshironi detaje, apo t'ju lidhim me dikë?`,
+            options: [
+              { label: "Dërgo detaje", next: "nurture" },
+              { label: "Pyet për çmimin", next: "pricing" },
+              { label: "Kthehu te menuja", next: "start" },
+            ],
+          },
+          {
+            id: "qualify",
+            speaker: "bot",
+            message: `Në rregull. Çfarë është më e rëndësishme për ju tani?`,
+            options: [
+              { label: brief.need?.slice(0, 40) || ctx.industry.goals[0] || "Informacion i qartë", next: "recommend" },
+              { label: brief.problem ? `Ndihmë me: ${brief.problem.slice(0, 36)}` : ctx.industry.goals[1] || "Një zgjedhje e mirë", next: "recommend" },
+              { label: "Vetëm po shfletoj", next: "nurture" },
+            ],
+          },
+          {
+            id: "recommend",
+            speaker: "bot",
+            message: `E kuptuam. Për ${aud}, hapi i radhës është të na tregoni çfarë ju duhet nga ${offering}. Pastaj ju orientojmë pa shpikur një paketë standarde.`,
+            options: [
+              { label: "Ndaj çfarë më duhet", next: "collect_contact" },
+              { label: "Më dërgo info fillimisht", next: "nurture" },
+            ],
+          },
+          {
+            id: "pricing",
+            speaker: "bot",
+            message: pricingMessage,
+            options: [
+              { label: "Përshkruaj çfarë më duhet", next: "collect_contact" },
+              { label: "Kthehu te menuja", next: "start" },
+            ],
+          },
+          {
+            id: "collect_contact",
+            speaker: "user",
+            message: "[Vizitori ndan emrin dhe të dhënat e kontaktit]",
+            next: "confirm",
+          },
+          {
+            id: "confirm",
+            speaker: "bot",
+            message: `Faleminderit. Dikush nga ${brand.name} do t'ju kontaktojë. Diçka tjetër?`,
+            options: [
+              { label: "Kjo është e gjitha", next: "end" },
+              { label: "Pyetje tjetër", next: "start" },
+            ],
+          },
+          {
+            id: "nurture",
+            speaker: "bot",
+            message: `Pa nxitim. Kur të doni detaje për ${offering}, na shkruani — do t'ju përgjigjemi pa pretendime të tepruara.`,
+            options: [{ label: "Në rregull", next: "end" }],
+          },
+          {
+            id: "human",
+            speaker: "bot",
+            message: `Sigurisht. Lini një shënim të shkurtër për atë që ju duhet dhe një koleg do ta marrë.`,
+            next: "collect_contact",
+          },
+          {
+            id: "end",
+            speaker: "bot",
+            message: `Faleminderit që biseduat me ${brand.name}. Flasim së shpejti.`,
+          },
+        ]
+      : [
+          {
+            id: "start",
+            speaker: "bot",
+            message: `Hi — this is ${brand.name}${place}. We focus on ${offering}. How can we help?`,
+            options: [
+              { label: `About our ${offerLabel}`, next: "services" },
+              { label: "Pricing questions", next: "pricing" },
+              { label: "Ask a question", next: "qualify" },
+              { label: "Talk to a person", next: "human" },
+            ],
+          },
+          {
+            id: "services",
+            speaker: "bot",
+            message: `${brand.name} offers ${offering}. Which is closest to what you need?`,
+            options: [
+              { label: primaryLabel, next: "service_detail" },
+              { label: secondaryLabel, next: "service_detail" },
+              { label: "Not sure yet", next: "qualify" },
+            ],
+          },
+          {
+            id: "service_detail",
+            speaker: "bot",
+            message: `${offering}${brief.differentiator ? ` — ${brief.differentiator}` : industrySvc[0]?.description ? ` — ${industrySvc[0].description}` : "."} Want details, or shall we connect you with someone?`,
+            options: [
+              { label: "Send details", next: "nurture" },
+              { label: "Ask about pricing", next: "pricing" },
+              { label: "Back to menu", next: "start" },
+            ],
+          },
+          {
+            id: "qualify",
+            speaker: "bot",
+            message: `No problem. What matters most for you right now?`,
+            options: [
+              { label: brief.need?.slice(0, 40) || ctx.industry.goals[0] || "Clear information", next: "recommend" },
+              { label: brief.problem ? `Help with: ${brief.problem.slice(0, 36)}` : ctx.industry.goals[1] || "A good fit", next: "recommend" },
+              { label: "Just browsing", next: "nurture" },
+            ],
+          },
+          {
+            id: "recommend",
+            speaker: "bot",
+            message: `Got it. For ${aud}, a good next step is to tell us a bit more about what you need from ${offering}. We can then point you in the right direction without inventing a default package.`,
+            options: [
+              { label: "Share what I need", next: "collect_contact" },
+              { label: "Send me info first", next: "nurture" },
+            ],
+          },
+          {
+            id: "pricing",
+            speaker: "bot",
+            message: pricingMessage,
+            options: [
+              { label: "Describe what I need", next: "collect_contact" },
+              { label: "Back to menu", next: "start" },
+            ],
+          },
+          {
+            id: "collect_contact",
+            speaker: "user",
+            message: "[Visitor shares name and contact details]",
+            next: "confirm",
+          },
+          {
+            id: "confirm",
+            speaker: "bot",
+            message: `Thanks. Someone from ${brand.name} will follow up. Anything else?`,
+            options: [
+              { label: "That's all", next: "end" },
+              { label: "Another question", next: "start" },
+            ],
+          },
+          {
+            id: "nurture",
+            speaker: "bot",
+            message: `No rush. When you want details on ${offering}, message us anytime — we will answer without spammy claims.`,
+            options: [{ label: "Sounds good", next: "end" }],
+          },
+          {
+            id: "human",
+            speaker: "bot",
+            message: `Sure. Leave a short note about what you need and a teammate will pick it up.`,
+            next: "collect_contact",
+          },
+          {
+            id: "end",
+            speaker: "bot",
+            message: `Thanks for chatting with ${brand.name}. Talk soon.`,
+          },
+        ];
 
   return {
-    data: { flows: [greeting, faq, qualification, booking] },
+    data: {
+      name: lang === "sq" ? `Asistenti WhatsApp i ${brand.name}` : `${brand.name} WhatsApp assistant`,
+      goal:
+        lang === "sq"
+          ? `Përgjigjet për ${offering} dhe mbledh kontaktin kur vizitori dëshiron ndjekje.`
+          : `Answer questions about ${offering} and capture contact details when the visitor wants a follow-up.`,
+      nodes,
+    },
     source: "deterministic",
   };
 }
-
-/** Re-export for callers that only need a single node graph type. */
-export type { WhatsAppNode };

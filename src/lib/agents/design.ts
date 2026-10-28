@@ -31,14 +31,13 @@ export function runDesignAgent(ctx: GenerationContext, verbal: VerbalIdentity): 
     { title: "Color usage", rule: `Lead with ${palette[0]!.name} (${palette[0]!.hex}). Use ${palette[2]!.name} sparingly for emphasis only.` },
     { title: "Typography", rule: `Set headlines in ${typography.headingFont} and body copy in ${typography.bodyFont}. Maintain generous line height for readability.` },
     { title: "Do not", rule: "Never stretch, recolor outside the palette, add drop shadows, or place the logo on low-contrast backgrounds." },
-    { title: "Tone of voice", rule: `Write in a ${verbal.voice.join(", ").toLowerCase()} voice. Be human, never robotic.` },
+    { title: "Tone of voice", rule: `Keep the voice ${verbal.voice.join(", ").toLowerCase()}. Be human, never robotic.` },
   ];
 
   const brand: Brand = {
     name: verbal.name,
     slogan: verbal.slogan,
     description: verbal.description,
-    story: verbal.story,
     mission: verbal.mission,
     vision: verbal.vision,
     values: verbal.values,

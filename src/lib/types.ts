@@ -6,6 +6,14 @@
  * a strongly-typed slice of {@link BusinessPackage}.
  */
 
+import type { WebsiteSpec } from "@/lib/website/model";
+import type { WebsitePublication } from "@/lib/website/publish";
+import type { WebsiteBrief } from "@/lib/website/brief";
+
+import type { Discovery } from "@/lib/discovery";
+import type { BusinessProfile } from "@/lib/engine/profile";
+import type { FinancialAssumptions, FinancialResults } from "@/lib/finance/model";
+
 export type BusinessStyle =
   | "Premium / Luxury"
   | "Modern / Minimal"
@@ -22,6 +30,10 @@ export interface BusinessInput {
   location: string;
   budget: string;
   style: BusinessStyle;
+  /** Full Business Discovery answers; absent for businesses created before the wizard existed. */
+  discovery?: Discovery;
+  /** Website setup answers; absent until the owner sets the website up. */
+  website?: WebsiteBrief;
 }
 
 /* ----------------------------- Brand ----------------------------------- */
@@ -59,8 +71,6 @@ export interface Brand {
   name: string;
   slogan: string;
   description: string;
-  /** Origin/brand story narrative (why the business exists). */
-  story: string;
   mission: string;
   vision: string;
   values: string[];
@@ -131,10 +141,14 @@ export interface WebsitePage {
 }
 
 export interface Website {
+  /** Structured website specification (source of truth); absent for websites generated before specifications. */
+  spec?: WebsiteSpec;
   pages: WebsitePage[];
   seo: SeoStructure;
   navItems: { label: string; href: string }[];
   footerColumns: { title: string; links: { label: string; href: string }[] }[];
+  /** Set when the owner prepares the website for publishing; absent while it is a draft. */
+  publication?: WebsitePublication;
 }
 
 /* ----------------------------- Marketing ------------------------------- */
@@ -162,19 +176,7 @@ export interface FacebookAd {
   creativeSvg: string;
 }
 
-export interface LinkedInPost {
-  id: string;
-  /** Opening hook line. */
-  hook: string;
-  body: string;
-  hashtags: string[];
-  cta: string;
-}
-
-export type EmailType = "welcome" | "follow-up" | "sales" | "re-engagement";
-
 export interface EmailMessage {
-  type: EmailType;
   day: number;
   subject: string;
   preview: string;
@@ -198,18 +200,10 @@ export interface WhatsAppNode {
   next?: string;
 }
 
-export type WhatsAppFlowKey = "greeting" | "faq" | "qualification" | "booking";
-
 export interface WhatsAppFlow {
-  key: WhatsAppFlowKey;
   name: string;
   goal: string;
   nodes: WhatsAppNode[];
-}
-
-/** A set of distinct, structured chatbot flows. */
-export interface WhatsAppKit {
-  flows: WhatsAppFlow[];
 }
 
 export interface ContentPillar {
@@ -231,11 +225,8 @@ export interface Marketing {
   strategy: MarketingStrategy;
   instagram: InstagramPost[];
   facebookAds: FacebookAd[];
-  linkedin: LinkedInPost[];
-  /** Ready-to-use content ideas across formats. */
-  contentIdeas: string[];
   email: EmailCampaign;
-  whatsapp: WhatsAppKit;
+  whatsapp: WhatsAppFlow;
 }
 
 /* ------------------------------ Research ------------------------------- */
@@ -254,8 +245,8 @@ export type ResearchStatus = "ok" | "search-not-configured" | "no-results" | "er
 
 export interface Competitor {
   name: string;
-  /** Relationship to the new business. */
-  type: "direct" | "indirect" | "local";
+  /** Relationship to the new business. `uncertain`: a validated business whose relationship the evidence does not settle. */
+  type: "direct" | "indirect" | "local" | "uncertain";
   /** Business category / segment inferred from the search result. */
   category: string;
   description: string;
@@ -322,39 +313,32 @@ export interface PricingTier {
   cta: string;
 }
 
-export interface SubscriptionOption {
-  name: string;
-  price: string;
-  cadence: string;
-  /** What's distinctive about this billing option (e.g. savings). */
-  note: string;
-}
-
-/**
- * A transparent profit *projection* derived from the user's budget and tier
- * pricing. Every number is computed from stated assumptions — never presented
- * as a market fact.
- */
-export interface ProfitEstimation {
-  assumptions: string[];
-  monthlyCustomers: number;
-  avgRevenuePerCustomer: string;
-  estimatedMonthlyRevenue: string;
-  estimatedMonthlyCosts: string;
-  estimatedMonthlyProfit: string;
-  margin: string;
+/** What a pricing strategy rests on, kept apart from the recommendation itself. */
+export interface PricingGrounding {
+  /**
+   * observed       — validated competitors publish prices
+   * unavailable    — research ran, but no validated competitor publishes prices
+   * researchFailed — research was attempted and failed
+   * notResearched  — no research was supplied
+   */
+  evidence: "observed" | "unavailable" | "researchFailed" | "notResearched";
+  /** What the recommended tier prices are anchored on. */
+  priceBasis: "ownerRange" | "competitorEvidence" | "none";
+  /** Competitor prices exactly as observed. */
+  observations: { competitor: string; domain: string; price: string }[];
+  /** Statements derived from the observations. */
+  signals: string[];
+  limitations: string[];
 }
 
 export interface PricingStrategy {
   model: string;
-  /** How the business makes money (e.g. subscriptions, one-off, retainers). */
-  revenueModel: string;
   rationale: string;
   tiers: PricingTier[];
   psychology: string[];
   upsells: string[];
-  subscriptionOptions: SubscriptionOption[];
-  profitEstimation: ProfitEstimation;
+  /** Absent on packages generated before the evidence-based pricing engine. */
+  grounding?: PricingGrounding;
 }
 
 /* ----------------------------- Customer -------------------------------- */
@@ -407,6 +391,56 @@ export interface LaunchPlan {
   checklist: { item: string; done: boolean }[];
 }
 
+/* ----------------------------- Strategy -------------------------------- */
+
+export interface StrategyPriority {
+  window: "0-30" | "31-60" | "61-90";
+  action: string;
+  priority: "high" | "medium" | "low";
+  outcome: string;
+  dependsOn: string;
+  resources: string;
+  metric: string;
+  assumption: string;
+}
+
+export interface ExecutiveStrategy {
+  summary: string;
+  problem: string;
+  solution: string;
+  valueProposition: string;
+  businessModel: string;
+  revenueStreams: string[];
+  segments: { name: string; need: string }[];
+  differentiation: string[];
+  entryStrategy: string;
+  /** Assumptions the plan rests on that the owner should validate. */
+  assumptions: string[];
+  risks: { risk: string; mitigation: string }[];
+  /** Information whose absence limits the analysis. */
+  missingInformation: string[];
+  priorities: StrategyPriority[];
+}
+
+export interface FinancialPlan {
+  /** estimated: assumptions were produced and computed · insufficient: not enough information to model. */
+  status: "estimated" | "insufficient";
+  /** Where the assumption values came from. */
+  basis: "ai-estimate" | "none";
+  currency: string;
+  assumptions: FinancialAssumptions | null;
+  results: FinancialResults | null;
+  limitations: string[];
+}
+
+export interface BusinessStrategy {
+  /** llm: written by the language model · template: assembled from the owner's answers only. */
+  source: "llm" | "template";
+  profile: BusinessProfile;
+  executive: ExecutiveStrategy;
+  financials: FinancialPlan;
+}
+
 /* ----------------------------- Package --------------------------------- */
 
 export interface BusinessPackage {
@@ -423,22 +457,54 @@ export interface BusinessPackage {
   salesFunnel: SalesFunnelStage[];
   growth: GrowthPhase[];
   launch: LaunchPlan;
+  /** Executive strategy, business profile and financial model. Absent on packages generated before it existed. */
+  strategy?: BusinessStrategy;
   /** Metadata describing how the package was produced. */
   meta: {
     engine: "llm" | "deterministic" | "hybrid";
     /** Live search provider used for research (null when none configured). */
     searchProvider: string | null;
+    /**
+     * Resolved chat provider kind for this run (openai | ollama-local | …).
+     * Absent on older packages. Configuration presence ≠ proof every step used LLM.
+     */
+    llmProvider?: string | null;
+    /** Safe selection explanation (no secrets). Absent on older packages. */
+    llmSelectionReason?: string | null;
     durationMs: number;
     agentLog: AgentLogEntry[];
+    /** Identifies the generation run in server logs. Absent on older packages. */
+    runId?: string;
+    /**
+     * Truthful outcome for a structurally valid package. Absent on packages
+     * generated before quality assessment existed; derive with `packageQuality`.
+     */
+    quality?: {
+      outcome: "success" | "provisional" | "degraded";
+      /** Stable limitation codes for UI copy — never raw provider text. */
+      limitations: string[];
+    };
+    /**
+     * Sum of per-step catalog cost estimates when usage metadata was present.
+     * Always an estimate — never a billed invoice. Absent when no step reported cost.
+     */
+    estimatedCostUsd?: number;
   };
 }
 
 export interface AgentLogEntry {
   agent: string;
+  /** Stable agent key for quality classification; optional on historical packages. */
+  agentKey?: AgentKey;
   status: "ok" | "fallback" | "error";
   source: "llm" | "deterministic";
   durationMs: number;
   note?: string;
+  /** Model ID that handled this step when known. */
+  modelId?: string;
+  /** Catalog-estimated USD for this step when usage was returned. */
+  costUsd?: number;
+  costEstimated?: true;
 }
 
 /* --------------------------- Orchestration ----------------------------- */
@@ -453,6 +519,7 @@ export type AgentKey =
   | "email"
   | "whatsapp"
   | "pricing"
+  | "strategy"
   | "competitor"
   | "market"
   | "persona"
@@ -461,12 +528,20 @@ export type AgentKey =
   | "publisher";
 
 export interface OrchestrationEvent {
-  type: "agent-start" | "agent-complete" | "agent-error" | "progress" | "complete" | "error";
+  type: "created" | "agent-start" | "agent-complete" | "agent-error" | "progress" | "complete" | "error";
+  /** Id of the persisted business this generation writes to (on `created` and `error`). */
+  businessId?: string;
   agent?: AgentKey;
   label?: string;
   message?: string;
   progress?: number;
   source?: "llm" | "deterministic";
+  /**
+   * True on `agent-complete` when the step kept usable output but the model timed out,
+   * failed validation, or otherwise did not produce a clean LLM result (deterministic
+   * fallback / recovery). The UI must not present these as full AI successes.
+   */
+  fallback?: boolean;
   /** Present only on the terminal "complete" event. */
   result?: BusinessPackage;
 }

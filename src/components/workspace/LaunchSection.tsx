@@ -1,107 +1,111 @@
 "use client";
 
 import * as React from "react";
-import { Check, Rocket, Calendar, CheckCircle2 } from "lucide-react";
-import type { LaunchPlan } from "@/lib/types";
-import { Card, CardBody, SectionTitle, Badge } from "@/components/ui/primitives";
+import { Check } from "lucide-react";
+import type { BusinessPackage } from "@/lib/types";
+import { Card, CardBody, CardHeader, ProgressBar } from "@/components/ui/primitives";
+import { launchProgress } from "@/lib/client/insights";
+import { useFormat, useT } from "@/i18n/client";
 import { cn } from "@/lib/utils";
 
-export function LaunchSection({
-  launch,
-  onToggle,
-}: {
-  launch: LaunchPlan;
-  onToggle?: (index: number) => void;
-}) {
-  const doneCount = launch.checklist.filter((c) => c.done).length;
-  const total = launch.checklist.length || 1;
-  const pct = Math.round((doneCount / total) * 100);
+export function LaunchSection({ pkg, onToggle }: { pkg: BusinessPackage; onToggle?: (index: number) => void }) {
+  const t = useT();
+  const format = useFormat();
+  const launch = pkg.launch;
+  const lp = launchProgress(pkg);
+
+  const stages = [
+    { id: "before", title: t("launch.before"), items: launch.prelaunch.map((p) => ({ main: p.task, sub: p.timing })) },
+    { id: "day", title: t("launch.launchDay"), items: launch.launchDay.map((p) => ({ main: p.task, sub: p.channel })) },
+    { id: "after", title: t("launch.after"), items: launch.postlaunch.map((p) => ({ main: p.task, sub: p.timing })) },
+  ];
 
   return (
-    <div className="space-y-9">
-      <Card className="overflow-hidden">
-        <div className="bg-radial-brand p-7">
-          <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand text-white"><Rocket size={22} /></span>
-            <div>
-              <Badge tone="brand">Launch Agent</Badge>
-              <h2 className="mt-1.5 text-xl font-bold">Go-to-market launch plan</h2>
+    <div className="space-y-4">
+      <Card>
+        <div className="grid md:grid-cols-[minmax(0,1fr)_280px]">
+          <CardBody>
+            <h2 className="text-[15px] font-semibold text-ink">{t("launch.planTitle")}</h2>
+            <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-ink-muted">{launch.summary}</p>
+          </CardBody>
+          <div className="border-t border-border bg-surface-2 p-5 md:border-l md:border-t-0">
+            <div className="flex items-baseline justify-between">
+              <span className="text-[12.5px] text-ink-subtle">{t("launch.readiness")}</span>
+              <span className="text-sm font-medium tabular-nums text-ink">{format.percent(lp.pct)}</span>
             </div>
+            <ProgressBar value={lp.pct} label={t("launch.readinessAria")} className="mt-2" />
+            <p className="mt-2 text-[12.5px] text-ink-subtle">{t("launch.itemsDone", { done: lp.done, total: lp.total })}</p>
           </div>
-          <p className="mt-4 max-w-3xl leading-relaxed text-ink-muted">{launch.summary}</p>
         </div>
       </Card>
 
-      {/* Checklist */}
-      <section>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <SectionTitle title="Launch readiness checklist" />
-          <div className="flex items-center gap-3">
-            <div className="h-2 w-40 overflow-hidden rounded-full bg-surface-2">
-              <div className="h-full rounded-full bg-gradient-to-r from-brand to-accent transition-all" style={{ width: `${pct}%` }} />
-            </div>
-            <span className="text-sm font-semibold">{doneCount}/{total}</span>
-          </div>
-        </div>
-        <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
-          {launch.checklist.map((c, i) => (
-            <button
-              key={i}
-              onClick={() => onToggle?.(i)}
-              disabled={!onToggle}
-              className={cn(
-                "flex items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm transition",
-                c.done ? "border-success/30 bg-success/5" : "border-border bg-surface hover:border-border-strong",
-                !onToggle && "cursor-default",
+      <Card>
+        <CardHeader title={t("launch.checklist")} description={onToggle ? t("launch.savedNote") : undefined} />
+        <ul className="divide-y divide-border">
+          {launch.checklist.map((c, i) => {
+            const id = `launch-item-${i}`;
+            return (
+              <li key={i}>
+                <label
+                  htmlFor={id}
+                  className={cn(
+                    "flex items-start gap-3 px-5 py-3 text-sm transition-colors",
+                    onToggle ? "cursor-pointer hover:bg-surface-2" : "cursor-default",
+                  )}
+                >
+                  <input
+                    id={id}
+                    type="checkbox"
+                    checked={c.done}
+                    disabled={!onToggle}
+                    onChange={() => onToggle?.(i)}
+                    className="peer sr-only"
+                  />
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand",
+                      c.done ? "border-ink bg-ink text-on-primary" : "border-border-strong bg-surface",
+                    )}
+                  >
+                    {c.done && <Check size={11} strokeWidth={3} />}
+                  </span>
+                  <span className={cn("leading-snug", c.done ? "text-ink-subtle line-through" : "text-ink")}>{c.item}</span>
+                </label>
+              </li>
+            );
+          })}
+        </ul>
+      </Card>
+
+      <Card>
+        <CardHeader title={t("launch.timeline")} />
+        <ol className="grid divide-y divide-border lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+          {stages.map((stage, si) => (
+            <li key={stage.id} className="p-5">
+              <div className="flex items-center gap-2">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-border-strong text-[11px] tabular-nums text-ink-muted">
+                  {si + 1}
+                </span>
+                <h3 className="text-sm font-medium text-ink">{stage.title}</h3>
+              </div>
+              {stage.items.length === 0 ? (
+                <p className="mt-3 text-[13px] text-ink-subtle">{t("launch.noTasks")}</p>
+              ) : (
+                <ol className="mt-4 space-y-3 border-l border-border pl-4">
+                  {stage.items.map((it, i) => (
+                    <li key={i} className="relative">
+                      <span aria-hidden className="absolute -left-[19.5px] top-[7px] h-1.5 w-1.5 rounded-full bg-ink-subtle" />
+                      <div className="text-[13px] leading-snug text-ink">{it.main}</div>
+                      <div className="mt-0.5 text-[12px] text-ink-subtle">{it.sub}</div>
+                    </li>
+                  ))}
+                </ol>
               )}
-            >
-              <span className={cn("flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition", c.done ? "border-success bg-success text-white" : "border-border-strong")}>
-                {c.done && <Check size={13} />}
-              </span>
-              <span className={cn(c.done && "text-ink-muted line-through")}>{c.item}</span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <div className="grid gap-5 lg:grid-cols-3">
-        <TimelineCard title="Pre-launch" icon={<Calendar size={16} />} items={launch.prelaunch.map((p) => ({ main: p.task, sub: p.timing }))} tone="brand" />
-        <TimelineCard title="Launch day" icon={<Rocket size={16} />} items={launch.launchDay.map((p) => ({ main: p.task, sub: p.channel }))} tone="accent" />
-        <TimelineCard title="Post-launch" icon={<CheckCircle2 size={16} />} items={launch.postlaunch.map((p) => ({ main: p.task, sub: p.timing }))} tone="success" />
-      </div>
-    </div>
-  );
-}
-
-function TimelineCard({
-  title,
-  icon,
-  items,
-  tone,
-}: {
-  title: string;
-  icon: React.ReactNode;
-  items: { main: string; sub: string }[];
-  tone: "brand" | "accent" | "success";
-}) {
-  return (
-    <Card>
-      <CardBody>
-        <div className="flex items-center gap-2">
-          <span className={cn("flex h-8 w-8 items-center justify-center rounded-lg", tone === "brand" ? "bg-brand-soft text-brand-2" : tone === "accent" ? "bg-accent/15 text-accent" : "bg-success/15 text-success")}>{icon}</span>
-          <h3 className="font-semibold">{title}</h3>
-        </div>
-        <ol className="mt-4 space-y-3">
-          {items.map((it, i) => (
-            <li key={i} className="relative border-l border-border pl-4">
-              <span className="absolute -left-[3px] top-1.5 h-1.5 w-1.5 rounded-full bg-brand" />
-              <div className="text-[13px] font-medium leading-snug">{it.main}</div>
-              <div className="text-[11px] text-ink-subtle">{it.sub}</div>
             </li>
           ))}
         </ol>
-      </CardBody>
-    </Card>
+      </Card>
+    </div>
   );
 }

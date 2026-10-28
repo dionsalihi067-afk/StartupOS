@@ -1,162 +1,127 @@
 "use client";
 
 import * as React from "react";
-import { Check, Sparkles } from "lucide-react";
-import type { PricingStrategy } from "@/lib/types";
-import { Card, CardBody, SectionTitle, Badge } from "@/components/ui/primitives";
+import { Check } from "lucide-react";
+import type { BusinessPackage, PricingGrounding } from "@/lib/types";
+import { Badge, Card, CardBody, CardHeader } from "@/components/ui/primitives";
+import { useT } from "@/i18n/client";
 import { cn } from "@/lib/utils";
 
-export function PricingSection({ pricing }: { pricing: PricingStrategy }) {
+export function PricingSection({ pkg }: { pkg: BusinessPackage }) {
+  const t = useT();
+  const pricing = pkg.pricing;
   return (
-    <div className="space-y-9">
+    <div className="space-y-4">
       <Card>
+        <CardHeader title={t("pricing.model")} description={pricing.model} />
         <CardBody>
-          <div className="flex flex-wrap items-center gap-3">
-            <Badge tone="brand">Pricing Agent</Badge>
-            <span className="text-sm font-semibold">{pricing.model}</span>
-          </div>
-          <p className="mt-3 leading-relaxed text-ink-muted">{pricing.rationale}</p>
-          {pricing.revenueModel && (
-            <div className="mt-4 rounded-xl border border-border bg-bg-elevated p-4">
-              <div className="text-[12px] font-semibold uppercase tracking-wide text-brand-2">Revenue model</div>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{pricing.revenueModel}</p>
-            </div>
-          )}
+          <p className="max-w-3xl text-sm leading-relaxed text-ink-muted">{pricing.rationale}</p>
         </CardBody>
       </Card>
 
-      <section>
-        <SectionTitle title="Pricing tiers" description="Ready to drop into your website and checkout." />
-        <div className="mt-6 grid gap-5 md:grid-cols-3">
-          {pricing.tiers.map((tier) => (
-            <div
-              key={tier.name}
-              className={cn(
-                "relative flex flex-col rounded-2xl border p-6 transition",
-                tier.highlighted ? "border-brand bg-brand-soft/40 shadow-glow" : "border-border bg-surface",
-              )}
-            >
-              {tier.highlighted && (
-                <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-brand px-3 py-1 text-[11px] font-semibold text-white">
-                  <Sparkles size={12} /> Most popular
-                </span>
-              )}
-              <div className="text-sm font-semibold text-ink-muted">{tier.name}</div>
-              <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-bold tracking-tight">{tier.price}</span>
-                {tier.cadence && <span className="text-sm text-ink-subtle">{tier.cadence}</span>}
-              </div>
-              <p className="mt-1.5 text-[13px] text-ink-muted">{tier.tagline}</p>
-              <ul className="mt-5 flex-1 space-y-2.5">
-                {tier.features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm">
-                    <Check size={16} className={cn("mt-0.5 shrink-0", tier.highlighted ? "text-brand-2" : "text-success")} />
-                    <span className="text-ink-muted">{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <button
-                className={cn(
-                  "mt-6 h-11 rounded-xl text-sm font-semibold transition",
-                  tier.highlighted ? "bg-brand text-white hover:bg-brand-2" : "border border-border-strong text-ink hover:border-brand",
-                )}
-              >
-                {tier.cta}
-              </button>
+      <div className={cn("grid gap-4", pricing.tiers.length >= 3 ? "md:grid-cols-3" : "md:grid-cols-2")}>
+        {pricing.tiers.map((tier) => (
+          <div
+            key={tier.name}
+            className={cn(
+              "flex flex-col rounded-[10px] border bg-surface p-6 shadow-[var(--shadow-card)]",
+              tier.highlighted ? "border-ink ring-1 ring-ink" : "border-border",
+            )}
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-ink">{tier.name}</h3>
+              {tier.highlighted && <Badge tone="accent">{t("pricing.recommended")}</Badge>}
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardBody>
-            <SectionTitle title="Pricing psychology" />
-            <ul className="mt-4 space-y-2.5">
-              {pricing.psychology.map((p, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-ink-muted">
-                  <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/20 text-[10px] text-accent">{i + 1}</span>
-                  {p}
+            <div className="mt-3 flex items-baseline gap-1">
+              <span className="text-3xl font-semibold tracking-tight text-ink">{tier.price}</span>
+              {tier.cadence && <span className="text-sm text-ink-subtle">{tier.cadence}</span>}
+            </div>
+            <p className="mt-1.5 text-[13px] text-ink-muted">{tier.tagline}</p>
+            <ul className="mt-5 flex-1 space-y-2 border-t border-border pt-5">
+              {tier.features.map((f, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-[13px] text-ink-muted">
+                  <Check size={15} className="mt-0.5 shrink-0 text-ink" aria-hidden />
+                  {f}
                 </li>
               ))}
             </ul>
-          </CardBody>
-        </Card>
-        <Card>
-          <CardBody>
-            <SectionTitle title="Upsell & revenue levers" />
-            <div className="mt-4 flex flex-wrap gap-2">
-              {pricing.upsells.map((u, i) => (
-                <Badge key={i} tone="brand">{u}</Badge>
-              ))}
+            <div className="mt-5 rounded-md bg-surface-2 px-3 py-2 text-[12.5px] text-ink-muted">
+              {t("pricing.suggestedCta")} <span className="font-medium text-ink">{tier.cta}</span>
             </div>
-          </CardBody>
-        </Card>
-      </section>
-
-      {pricing.subscriptionOptions.length > 0 && (
-        <section>
-          <SectionTitle title="Subscription & billing options" description="Recurring options to smooth cash flow and lift retention." />
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {pricing.subscriptionOptions.map((o, i) => (
-              <Card key={i}>
-                <CardBody>
-                  <div className="text-sm font-semibold">{o.name}</div>
-                  <div className="mt-1.5 flex items-baseline gap-1">
-                    <span className="text-2xl font-bold tracking-tight">{o.price}</span>
-                    {o.cadence && <span className="text-[13px] text-ink-subtle">{o.cadence}</span>}
-                  </div>
-                  <p className="mt-1.5 text-[13px] text-ink-muted">{o.note}</p>
-                </CardBody>
-              </Card>
-            ))}
           </div>
-        </section>
-      )}
+        ))}
+      </div>
 
-      <section>
-        <SectionTitle title="Profit projection" description="A transparent model from your budget and pricing — an estimate, not a guarantee." />
-        <Card className="mt-5">
-          <CardBody>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <ProjectionStat label="Monthly customers" value={String(pricing.profitEstimation.monthlyCustomers)} />
-              <ProjectionStat label="Avg. revenue / customer" value={pricing.profitEstimation.avgRevenuePerCustomer} />
-              <ProjectionStat label="Est. monthly revenue" value={pricing.profitEstimation.estimatedMonthlyRevenue} />
-              <ProjectionStat label="Est. monthly costs" value={pricing.profitEstimation.estimatedMonthlyCosts} />
-            </div>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl border border-success/30 bg-success/5 p-4">
-                <div className="text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">Est. monthly profit</div>
-                <div className="mt-1 text-2xl font-bold text-success">{pricing.profitEstimation.estimatedMonthlyProfit}</div>
-              </div>
-              <div className="rounded-xl border border-border bg-bg-elevated p-4">
-                <div className="text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">Estimated margin</div>
-                <div className="mt-1 text-2xl font-bold text-accent">{pricing.profitEstimation.margin}</div>
-              </div>
-            </div>
-            <div className="mt-4">
-              <div className="text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">Assumptions</div>
-              <ul className="mt-2 space-y-1.5">
-                {pricing.profitEstimation.assumptions.map((a, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[13px] text-ink-muted">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-ink-subtle" />
-                    {a}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CardBody>
-        </Card>
-      </section>
+      <div className="grid gap-4 lg:grid-cols-2">
+        {pricing.psychology.length > 0 && (
+          <Card>
+            <CardHeader title={t("pricing.tactics.title")} description={t("pricing.tactics.description")} />
+            <ol className="divide-y divide-border">
+              {pricing.psychology.map((p, i) => (
+                <li key={i} className="flex gap-3 px-5 py-3 text-[13px] leading-relaxed text-ink">
+                  <span className="w-4 shrink-0 tabular-nums text-ink-subtle">{i + 1}</span>
+                  {p}
+                </li>
+              ))}
+            </ol>
+          </Card>
+        )}
+        {pricing.upsells.length > 0 && (
+          <Card>
+            <CardHeader title={t("pricing.upsells.title")} description={t("pricing.upsells.description")} />
+            <ul className="divide-y divide-border">
+              {pricing.upsells.map((u, i) => (
+                <li key={i} className="px-5 py-3 text-[13px] leading-relaxed text-ink">
+                  {u}
+                </li>
+              ))}
+            </ul>
+          </Card>
+        )}
+      </div>
+
+      {pricing.grounding && <PricingGroundingCard grounding={pricing.grounding} />}
+
+      <p className="text-[12.5px] text-ink-subtle">{t("pricing.disclaimer")}</p>
     </div>
   );
 }
 
-function ProjectionStat({ label, value }: { label: string; value: string }) {
+function PricingGroundingCard({ grounding }: { grounding: PricingGrounding }) {
+  const t = useT();
+  const lists = [
+    { key: "signals", title: t("pricing.grounding.signals"), items: grounding.signals },
+    { key: "limitations", title: t("pricing.grounding.limitations"), items: grounding.limitations },
+  ].filter((l) => l.items.length > 0);
   return (
-    <div className="rounded-xl border border-border bg-bg-elevated p-4">
-      <div className="text-[12px] font-semibold uppercase tracking-wide text-ink-subtle">{label}</div>
-      <div className="mt-1 text-xl font-bold tracking-tight">{value}</div>
-    </div>
+    <Card>
+      <CardHeader title={t("pricing.grounding.title")} description={t(`pricing.grounding.status.${grounding.evidence}`)} />
+      <CardBody className="space-y-4">
+        {grounding.observations.length > 0 && (
+          <div>
+            <div className="text-[12.5px] font-medium text-ink">{t("pricing.grounding.observed")}</div>
+            <ul className="mt-1.5 space-y-1">
+              {grounding.observations.map((o, i) => (
+                <li key={i} className="text-[13px] text-ink-muted">
+                  <span className="font-medium text-ink">{o.price}</span> · {o.competitor} <span className="text-ink-subtle">({o.domain})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {lists.map((l) => (
+          <div key={l.key}>
+            <div className="text-[12.5px] font-medium text-ink">{l.title}</div>
+            <ul className="mt-1.5 list-disc space-y-1 pl-5">
+              {l.items.map((item, i) => (
+                <li key={i} className="text-[13px] leading-relaxed text-ink-muted">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </CardBody>
+    </Card>
   );
 }

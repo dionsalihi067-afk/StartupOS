@@ -1,10 +1,12 @@
-import type { Brand, EmailCampaign, EmailMessage, EmailType } from "@/lib/types";
-import { nonEmpty, ensureArray } from "@/lib/utils";
+import type { Brand, EmailCampaign, EmailMessage } from "@/lib/types";
+import { nonEmpty, ensureArray, midSentence } from "@/lib/utils";
 import { generateJson } from "@/lib/ai/client";
 import { emailLlmSchema } from "@/lib/schemas";
 import { getSwatch, readableTextColor } from "@/lib/engine/color";
 import { escapeXml } from "@/lib/utils";
-import type { AgentOutput, GenerationContext } from "@/lib/agents/context";
+import { fallbackNote, withBrief, withLlmTelemetry, withResearch, type AgentOutput, type GenerationContext } from "@/lib/agents/context";
+import { audiencePhrase, copyBrief, type CopyBrief } from "@/lib/agents/copy-brief";
+import { languageInstruction } from "@/lib/agents/language";
 
 function renderEmailHtml(brand: Brand, subject: string, paragraphs: string[], cta: string): string {
   const primary = getSwatch(brand.palette, "primary");
@@ -40,76 +42,91 @@ function renderEmailHtml(brand: Brand, subject: string, paragraphs: string[], ct
 </body></html>`;
 }
 
-const EMAIL_TYPES: EmailType[] = ["welcome", "follow-up", "sales", "re-engagement"];
+function deterministicSequence(
+  ctx: GenerationContext,
+  brand: Brand,
+  brief: CopyBrief,
+): { name: string; goal: string; raw: { day: number; subject: string; preview: string; goal: string; paragraphs: string[]; cta: string }[] } {
+  const aud = midSentence(audiencePhrase(brief) || "you");
+  const offering = brief.offering;
+  const place = brief.location ? ` in ${brief.location}` : "";
+  const problemLine = brief.problem
+    ? `We started ${brand.name} because too many people ${midSentence(brief.problem)}.`
+    : `${brand.description.split(".")[0]}.`;
+  const diffLine = brief.differentiator
+    ? brief.differentiator.replace(/\.$/, "") + "."
+    : ctx.industry.valueProps[0]
+      ? `${ctx.industry.valueProps[0]}.`
+      : `We keep the focus on ${offering}.`;
 
-function deterministicSequence(ctx: GenerationContext, brand: Brand): { name: string; goal: string; raw: { type: EmailType; day: number; subject: string; preview: string; goal: string; paragraphs: string[]; cta: string }[] } {
-  const { input, industry } = ctx;
-  const aud = input.audience.toLowerCase();
+  const goal = brief.earlyStage
+    ? `Introduce ${offering} and invite early interest without inventing results.`
+    : `Help subscribers understand ${offering} and take a clear next step.`;
+
   return {
-    name: `${brand.name} Welcome & Nurture Sequence`,
-    goal: "Convert new subscribers into first-time customers within 7 days.",
+    name: `${brand.name} welcome sequence`,
+    goal,
     raw: [
       {
-        type: "welcome",
         day: 0,
-        subject: `Welcome to ${brand.name} 👋`,
-        preview: `We're so glad you're here. Here's what to expect.`,
+        subject: `Welcome to ${brand.name}`,
+        preview: `A short note about ${offering}.`,
         goal: "Welcome & set expectations",
         paragraphs: [
-          `Hi there — welcome to ${brand.name}!`,
-          `${brand.description.split(".")[0]}. We created ${brand.name} for ${aud} who want ${industry.valueProps[0]?.toLowerCase() ?? "something better"}.`,
-          `Over the next few days we'll show you exactly how we can help. For now, take a look around — we think you'll like what you find.`,
+          `Hi — thanks for joining ${brand.name}.`,
+          `${problemLine} We work with ${aud}${place}.`,
+          `Over the next few emails we will explain what ${offering} looks like and how to ask questions. No pressure and no invented offers.`,
         ],
-        cta: "Explore now",
+        cta: "Learn more",
       },
       {
-        type: "follow-up",
         day: 2,
-        subject: `The ${brand.name} difference`,
-        preview: `Why ${input.location} is choosing us.`,
-        goal: "Build trust & differentiate",
+        subject: `What ${brand.name} focuses on`,
+        preview: `How we approach ${offering}.`,
+        goal: "Clarify the offer",
         paragraphs: [
-          `Choosing the right ${industry.label.toLowerCase()} option isn't easy. So here's what makes ${brand.name} different.`,
-          `${industry.valueProps[1] ?? "We obsess over quality"}. ${industry.valueProps[2] ?? "And we treat every customer like family."}`,
-          `That's not marketing speak — it's how we operate every single day.`,
+          `Here is the short version of what we do: ${offering}.`,
+          diffLine,
+          `If something is unclear, reply to this email — a real person will answer.`,
         ],
-        cta: "See how it works",
+        cta: "See details",
       },
       {
-        type: "sales",
         day: 4,
-        subject: `A little something for you`,
-        preview: `An exclusive offer to get you started.`,
-        goal: "Drive first conversion",
-        paragraphs: [
-          `Ready to experience ${brand.name} for yourself?`,
-          `As a welcome gift, we'd love to make your first step easy. Use this as your nudge to finally give us a try.`,
-          `Spots/availability can be limited, so don't wait too long.`,
-        ],
-        cta: "Claim your offer",
+        subject: brief.earlyStage ? `Want to help shape ${brand.name}?` : `A simple next step with ${brand.name}`,
+        preview: brief.earlyStage ? `Share what you need from ${offering}.` : `How to get in touch about ${offering}.`,
+        goal: brief.earlyStage ? "Invite early feedback" : "Invite a first conversation",
+        paragraphs: brief.earlyStage
+          ? [
+              `${brand.name} is still early. Your feedback helps us shape ${offering}.`,
+              `If you are in our audience (${aud}), reply with what would make this useful for you.`,
+            ]
+          : [
+              `If ${offering} sounds relevant, reply with what you need and we will explain the next step.`,
+              `We will not invent prices or promotions in email — those stay with the offer you already defined.`,
+            ],
+        cta: brief.earlyStage ? "Share feedback" : "Get in touch",
       },
       {
-        type: "re-engagement",
         day: 7,
-        subject: `Still thinking about it?`,
-        preview: `No pressure — just here when you're ready.`,
-        goal: "Re-engage & overcome objections",
+        subject: `Still thinking it over?`,
+        preview: `No urgency — we are here when you are ready.`,
+        goal: "Stay available without false urgency",
         paragraphs: [
-          `We get it — trying something new takes a leap.`,
-          `If you have questions, just reply to this email. A real person (not a bot) will help you out.`,
-          `Whenever you're ready, ${brand.name} will be right here for you.`,
+          `No rush. Comparing options for ${offering} takes time.`,
+          `When you have a question, reply to this email. ${brand.name} will be here.`,
         ],
-        cta: "Get in touch",
+        cta: "Ask a question",
       },
     ],
   };
 }
 
 export async function runEmailAgent(ctx: GenerationContext, brand: Brand): Promise<AgentOutput<EmailCampaign>> {
-  const det = deterministicSequence(ctx, brand);
+  const brief = copyBrief(ctx);
+  const det = deterministicSequence(ctx, brand, brief);
   const buildFromRaw = (raw: typeof det.raw): EmailMessage[] =>
     raw.map((m) => ({
-      type: m.type,
       day: m.day,
       subject: m.subject,
       preview: m.preview,
@@ -122,25 +139,47 @@ export async function runEmailAgent(ctx: GenerationContext, brand: Brand): Promi
     return { data: { name: det.name, goal: det.goal, sequence: buildFromRaw(det.raw) }, source: "deterministic" };
   }
 
-  const res = await generateJson<unknown>({
-    system: "You are an email marketing expert. Write a high-converting, ready-to-send sequence in the brand's voice. No lorem ipsum, no placeholders.",
-    user: `Return JSON: name, goal, sequence of EXACTLY 4 emails in this order — (1) Welcome email (day 0), (2) Follow-up email (day 2), (3) Sales email with a clear offer (day 4), (4) Re-engagement email (day 7). Each: {day, subject (with optional emoji), preview, goal, body (2-3 short paragraphs separated by \\n\\n)}.
+  const res = await generateJson({
+    system:
+      "You are an email marketing expert. Write a welcome/nurture sequence in the brand's voice for this specific business. Never invent customer numbers, reviews, testimonials, results, discounts, gifts, offers, scarcity, deadlines, prices or locations the owner has not stated. Early-stage businesses must not claim an established track record.",
+    user: withResearch(
+      ctx,
+      "email",
+      withBrief(
+        ctx,
+        `${languageInstruction(ctx)}
+Return JSON: name, goal, sequence[4-5 of {day (0,2,4,7...), subject (with optional emoji), preview, goal, body (2-3 short paragraphs separated by \\n\\n)}. Each body must be complete and scannable with one clear CTA implied in the last paragraph.
 Brand: ${brand.name} — "${brand.slogan}"
 Voice: ${brand.voice.join(", ")}
 Business: ${ctx.input.idea}
-Audience: ${ctx.input.audience}`,
+Offering: ${brief.offering}
+Audience: ${ctx.input.audience}
+Location: ${ctx.input.location || "not provided"}
+Stage: ${brief.stage ?? "not provided"}`,
+      ),
+    ),
+    task: "creative",
     temperature: 0.8,
-    maxTokens: 1900,
+    maxTokens: 1800,
+    timeoutMs: 90_000,
+    schema: emailLlmSchema,
   });
 
+  // Defense in depth for mocks / edge payloads that skip client-side schema.
   const parsed = emailLlmSchema.safeParse(res.data);
   if (!res.data || !parsed.success) {
-    return { data: { name: det.name, goal: det.goal, sequence: buildFromRaw(det.raw) }, source: "deterministic", note: res.note };
+    return withLlmTelemetry(
+      { data: { name: det.name, goal: det.goal, sequence: buildFromRaw(det.raw) }, source: "deterministic", note: fallbackNote(res.note) },
+      res,
+    );
   }
   const d = parsed.data;
   const seq = ensureArray(d.sequence, []);
   if (seq.length === 0) {
-    return { data: { name: det.name, goal: det.goal, sequence: buildFromRaw(det.raw) }, source: "deterministic", note: "empty-sequence" };
+    return withLlmTelemetry(
+      { data: { name: det.name, goal: det.goal, sequence: buildFromRaw(det.raw) }, source: "deterministic", note: "empty-sequence" },
+      res,
+    );
   }
 
   const messages: EmailMessage[] = seq.map((m, i) => {
@@ -148,7 +187,6 @@ Audience: ${ctx.input.audience}`,
     const paragraphs = nonEmpty(m.body, det.raw[i]?.paragraphs.join("\n\n") ?? "").split(/\n\n+/).filter(Boolean);
     const cta = det.raw[i]?.cta ?? "Learn more";
     return {
-      type: det.raw[i]?.type ?? EMAIL_TYPES[i] ?? "follow-up",
       day: typeof m.day === "number" ? m.day : det.raw[i]?.day ?? i * 2,
       subject,
       preview: nonEmpty(m.preview, det.raw[i]?.preview ?? ""),
@@ -158,5 +196,8 @@ Audience: ${ctx.input.audience}`,
     };
   });
 
-  return { data: { name: nonEmpty(d.name, det.name), goal: nonEmpty(d.goal, det.goal), sequence: messages }, source: "llm" };
+  return withLlmTelemetry(
+    { data: { name: nonEmpty(d.name, det.name), goal: nonEmpty(d.goal, det.goal), sequence: messages }, source: "llm" },
+    res,
+  );
 }

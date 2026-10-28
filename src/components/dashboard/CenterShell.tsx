@@ -1,56 +1,69 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { BusinessPackage } from "@/lib/types";
-import { useProjects } from "@/lib/client/store";
+import { loadBusiness, refreshBusinesses, useBusiness, useBusinesses } from "@/lib/client/businesses";
 import { PageHeader } from "@/components/dashboard/PageHeader";
-import { EmptyState } from "@/components/dashboard/EmptyState";
-import { Button } from "@/components/ui/primitives";
+import { EmptyState, LoadError } from "@/components/dashboard/EmptyState";
+import { PageSkeleton } from "@/components/ui/primitives";
+import { useT } from "@/i18n/client";
+import type { MessageKey } from "@/i18n/messages";
 
+/** Page frame for a business section that renders the active business. */
 export function CenterShell({
-  title,
-  description,
+  titleKey,
+  descriptionKey,
+  meta,
+  actions,
   children,
 }: {
-  title: string;
-  description: string;
+  titleKey: MessageKey;
+  descriptionKey: MessageKey;
+  meta?: (pkg: BusinessPackage) => React.ReactNode;
+  actions?: (pkg: BusinessPackage) => React.ReactNode;
   children: (pkg: BusinessPackage) => React.ReactNode;
 }) {
-  const { active } = useProjects();
-  const [ready, setReady] = React.useState(false);
-  React.useEffect(() => setReady(true), []);
+  const { active, ready, error } = useBusinesses();
+  const detail = useBusiness(active?.id ?? null);
+  const t = useT();
+  const title = t(titleKey);
+  const description = t(descriptionKey);
+
+  if (error) {
+    return (
+      <div>
+        <PageHeader title={title} description={description} />
+        <LoadError onRetry={() => void refreshBusinesses()} />
+      </div>
+    );
+  }
+
+  if (!ready) return <PageSkeleton label={t("common.loadingLabel")} />;
+
+  if (!active) {
+    return (
+      <div>
+        <PageHeader title={title} description={description} />
+        <EmptyState description={t("emptyState.sectionNeedsBusiness")} />
+      </div>
+    );
+  }
+
+  const pkg = detail.business?.package;
+  if (detail.status === "loading") return <PageSkeleton label={t("common.loadingLabel")} />;
+  if (!pkg) {
+    return (
+      <div>
+        <PageHeader title={title} description={description} />
+        <LoadError onRetry={() => void (detail.status === "error" ? loadBusiness(active.id) : refreshBusinesses())} />
+      </div>
+    );
+  }
 
   return (
     <div>
-      <PageHeader
-        title={title}
-        description={description}
-        actions={
-          active ? (
-            <Link href={`/dashboard/projects/${active.id}`}>
-              <Button variant="secondary">
-                Full workspace <ArrowRight size={15} />
-              </Button>
-            </Link>
-          ) : undefined
-        }
-      />
-      {!ready ? (
-        <div className="space-y-4">
-          <div className="skeleton h-40 w-full rounded-2xl" />
-          <div className="grid gap-4 sm:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="skeleton h-48 rounded-2xl" />
-            ))}
-          </div>
-        </div>
-      ) : active ? (
-        children(active)
-      ) : (
-        <EmptyState />
-      )}
+      <PageHeader title={title} description={description} meta={meta?.(pkg)} actions={actions?.(pkg)} />
+      {children(pkg)}
     </div>
   );
 }

@@ -1,0 +1,4 @@
+ALTER TABLE "generated_asset" DROP CONSTRAINT "generated_asset_kind_check";--> statement-breakpoint
+ALTER TABLE "generated_asset" DROP CONSTRAINT "generated_asset_content_type_check";--> statement-breakpoint
+ALTER TABLE "generated_asset" ADD CONSTRAINT "generated_asset_kind_check" CHECK ("generated_asset"."kind" in ('logo', 'icon', 'photo'));--> statement-breakpoint
+ALTER TABLE "generated_asset" ADD CONSTRAINT "generated_asset_content_type_check" CHECK ("generated_asset"."content_type" = 'image/png' or ("generated_asset"."kind" = 'photo' and "generated_asset"."content_type" in ('image/jpeg', 'image/webp')));

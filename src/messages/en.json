@@ -1,0 +1,1579 @@
+{
+  "meta": {
+    "title": "StartupOS: the operating system for building a business",
+    "titleTemplate": "%s · StartupOS",
+    "description": "StartupOS turns a business idea into an organized workspace: brand, website, marketing, competitor research, pricing, growth and launch planning.",
+    "ogDescription": "Plan, build and launch your business from one workspace."
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "cancel": "Cancel",
+    "close": "Close",
+    "continue": "Continue",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyFailed": "Copy failed",
+    "copyField": "Copy {field}",
+    "download": "Download",
+    "downloadFailed": "Download failed",
+    "exportJson": "Export JSON",
+    "open": "Open",
+    "save": "Save",
+    "loading": "Loading…",
+    "loadingLabel": "Loading",
+    "tryAgain": "Try again",
+    "optional": "Optional",
+    "none": "None",
+    "notAvailable": "(not available)",
+    "opensInNewTab": "(opens in a new tab)",
+    "productHome": "StartupOS home"
+  },
+  "language": {
+    "label": "Language",
+    "switcherLabel": "Interface language",
+    "settingsDescription": "The language of the StartupOS interface. Generated business content is not translated.",
+    "names": { "sq": "Albanian", "en": "English" }
+  },
+  "navigation": {
+    "home": "Home",
+    "allBusinesses": "All businesses",
+    "newBusiness": "New business",
+    "settings": "Settings",
+    "workspace": "Workspace",
+    "overview": "Overview",
+    "strategy": "Strategy",
+    "brand": "Brand",
+    "website": "Website",
+    "marketing": "Marketing",
+    "competitors": "Competitors",
+    "pricing": "Pricing",
+    "growth": "Growth",
+    "launch": "Launch",
+    "groupBusiness": "Business",
+    "groupWorkspace": "Workspace",
+    "mainNavigation": "Main navigation",
+    "sections": "Sections",
+    "openNavigation": "Open navigation",
+    "closeNavigation": "Close navigation",
+    "breadcrumb": "Breadcrumb"
+  },
+  "switcher": { "createFirst": "Create your first business", "switchBusiness": "Switch business", "businesses": "Businesses" },
+  "status": {
+    "launchReady": "Launch ready",
+    "inProgress": "In progress",
+    "planning": "Planning",
+    "ready": "Ready",
+    "missing": "Missing",
+    "complete": "Complete",
+    "available": "Available",
+    "notConfigured": "Not configured",
+    "unavailable": "Unavailable",
+    "noResults": "No results",
+    "failed": "Failed",
+    "generated": "Generated",
+    "configured": "Configured",
+    "connected": "Connected",
+    "active": "Active"
+  },
+  "industries": {
+    "food": "Food & Beverage",
+    "fitness": "Fitness & Wellness",
+    "beauty": "Beauty & Personal Care",
+    "tech": "Technology & SaaS",
+    "ecommerce": "E-commerce & Retail",
+    "services": "Professional Services",
+    "education": "Education & Coaching",
+    "home": "Home & Trades",
+    "cosmetics": "Cosmetics & Skincare",
+    "automotive": "Automotive",
+    "travel": "Travel & Tourism",
+    "logistics": "Logistics & Delivery",
+    "agriculture": "Agriculture & Food Production",
+    "realEstate": "Real Estate",
+    "generic": "Modern Business"
+  },
+  "styles": {
+    "premiumLuxury": { "label": "Premium / Luxury", "hint": "Elegant, exclusive, refined" },
+    "modernMinimal": { "label": "Modern / Minimal", "hint": "Clean, calm, considered" },
+    "boldEnergetic": { "label": "Bold / Energetic", "hint": "Punchy, vibrant, high-impact" },
+    "friendlyApproachable": { "label": "Friendly / Approachable", "hint": "Warm, human, welcoming" },
+    "corporateProfessional": { "label": "Corporate / Professional", "hint": "Trustworthy, precise, established" },
+    "playfulCreative": { "label": "Playful / Creative", "hint": "Fun, imaginative, original" },
+    "techFuturistic": { "label": "Tech / Futuristic", "hint": "Sharp, innovative, forward" },
+    "organicNatural": { "label": "Organic / Natural", "hint": "Earthy, honest, grounded" }
+  },
+  "dates": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": { "one": "{count} day ago", "other": "{count} days ago" },
+    "createdToday": "Created today",
+    "createdYesterday": "Created yesterday",
+    "createdDaysAgo": { "one": "Created {count} day ago", "other": "Created {count} days ago" },
+    "createdOn": "Created {date}"
+  },
+  "provenance": {
+    "fact": { "label": "From search", "title": "Taken from a live web search result." },
+    "analysis": { "label": "Analysis", "title": "Interpretation of search results. Not independently verified." },
+    "recommendation": { "label": "Recommendation", "title": "Strategic suggestion. Not a factual claim." },
+    "ai": { "label": "Prepared", "title": "Prepared from your business inputs. Review before publishing." },
+    "template": { "label": "Standard plan", "title": "Assembled from your inputs with the standard planning template." },
+    "sample": { "label": "Sample", "title": "Placeholder content. Replace with real information before publishing." },
+    "estimate": { "label": "Estimate", "title": "Planning assumption, not measured data." }
+  },
+  "steps": {
+    "brand": "Brand identity",
+    "design": "Colors and typography",
+    "logo": "Logo",
+    "persona": "Target customer",
+    "competitor": "Competitor research",
+    "market": "Market research",
+    "pricing": "Pricing",
+    "strategy": "Strategy and financials",
+    "website": "Website content",
+    "seo": "SEO",
+    "marketing": "Marketing plan",
+    "email": "Email sequence",
+    "whatsapp": "WhatsApp flow",
+    "growth": "Growth plan",
+    "launch": "Launch plan",
+    "publisher": "Assembling the workspace"
+  },
+  "emptyState": {
+    "noBusinessTitle": "No business yet",
+    "noBusinessDescription": "Describe a business idea and StartupOS will draft its brand, website, marketing, pricing and launch plan.",
+    "createBusiness": "Create a business",
+    "sectionNeedsBusiness": "This section is created as part of a business. Create one to get started."
+  },
+  "home": {
+    "title": "Home",
+    "description": "Pick up where you left off.",
+    "yourBusinesses": "Your businesses",
+    "savedCount": { "one": "{count} saved to your account", "other": "{count} saved to your account" },
+    "viewAll": "View all",
+    "continueWorking": "Continue working",
+    "continueHint": "Your active business — open the workspace or jump to a section.",
+    "launchChecklist": "Launch checklist",
+    "checklistDone": "{done} of {total} done",
+    "checklistProgress": "Launch checklist progress",
+    "jumpToSection": "Jump to section",
+    "openWorkspace": "Open workspace",
+    "nextSteps": "Needs attention",
+    "nextStepsFor": "For {name}",
+    "allComplete": "Nothing outstanding. Every launch checklist item is complete."
+  },
+  "onboarding": {
+    "title": "Welcome to StartupOS",
+    "description": "Create your first business workspace to get started.",
+    "ctaTitle": "Start with one business idea",
+    "ctaBody": "Answer a short set of questions. StartupOS drafts brand, site, marketing and launch materials into one workspace.",
+    "howItWorks": "How it works",
+    "steps": {
+      "describe": {
+        "title": "Describe the business",
+        "body": "Your idea, who it is for, where it operates, a rough budget and the style you want."
+      },
+      "draft": {
+        "title": "StartupOS drafts the plan",
+        "body": "Brand, website content, marketing, pricing, a 90-day growth plan and a launch checklist. Progress is shown step by step."
+      },
+      "review": {
+        "title": "Review and refine",
+        "body": "Every section shows whether it was written by the AI model or the built-in templates, so you know what to check."
+      }
+    },
+    "createFirst": "Create your first business",
+    "whatYouGet": "What you get",
+    "outputs": {
+      "brand": "Brand identity: name, voice, palette and typography",
+      "website": "Website content and SEO structure for several pages",
+      "marketing": "Marketing strategy, social posts, ads, email and WhatsApp flows",
+      "research": "Competitor and market research (requires web search)",
+      "pricing": "Pricing tiers and rationale",
+      "growth": "90-day growth plan and launch checklist"
+    },
+    "storageNote": "Businesses are saved to your account, so you can open them from any device where you sign in."
+  },
+  "nextActions": {
+    "setupLogo": {
+      "title": "Set up logo generation",
+      "reason": "Logos are created with the business. Add an OpenAI key to include one next time."
+    },
+    "logoFailed": {
+      "title": "Logo was not generated",
+      "reason": "The image model could not create a logo. You can try again from the Brand section."
+    },
+    "connectSearch": { "title": "Connect web search", "reason": "Competitor and market research use a live search provider." },
+    "reviewResearch": { "title": "Review competitor research", "reason": "The last search did not return usable results." },
+    "checklistReason": "Next on your launch checklist"
+  },
+  "workspaceStatus": {
+    "brand": {
+      "label": "Brand identity",
+      "detail": { "one": "{count} color · {font}", "other": "{count} colors · {font}" }
+    },
+    "logo": {
+      "label": "Logo",
+      "generated": "Logo and app icon",
+      "unavailable": "Image generation is not set up",
+      "error": "The image model did not return a logo"
+    },
+    "website": {
+      "label": "Website",
+      "detail": { "one": "{count} page", "other": "{count} pages" }
+    },
+    "marketing": {
+      "label": "Marketing",
+      "posts": { "one": "{count} post", "other": "{count} posts" },
+      "ads": { "one": "{count} ad", "other": "{count} ads" },
+      "emails": { "one": "{count} email", "other": "{count} emails" }
+    },
+    "competitors": {
+      "label": "Competitor research",
+      "competitorCount": { "one": "{count} competitor", "other": "{count} competitors" },
+      "sourceCount": { "one": "{count} source", "other": "{count} sources" },
+      "notConfigured": "Web search is not set up",
+      "noResults": "Search returned nothing usable",
+      "error": "Search could not complete"
+    },
+    "market": { "label": "Market research", "notConfigured": "Web search is not set up", "noData": "No usable market data" },
+    "pricing": {
+      "label": "Pricing",
+      "detail": { "one": "{count} tier", "other": "{count} tiers" }
+    },
+    "growth": {
+      "label": "Growth plan",
+      "phases": { "one": "{count} phase", "other": "{count} phases" },
+      "tasks": { "one": "{count} task", "other": "{count} tasks" }
+    },
+    "launch": {
+      "label": "Launch checklist",
+      "allDone": "All items done",
+      "remaining": { "one": "{count} item remaining", "other": "{count} items remaining" }
+    }
+  },
+  "projects": {
+    "title": "All businesses",
+    "descriptionCount": { "one": "{count} business in your account.", "other": "{count} businesses in your account." },
+    "descriptionEmpty": "Businesses you create are saved here.",
+    "descriptionPartial": "Showing your {count} most recently updated businesses.",
+    "loadMore": "Show older businesses",
+    "loadMoreFailed": "Older businesses could not be loaded. Try again.",
+    "tableCaption": "Saved businesses",
+    "columns": {
+      "business": "Business",
+      "status": "Status",
+      "checklist": "Launch checklist",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "setActive": "Set active",
+    "deleteAria": "Delete {name}",
+    "mobileMeta": "{done}/{total} checklist · {date}",
+    "deleteTitle": "Delete {name}?",
+    "deleteDescription": "This will permanently remove this business and its generated workspace. This cannot be undone.",
+    "deleteConfirm": "Delete business"
+  },
+  "projectPage": {
+    "notFoundTitle": "Business not found",
+    "notFoundDescription": "It may have been deleted, or it belongs to a different account.",
+    "generatingTitle": "This business is still being created",
+    "generatingDescription": "Generation is running. This page updates automatically when it finishes.",
+    "failedTitle": "This business could not be created",
+    "removeFailed": "Remove it",
+    "startAgain": "Create it again"
+  },
+  "businessStatus": { "untitled": "Untitled business", "generating": "Creating…", "failed": "Failed" },
+  "businessErrors": {
+    "generationFailed": "Something interrupted generation. Your answers were not lost, so you can create the business again.",
+    "interrupted": "Generation stopped before it finished. You can remove this entry and create the business again.",
+    "invalidData": "The saved data for this business could not be read. You can remove it and create the business again."
+  },
+  "workspace": {
+    "tabsLabel": "Business sections",
+    "exportAria": "Export the full business package as JSON",
+    "incomplete": {
+      "title": "Some sections are incomplete",
+      "description": "These sections could not be fully generated and show reduced or template content: {sections}.",
+      "providerRefused": "The AI provider refused the requests (invalid API key, no access, or the account's spending limit or quota is used up). Fix this in the provider account before trying again.",
+      "action": "Try these again"
+    }
+  },
+  "strategy": {
+    "emptyTitle": "No strategy yet",
+    "emptyDescription": "This business was created before the strategy and financial model existed. Generate them from your saved business context.",
+    "generate": "Generate strategy",
+    "templateNotice": "The language model was unavailable, so this strategy only restates your own answers. Try generating it again.",
+    "executive": {
+      "title": "Executive strategy",
+      "description": "A plan for this specific business, based on your answers and any research found. Review it before acting on it.",
+      "problem": "Problem",
+      "solution": "Solution",
+      "valueProposition": "Value proposition",
+      "businessModel": "Business model",
+      "entryStrategy": "How to win the first customers",
+      "revenueStreams": "Revenue streams",
+      "segments": "Customer segments",
+      "differentiation": "Differentiation",
+      "assumptions": "Assumptions to validate",
+      "risks": "Risks and mitigations",
+      "missingInformation": "Information still missing"
+    },
+    "profile": {
+      "title": "How we understood your business",
+      "description": "Every plan in this workspace uses this reading. Each fact shows where it came from."
+    },
+    "facts": {
+      "modelKind": "Business model",
+      "industry": "Industry",
+      "market": "Market",
+      "customers": "Customers",
+      "customerType": "Customer type",
+      "stage": "Stage",
+      "budget": "Budget",
+      "salesChannels": "Sales channels",
+      "revenueModel": "Revenue model",
+      "priceRange": "Price range",
+      "differentiator": "Differentiator"
+    },
+    "basis": {
+      "provided": "You said",
+      "inferred": "Inferred",
+      "assumed": "Assumed",
+      "unavailable": "Not provided"
+    },
+    "models": {
+      "product": "Physical products",
+      "saas": "Software / SaaS",
+      "localService": "Local service",
+      "professionalService": "Professional service",
+      "foodVenue": "Food and drink venue",
+      "marketplace": "Marketplace",
+      "education": "Education and training",
+      "general": "Not yet clear"
+    },
+    "considerations": {
+      "title": "Check before launching",
+      "description": "Areas where local rules may apply to this kind of business. These are prompts to verify with the authorities or an adviser, not legal advice.",
+      "none": "Nothing specific was detected from your description. General business registration and tax rules still apply.",
+      "items": {
+        "cosmeticsSafety": "Cosmetic product safety, ingredient labelling and any required product notification",
+        "foodHygiene": "Food hygiene registration, inspection and labelling",
+        "alcoholTobacco": "Licences for selling alcohol or tobacco",
+        "healthClaims": "Rules on health or medical claims in marketing",
+        "financialServices": "Financial-services licensing and consumer-credit rules",
+        "vehicleImport": "Vehicle import, customs, homologation and registration",
+        "construction": "Building permits, contractor licensing and site safety",
+        "childcare": "Childcare licensing, ratios and staff background checks",
+        "transportLicensing": "Transport or courier licensing and vehicle insurance",
+        "tourismLicensing": "Tourism or accommodation licensing",
+        "realEstate": "Real-estate agency rules and client-money handling",
+        "personalData": "Personal data protection: consent, privacy policy and secure storage",
+        "importCustoms": "Import duties, customs procedures and product conformity",
+        "employment": "Employment contracts, social contributions and workplace safety"
+      }
+    },
+    "finance": {
+      "title": "Financial model",
+      "description": "Every figure is calculated from the assumptions listed below. Change an assumption and the results follow from it.",
+      "estimateTitle": "Planning estimate, not a forecast",
+      "insufficientTitle": "Not enough information for a financial estimate",
+      "limitations": {
+        "noLlm": "The language model is not configured, so no cost or volume assumptions could be proposed.",
+        "invalidOutput": "The language model did not return usable assumptions. Try generating the strategy again.",
+        "providerUnavailable": "The AI provider could not be reached or refused the request, so no cost or volume assumptions were proposed. No figures were filled in. Try again once the provider is available.",
+        "aiEstimate": "The costs, prices and volumes are AI-proposed assumptions, not quotes or measured data.",
+        "pricesUnverified": "No competitor prices were observed, so prices are not checked against the market.",
+        "noBudget": "You did not give a budget, so startup costs were kept to a minimum test.",
+        "foreignPriceEvidence": "The competitor prices found are in another currency and market, so the prices here were set separately and need local checking.",
+        "overBudget": "Startup costs exceed your stated budget. Reduce the first version or find more funding before committing."
+      },
+      "startupCosts": "Startup costs",
+      "monthlyFixedCosts": "Monthly fixed costs",
+      "revenueStreams": "Revenue streams",
+      "breakEven": "Break-even",
+      "breakEvenUnits": "{units} {unit} / month",
+      "breakEvenRevenue": "About {revenue} in monthly sales",
+      "noBreakEven": "At these assumptions, each sale does not cover its direct cost.",
+      "scenariosTitle": "Monthly results by scenario",
+      "metric": "Metric",
+      "scenarios": { "conservative": "Conservative", "base": "Base", "optimistic": "Optimistic" },
+      "rows": {
+        "revenue": "Revenue",
+        "variableCosts": "Direct costs",
+        "grossProfit": "Gross profit",
+        "grossMargin": "Gross margin",
+        "fixedCosts": "Fixed costs",
+        "operatingProfit": "Operating profit",
+        "payback": "Startup costs recovered in"
+      },
+      "months": { "one": "{count} month", "other": "{count} months" },
+      "notReached": "Not reached",
+      "assumptionsTitle": "Assumptions behind these numbers",
+      "optionalCost": "optional",
+      "streamLine": "{name}: {price} per {unit}, direct cost {cost}; {conservative} / {base} / {optimistic} per month (conservative / base / optimistic)",
+      "budget": {
+        "unknown": "No budget was given, so the plan cannot be checked against one.",
+        "withinTitle": "Fits your budget",
+        "overTitle": "Over your budget",
+        "detail": "Budget {budget}, startup costs {startup}, left over {remaining}.",
+        "overDetail": "Budget {budget}, startup costs {startup}: {shortfall} short.",
+        "deferOptional": "The essential items come to {essential}, which fits; defer the optional items to a later stage.",
+        "essentialOver": "Even the essential items ({essential}) exceed the budget. Start with a smaller first version, launch in stages, or secure more money before committing.",
+        "reduceScope": "Start with a smaller first version, launch in stages, or secure more money before committing.",
+        "runway": { "one": "The rest covers about {count} month of conservative-case losses.", "other": "The rest covers about {count} months of conservative-case losses." }
+      }
+    },
+    "roadmap": {
+      "title": "30/60/90-day priorities",
+      "description": "What to do first, what each step should achieve and how to tell if it worked.",
+      "empty": "No priorities were generated. Generate the strategy again when the language model is available.",
+      "outcome": "Outcome",
+      "metric": "Measure",
+      "resources": "Resources",
+      "dependsOn": "Depends on",
+      "assumption": "Assumes",
+      "priority": { "high": "High", "medium": "Medium", "low": "Low" }
+    }
+  },
+  "sectionMeta": { "research": "Research: {status}", "searchVia": "Web search available" },
+  "overview": {
+    "snapshotTitle": "Snapshot",
+    "snapshotDescription": "From your discovery answers.",
+    "fields": {
+      "idea": "Idea",
+      "customer": "Customer",
+      "budget": "Budget",
+      "category": "Category",
+      "stage": "Stage",
+      "market": "Market",
+      "model": "Business model",
+      "offer": "Main offer",
+      "priority": "Priority"
+    },
+    "launchReadiness": "Launch readiness",
+    "checklistItemsDone": "{done} of {total} checklist items done",
+    "openLaunchChecklist": "Open launch checklist",
+    "nextSteps": "Next steps",
+    "nothingOutstanding": "Nothing outstanding.",
+    "generation": {
+      "title": "Generation details",
+      "summary": "{ai} of {total} steps written by the AI model · {duration} total",
+      "fallback": "Used template fallback",
+      "error": "Recovered from an error",
+      "degradedTitle": "Generated with limitations",
+      "degradedBody": "This workspace was saved and is usable, but some core sections used backup templates or recovered from errors. Review those sections before relying on them.",
+      "provisionalTitle": "Draft ready — review before you rely on it",
+      "provisionalBody": "Generation finished and the workspace is usable, but parts still need your input or lack verified market evidence. Treat recommendations as a starting draft.",
+      "successWithNotesTitle": "Generated with notes",
+      "successWithNotesBody": "The workspace is ready. Review the notes below — for example research limits or a missing logo — before publishing.",
+      "consistencySoftTitle": "Minor consistency notes",
+      "consistencySoftBody": "Cross-checks found soft mismatches between sections. The workspace is still usable — review these before publishing.",
+      "limitations": {
+        "criticalFallback": "One or more core sections used a backup template.",
+        "researchLimited": "Live market research was limited or unavailable. Market claims were not independently verified.",
+        "logoUnavailable": "A generated logo image was not available.",
+        "optionalFallback": "A secondary section used a backup template.",
+        "consistencyWarnings": "Cross-checks found inconsistencies between sections (for example off-sector competitors or fabricated claims).",
+        "genericContent": "Some marketing or brand copy looks too generic for this specific offer. Edit those sections before publishing.",
+        "needsOwnerReview": "Important business facts were missing at generation time. Related recommendations are assumptions until you fill the gaps.",
+        "thinEvidence": "Competitor and market evidence is thin or missing. Do not treat SWOT or trends as verified research."
+      }
+    },
+    "context": {
+      "gapsTitle": "Business context has gaps",
+      "gapsBody": "Generation still ran, but these material facts were not provided. Treat related recommendations as assumptions.",
+      "facts": {
+        "customers": "Who the customers are",
+        "market": "Where the business operates",
+        "industry": "What industry the business is in"
+      }
+    },
+    "businessTitle": "Business",
+    "positioning": "Positioning",
+    "editBrand": "Edit brand",
+    "snapshotLegacy": "From the details entered when this business was created.",
+    "readinessDescription": "Based on the launch checklist you complete.",
+    "activity": {
+      "title": "Recent activity",
+      "created": "Workspace created",
+      "edited": "Last edited",
+      "checklist": "{done} of {total} launch tasks completed"
+    }
+  },
+  "brand": {
+    "pageDescription": "Identity, logo, colors, typography and the rules for using them.",
+    "palette": {
+      "title": "Color palette",
+      "description": "Select a colour to copy its HEX value, or edit it.",
+      "copyAria": "Copy {name} {hex}"
+    },
+    "typography": {
+      "title": "Typography",
+      "description": "Loaded from Google Fonts.",
+      "copyLink": "Copy font link",
+      "headings": "Headings",
+      "body": "Body",
+      "scale": "Type scale"
+    },
+    "missionVision": "Mission and vision",
+    "mission": "Mission",
+    "vision": "Vision",
+    "valuesVoice": "Values and voice",
+    "values": "Values",
+    "toneOfVoice": "Tone of voice",
+    "logo": {
+      "primary": "Primary",
+      "onDark": "On dark",
+      "appIcon": "App icon",
+      "downloadPng": "Download PNG",
+      "notGenerated": "No logo generated",
+      "failed": "Logo generation failed",
+      "notGeneratedDescription": "Image generation is not set up, so no placeholder logo was created.",
+      "failedDescription": "The image model did not return a logo for this business.",
+      "missing": "Logo file missing",
+      "missingDescription": "This logo was saved in a way that did not survive a server update, so the image is gone. Generate it again to store it permanently.",
+      "regenerate": "Generate logo again",
+      "checkIntegrations": "Check integrations",
+      "logoAlt": "{name} logo",
+      "iconAlt": "{name} icon",
+      "avatarAlt": "{name} avatar"
+    },
+    "identity": {
+      "title": "Brand identity",
+      "description": "Each item can be edited on its own. Changing one does not change the others.",
+      "name": "Name",
+      "tagline": "Tagline",
+      "positioning": "Positioning",
+      "positioningHint": "How you describe the brand in two or three sentences.",
+      "personality": "Personality",
+      "personalityHint": "A few traits that guide how the brand behaves."
+    },
+    "visual": {
+      "title": "Visual identity",
+      "description": "Logo, colours, typography and the visual direction.",
+      "logo": "Logo",
+      "direction": "Visual direction",
+      "directionDescription": "The style chosen for the brand and the rules for applying it.",
+      "style": "Style",
+      "preferredColors": "Preferred colours",
+      "avoidColors": "Colours to avoid",
+      "references": "Brands you like"
+    },
+    "edit": {
+      "save": "Save",
+      "saving": "Saving…",
+      "saveFailed": "The change could not be saved. Try again.",
+      "required": "This cannot be empty.",
+      "none": "None yet",
+      "editAria": "Edit {field}",
+      "editColorAria": "Edit colour {name}",
+      "colorPicker": "Pick colour for {name}",
+      "hexLabel": "HEX value for {name}",
+      "invalidHex": "Use a HEX value like #1A2B3C.",
+      "traitsHint": "Separate traits with commas. Up to 8, each under 40 characters."
+    }
+  },
+  "website": {
+    "pageDescription": "Page content and SEO structure, previewed with your brand.",
+    "emptyTitle": "No website pages",
+    "emptyDescription": "The website step did not produce a usable website for this business. Regenerate the website to rebuild it.",
+    "previewNoticeTitle": "Rendered website preview",
+    "previewNoticeBody": "This is a real page preview using your brand and content. Publishing creates a public StartupOS URL when you choose to publish. You can also download a static HTML site or the JSON content model.",
+    "pagesLabel": "Website pages",
+    "previewSize": "Preview size",
+    "desktopPreview": "Desktop preview",
+    "mobilePreview": "Mobile preview",
+    "exportContent": "Export JSON",
+    "exportAria": "Export website content as JSON",
+    "exportHtml": "Export HTML site",
+    "exportHtmlAria": "Download a static HTML website (not a published URL)",
+    "pageDetails": "Page details",
+    "path": "Path",
+    "pageTitle": "Page title",
+    "description": "Description",
+    "sectionsOnPage": "Sections on this page",
+    "seo": "SEO",
+    "titleTag": "Title tag",
+    "metaDescription": "Meta description",
+    "socialTitle": "Social title",
+    "targetKeywords": "Target keywords",
+    "sitemap": "Sitemap",
+    "structuredData": "Structured data (JSON-LD)",
+    "previewNavigation": "Preview navigation",
+    "canonical": "Canonical path",
+    "contactPending": "Add your real contact details (email, phone, address or social profiles) before publishing. None were provided, so none are shown.",
+    "setup": {
+      "title": "Website setup",
+      "description": "Tell us what the website is for and how customers reach you. The pages, buttons and layout are rebuilt from your answers.",
+      "notSaved": "Suggested from your business answers. Review and save to apply.",
+      "open": "Edit website setup",
+      "close": "Close setup",
+      "save": "Save and rebuild website",
+      "saving": "Rebuilding…",
+      "saved": "Saved. The website was rebuilt from your setup.",
+      "failed": "The setup could not be saved. Nothing was changed. Try again.",
+      "rewrite": "Rewrite copy with AI",
+      "rewriteHint": "Optional. The rebuild uses your own words; this asks the AI to polish descriptions without adding facts.",
+      "kindTitle": "Website type and goal",
+      "archetype": "Type of website",
+      "archetypes": {
+        "restaurant": "Restaurant, café or bar",
+        "hospitality": "Hotel or accommodation",
+        "shop": "Shop or online store",
+        "software": "Software or app",
+        "professional": "Professional services",
+        "localService": "Local or home services",
+        "creative": "Creative studio or freelancer",
+        "general": "Other business"
+      },
+      "goal": "Main thing visitors should do",
+      "goalHint": "This becomes the main button on every page.",
+      "goals": {
+        "contact": "Get in touch",
+        "call": "Call you",
+        "visit": "Visit your location",
+        "book": "Book or reserve",
+        "quote": "Request a quote",
+        "order": "Order or buy",
+        "signup": "Sign up or start a trial"
+      },
+      "layout": "Visual layout",
+      "layoutHint": "Automatic picks the layout that fits your brand style.",
+      "layouts": {
+        "auto": "Automatic",
+        "classic": "Classic — centered and friendly",
+        "editorial": "Editorial — refined, lots of white space",
+        "split": "Split — modern two-column hero",
+        "bold": "Bold — big type and strong shapes"
+      },
+      "contactTitle": "How customers reach you",
+      "contactHint": "Only what you enter here is shown. Nothing is invented.",
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp number",
+      "phoneHint": "Include the country code, e.g. +355 69 123 4567.",
+      "address": "Address",
+      "serviceArea": "Areas you serve",
+      "actionUrl": "Booking, ordering or sign-up page",
+      "actionUrlHint": "A page you already use (booking system, online shop, app sign-up). Must start with https://.",
+      "social": "Social profiles",
+      "socialHint": "Up to 3 links, one per line, each starting with https://.",
+      "hoursTitle": "Opening hours",
+      "hoursDays": "Days",
+      "hoursTime": "Hours",
+      "daysPlaceholder": "Mon–Fri",
+      "timePlaceholder": "08:00–18:00",
+      "addHours": "Add hours",
+      "remove": "Remove",
+      "itemsTitle": "What you sell",
+      "itemsHint": "Names come from your answers. Add a short description and a price only if you actually charge it.",
+      "itemName": "Name",
+      "itemDescription": "Description",
+      "itemPrice": "Price",
+      "itemPricePlaceholder": "e.g. 350 ALL",
+      "addItem": "Add item",
+      "pagesTitle": "Pages",
+      "pageAbout": "Include an About section",
+      "pageFaq": "Include frequently asked questions",
+      "photoTitle": "Homepage photo",
+      "photoHint": "Optional. A real photo of your place, product or work, shown across the top of the homepage. It stays private until you publish.",
+      "photoChoose": "Upload a photo",
+      "photoUploading": "Uploading…",
+      "photoAlt": "What the photo shows",
+      "photoAltHint": "Read aloud to people who cannot see the photo, e.g. \"Fresh bread on the counter of our bakery\".",
+      "photoRemove": "Remove photo",
+      "errors": {
+        "invalidEmail": "Enter a valid email address.",
+        "invalidPhone": "Enter a valid phone number.",
+        "invalidUrl": "Enter a full https:// link.",
+        "itemName": "Every item needs a name.",
+        "tooManySocial": "Add at most 3 social links.",
+        "hoursIncomplete": "Fill in both the days and the hours, or remove the row.",
+        "photoAlt": "Describe what the photo shows.",
+        "photoType": "Use a JPEG, PNG or WebP image.",
+        "photoSize": "The photo must be 4 MB or smaller.",
+        "photoRateLimited": "Too many uploads in the last hour. Try again later.",
+        "photoFailed": "The photo could not be uploaded. Try again."
+      }
+    },
+    "checks": {
+      "title": "Website checks",
+      "allGood": "No issues found.",
+      "blocking": "Fix the issues marked as required before publishing.",
+      "required": "Required",
+      "suggested": "Suggested",
+      "items": {
+        "placeholderText": "Some text looks like a placeholder (for example “TODO” or “lorem ipsum”). Replace it before publishing.",
+        "missingHomeHero": "The homepage is missing a hero section. Rebuild or regenerate the website before publishing.",
+        "noContactChannel": "Visitors have no way to reach you. Add an email, phone, WhatsApp or booking link in Website setup.",
+        "goalUnavailable": "The main button falls back to “Get in touch” because the details it needs (phone, booking link or address) are missing.",
+        "missingAddress": "Add your address so visitors can find you.",
+        "missingHours": "Add opening hours so visitors know when to come.",
+        "thinOffer": "Your products or services have no descriptions yet. Add short descriptions in Website setup, or rewrite the copy with AI.",
+        "shortSeoTitle": "A page title is very short for search results.",
+        "shortSeoDescription": "A page description is very short for search results.",
+        "duplicateSeoTitle": "Two pages share the same title.",
+        "duplicateSeoDescription": "Two pages share the same description."
+      }
+    },
+    "publish": {
+      "title": "Publishing",
+      "action": "Prepare for publishing",
+      "publishAction": "Publish website",
+      "republishAction": "Publish changes",
+      "unpublishAction": "Unpublish",
+      "preparing": "Preparing…",
+      "publishing": "Publishing…",
+      "unpublishing": "Unpublishing…",
+      "draftBadge": "Ready to prepare",
+      "preparedBadge": "Prepared",
+      "publishedBadge": "Published",
+      "outdatedBadge": "Changes not published",
+      "unpublishedBadge": "Unpublished",
+      "unavailableBadge": "Not ready",
+      "draftBody": "Check the pages, then prepare and publish. Publishing makes the website available at a public link on this app — anyone with the link can open it without signing in.",
+      "preparedBody": "Prepared on {date}. Publish when you are ready to make it publicly available.",
+      "publishedBody": "Live at the public link below. Edits in StartupOS stay private until you publish again.",
+      "outdatedBody": "You changed the website after the last publish. The public link still shows the previous version until you publish again.",
+      "unpublishedBody": "This website is no longer public. Publish again to restore the same link.",
+      "unavailableBody": "This website was created before structured websites. Regenerate the website before publishing.",
+      "publicUrl": "Public link",
+      "openSite": "Open website",
+      "copyLink": "Copy link",
+      "unpublishTitle": "Unpublish this website?",
+      "unpublishDescription": "The public link will stop working. Your website in StartupOS is kept and you can publish again later.",
+      "failed": "That action could not be completed. Nothing public was changed incorrectly. Try again.",
+      "failedPrepare": "The website could not be prepared. Nothing was changed. Try again.",
+      "needsFixes": "Publishing is blocked until the required website checks below are fixed."
+    }
+  },
+  "marketing": {
+    "pageDescription": "Positioning, target customer, content plan and ready-to-use campaign assets.",
+    "areasLabel": "Marketing areas",
+    "tabs": {
+      "strategy": "Strategy",
+      "content": "Content plan",
+      "social": "Social posts",
+      "ads": "Ads",
+      "email": "Email",
+      "whatsapp": "WhatsApp"
+    },
+    "positioning": "Positioning",
+    "keyMessages": "Key messages",
+    "channelMix": { "title": "Channel mix", "description": "Suggested share of marketing budget per channel." },
+    "suggestedTargets": "Suggested targets",
+    "targetsNote": "Planning assumptions to measure against, not benchmarks.",
+    "persona": {
+      "title": "Target customer",
+      "description": "A hypothesis about your customer to guide messaging. Not a real person or research finding; validate it by talking to real customers.",
+      "exampleName": "Example name",
+      "age": "Age",
+      "occupation": "Occupation",
+      "channels": "Channels",
+      "goals": "Goals",
+      "painPoints": "Pain points",
+      "objections": "Objections"
+    },
+    "contentPillars": { "title": "Content pillars", "description": "Recurring themes your content should come back to." },
+    "calendar": "Four-week calendar",
+    "week": "Week {week}",
+    "social": {
+      "emptyTitle": "No social posts",
+      "emptyDescription": "No posts were generated for this business.",
+      "format": "Instagram · {format}",
+      "downloadPngAria": "Download post {number} as PNG",
+      "downloadSvgAria": "Download post {number} as SVG",
+      "copyCaption": "Copy caption"
+    },
+    "ads": {
+      "emptyTitle": "No ad drafts",
+      "emptyDescription": "Ad copy is prepared when social channels are part of the plan. This is creative draft text, not a live Meta campaign.",
+      "draftNotice": "These are ready-to-use ad drafts for Meta Ads Manager. StartupOS does not create, publish, or spend on live campaigns.",
+      "objective": "Facebook · {objective}",
+      "cpc": "CPC {cpc}, illustrative",
+      "headline": "Headline",
+      "primaryText": "Primary text",
+      "audience": "Audience",
+      "copyText": "Copy ad text",
+      "downloadPng": "Download PNG",
+      "downloadPngAria": "Download ad {number} as PNG"
+    },
+    "email": {
+      "emptyTitle": "No email sequence",
+      "emptyDescription": "No emails were generated for this business. Drafts are copy only — StartupOS does not send email.",
+      "listLabel": "Emails in sequence",
+      "draftNotice": "Email drafts only. StartupOS does not connect to an ESP or send messages to customers.",
+      "day": "Day {day}",
+      "copyText": "Copy text",
+      "downloadHtmlAria": "Download email as HTML",
+      "previewTitle": "Email preview: {subject}"
+    },
+    "whatsapp": {
+      "conversationPreview": "In-app conversation preview",
+      "customer": "Customer",
+      "business": "Business",
+      "restart": "Restart conversation",
+      "simulatedNote": "In-app chatbot preview only. Not connected to WhatsApp Business messaging.",
+      "flowTitle": "Conversation flow",
+      "messageCount": { "one": "{count} message", "other": "{count} messages" },
+      "copyJson": "Copy as JSON",
+      "composerLabel": "Your message",
+      "composerPlaceholder": "Type a question…",
+      "send": "Send"
+    }
+  },
+  "competitors": {
+    "pageDescription": "Who you are up against, what the market looks like, and where you can win.",
+    "listTitle": "Competitors",
+    "listDescription": "Businesses found through live web search, with an analysis of each.",
+    "marketTitle": "Market insights",
+    "marketDescription": "Findings summarised from search results, with citations.",
+    "statusBar": {
+      "competitorResearch": "Competitor research",
+      "marketResearch": "Market research",
+      "provider": "Search",
+      "webSearch": "Web search available",
+      "evidence": "Evidence",
+      "queries": { "one": "{count} query", "other": "{count} queries" },
+      "sources": { "one": "{count} source", "other": "{count} sources" },
+      "howToRead": "How to read this page",
+      "legendFact": "taken from a search result",
+      "legendAnalysis": "interpretation, not verified",
+      "legendRecommendation": "suggested strategy",
+      "queriesUsed": "Search queries used"
+    },
+    "types": { "direct": "Direct", "indirect": "Indirect", "local": "Local", "uncertain": "Unconfirmed" },
+    "noCompetitorsTitle": "No competitors identified",
+    "noCompetitorsDescription": "Search ran, but no competitor could be identified from the results.",
+    "noConfirmedTitle": "No confirmed competitors",
+    "noConfirmedDescription": {
+      "one": "Search returned {count} listing that looks like a directory, map, or article — not a verified rival.",
+      "other": "Search returned {count} listings that look like directories, maps, or articles — not verified rivals."
+    },
+    "filteredPlatformNote": {
+      "one": "{count} saved listing is hidden from this list because it looks like a directory or map, not a rival business.",
+      "other": "{count} saved listings are hidden from this list because they look like directories or maps, not rival businesses."
+    },
+    "landscapeSummary": "Landscape summary",
+    "identityProvenance": "Identity from search",
+    "platformListingBadge": "Directory / map",
+    "platformListingHint": "Looks like a directory or map listing, not a verified rival. Re-run research when you can.",
+    "descriptionProvenance": "Source-based / AI description",
+    "assessment": "Assessment",
+    "strengths": "Strengths",
+    "weaknesses": "Weaknesses",
+    "opportunities": "Opportunities",
+    "threats": "Threats",
+    "basedOn": { "one": "Based on {count} source:", "other": "Based on {count} sources:" },
+    "market": {
+      "summary": "Summary",
+      "trends": "Trends",
+      "painPoints": "Customer pain points",
+      "demandSignals": "Demand signals",
+      "opportunities": "Opportunities",
+      "nothingFound": "Nothing on this topic was found in the sources.",
+      "cited": "Cited",
+      "unsourced": "Unsourced"
+    },
+    "strategy": {
+      "title": "Your strategic position",
+      "description": "Suggestions for entering this market. Use them as a starting point, not as facts.",
+      "noneIdentified": "None identified.",
+      "differentiate": "How to differentiate",
+      "gaps": "Gaps in the market"
+    },
+    "unavailable": {
+      "notConfiguredTitle": "Web search is not set up",
+      "noResultsTitle": "No usable results",
+      "failedTitle": "Research could not complete",
+      "notConfiguredCompetitors": "StartupOS does not invent competitors. Connect a web search provider, then create the business again to include them.",
+      "notConfiguredMarket": "StartupOS does not invent market research. Connect a web search provider, then create the business again to include it.",
+      "noResults": "The search returned nothing usable. A more specific idea or location may help when you create the business again.",
+      "failedCompetitors": "The competitor research step failed. The rest of the business is unaffected.",
+      "failedMarket": "The market research step failed. The rest of the business is unaffected.",
+      "viewIntegrations": "View integrations"
+    },
+    "sources": {
+      "title": "All sources",
+      "count": { "one": "{count} search result used in this research", "other": "{count} search results used in this research" }
+    }
+  },
+  "pricing": {
+    "pageDescription": "Suggested pricing model, tiers and the reasoning behind them.",
+    "model": "Pricing model",
+    "recommended": "Recommended",
+    "suggestedCta": "Suggested button text:",
+    "tactics": { "title": "Pricing tactics", "description": "Why the tiers are structured this way." },
+    "upsells": { "title": "Ways to grow revenue", "description": "Add-ons and upsells to consider." },
+    "grounding": {
+      "title": "What these prices rest on",
+      "observed": "Observed competitor prices (evidence)",
+      "signals": "What the evidence shows",
+      "limitations": "Limitations",
+      "status": {
+        "observed": "The tiers above are recommendations. The competitor prices below were observed in research.",
+        "unavailable": "The tiers above are recommendations. Research found no published competitor prices.",
+        "researchFailed": "The tiers above are recommendations. Research failed, so no competitor prices were used.",
+        "notResearched": "The tiers above are recommendations. No research was used, so no competitor prices were considered."
+      }
+    },
+    "disclaimer": "Prices are suggestions based on your inputs and category. Validate them against real competitor prices and your costs."
+  },
+  "growth": {
+    "pageDescription": "A 90-day execution plan with weekly tasks, milestones and the customer journey.",
+    "emptyTitle": "No growth plan",
+    "emptyDescription": "No growth plan was generated for this business.",
+    "planTitle": "90-day plan",
+    "phaseLabel": "Plan phase",
+    "days": "Days {range}",
+    "taskCount": { "one": "{count} task", "other": "{count} tasks" },
+    "mainGoal": "Main goal for this phase",
+    "weeklyTasks": "Weekly tasks",
+    "week": "Week {week}",
+    "categories": { "marketing": "Marketing", "product": "Product", "sales": "Sales", "ops": "Operations", "brand": "Brand" },
+    "milestones": "Milestones",
+    "targets": "Targets",
+    "journeyTitle": "Customer journey",
+    "journeyDescription": "How a stranger becomes a repeat customer, and what to measure at each step.",
+    "conversionAssumption": "Conversion targets are assumptions",
+    "step": "Step {number}"
+  },
+  "launch": {
+    "pageDescription": "What to do before, on and after launch day, and how ready you are.",
+    "planTitle": "Launch plan",
+    "readiness": "Readiness",
+    "readinessAria": "Launch readiness",
+    "itemsDone": "{done} of {total} checklist items done",
+    "checklist": "Launch checklist",
+    "savedNote": "Your progress is saved to your account.",
+    "timeline": "Timeline",
+    "before": "Before launch",
+    "launchDay": "Launch day",
+    "after": "After launch",
+    "noTasks": "No tasks planned."
+  },
+  "generate": {
+    "title": "New business",
+    "description": "Answer a few questions about your business. StartupOS uses your answers to draft its brand, website, marketing and launch plan.",
+    "whatWillBeCreated": "What will be created",
+    "outputs": {
+      "brand": "Brand identity, colors and typography",
+      "logo": "Logo and app icon",
+      "website": "Website content and SEO",
+      "marketing": "Marketing plan, posts, ads, email and WhatsApp flow",
+      "research": "Competitor and market research",
+      "plan": "Pricing, 90-day growth plan and launch checklist"
+    },
+    "aiOn": "Content will be written by the AI model.",
+    "aiOff": "AI is not configured. Content will come from built-in templates, and no logo will be generated.",
+    "aiLocalhostBlocked": "A local AI endpoint is configured, but production refuses localhost providers. Content will use built-in templates until a cloud provider is set.",
+    "aiDeterministicNote": "This run will use the deterministic template engine. Sections will be labeled as templates, not as AI-written.",
+    "imageOff": "Image generation is not configured for this environment, so a logo will not be generated. Chat AI alone cannot create logo image files.",
+    "searchOff": "Web search is not configured, so research sections will be marked unavailable.",
+    "errorTitle": "The business could not be created",
+    "progress": {
+      "ready": "Your workspace is ready",
+      "readyLimited": "Workspace saved with limitations",
+      "readyLimitedBody": "Some core sections used backup templates because the AI model timed out or returned unusable output. Review those sections before relying on them.",
+      "readyProvisional": "Draft workspace ready — review next",
+      "readyProvisionalBody": "Generation finished, but some outputs still need your review (for example thin research or incomplete business context). Treat this as a draft.",
+      "creating": "Creating your business workspace",
+      "opening": "Opening workspace…",
+      "openingLimited": "Opening workspace — review limited sections…",
+      "starting": "Starting…",
+      "current": "{step}…",
+      "stepCount": "{done} of {total} steps",
+      "progressAria": "Generation progress",
+      "keepOpen": "Keep this tab open until generation finishes.",
+      "done": "done",
+      "inProgress": "in progress",
+      "fallback": "used a fallback",
+      "waiting": "waiting",
+      "fallbackUsed": "Fallback used",
+      "phasesLabel": "Generation phases",
+      "showSteps": "Show detailed steps",
+      "phases": {
+        "identity": {
+          "title": "Identity",
+          "body": "Brand name, design system, logo and customer persona"
+        },
+        "research": {
+          "title": "Research",
+          "body": "Competitors and market context"
+        },
+        "strategy": {
+          "title": "Strategy",
+          "body": "Pricing and business strategy"
+        },
+        "presence": {
+          "title": "Presence",
+          "body": "Website, SEO, marketing, email and WhatsApp"
+        },
+        "launch": {
+          "title": "Launch",
+          "body": "Growth plan, launch checklist and publish prep"
+        }
+      }
+    }
+  },
+  "errors": {
+    "generation": {
+      "invalidInput": "Some answers were not accepted. Check the form and try again.",
+      "network": "StartupOS could not reach the server. Check your connection and try again.",
+      "requestFailed": "The server could not start generation. Try again in a moment.",
+      "forbidden": "This request was blocked for security. Reload the page and try again from the same address you used to open StartupOS.",
+      "rateLimited": "You have started a lot of generations recently. Wait a while, then try again.",
+      "rateLimitedRetry": "You have started a lot of generations recently. You can create another business in about {minutes} min. Your answers are kept.",
+      "connectionClosed": "The connection closed before generation finished. Your answers are still here, so you can try again.",
+      "detached": "The connection closed, but your business is still being created. It will appear in All businesses when it is ready.",
+      "server": "Something interrupted generation. Your answers are still here, so you can try again."
+    },
+    "data": {
+      "loadFailed": "We couldn't load your data. Please try again.",
+      "saveFailed": "We couldn't save your change. Please try again.",
+      "deleteFailed": "We couldn't delete this business. Please try again.",
+      "unavailableTitle": "StartupOS is temporarily unavailable",
+      "unavailable": "We couldn't load your data. Please try again in a moment."
+    },
+    "page": {
+      "title": "Something went wrong",
+      "description": "This page hit an unexpected error. Your saved businesses are not affected.",
+      "goToDashboard": "Go to dashboard"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "This page does not exist or has moved.",
+      "goToDashboard": "Go to dashboard",
+      "home": "Home"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Your account, preferences, integration status and saved data.",
+    "sectionsLabel": "Settings sections",
+    "appearance": {
+      "title": "Appearance",
+      "description": "Applies to this browser only.",
+      "theme": "Theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": { "title": "Language" },
+    "defaults": {
+      "title": "New business defaults",
+      "description": "Pre-fills the form when you create a business.",
+      "brandStyle": "Brand style",
+      "noDefault": "No default",
+      "hint": "You can still change it for each business."
+    },
+    "integrations": {
+      "title": "Integrations",
+      "description": "Local server configuration only — not a live provider health check. Changes apply to businesses created afterwards.",
+      "loadFailed": "Integration status could not be loaded. Refresh the page to try again.",
+      "ai": {
+        "name": "AI text generation",
+        "description": "Writes brand, website, marketing and strategy content. Without it, built-in templates are used."
+      },
+      "logo": {
+        "name": "Logo generation",
+        "description": "Creates a logo and app icon through an image-generation endpoint. Chat-only providers (for example local Ollama) do not enable logos."
+      },
+      "search": {
+        "name": "Web research",
+        "description": "Finds real competitors and market data. Without it, these sections are marked unavailable instead of invented."
+      },
+      "model": "Model: {model}",
+      "provider": "Provider: {provider}",
+      "howToConnect": "How to connect integrations",
+      "envIntro": "Set these environment variables on the server (for local development, in {file}), then restart the app.",
+      "env": {
+        "openai": "AI text generation; also enables logo generation when the host supports image APIs",
+        "ollama": "Optional chat via Ollama Cloud or local Ollama (does not enable logo image generation)",
+        "tavily": "Web research via Tavily",
+        "serper": "Web research via Serper",
+        "brave": "Web research via Brave Search"
+      },
+      "oneSearchKey": "Only one web research key is needed."
+    },
+    "data": {
+      "title": "Data",
+      "description": "Businesses are saved to your account.",
+      "exportTitle": "Export all businesses",
+      "exportDescription": {
+        "one": "Download {count} business as a JSON backup file.",
+        "other": "Download {count} businesses as a JSON backup file."
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to StartupOS",
+      "description": "Welcome back. Sign in to open your businesses.",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create one"
+    },
+    "register": {
+      "title": "Create your account",
+      "description": "Your businesses are saved to your account and available wherever you sign in.",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "panel": {
+      "title": "One workspace for every stage of building.",
+      "body": "Describe an idea once. StartupOS drafts brand, website, marketing and launch materials — and keeps them together.",
+      "points": {
+        "workspace": "Business workspaces with connected brand, site and marketing",
+        "continuity": "Pick up unfinished work from any signed-in device",
+        "honest": "Clear status when AI, logos or research are unavailable"
+      },
+      "footer": "No payment required to create an account."
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "passwordHint": "At least {count} characters.",
+      "currentPassword": "Current password",
+      "newPassword": "New password"
+    },
+    "validation": {
+      "nameRequired": "Enter your name.",
+      "emailInvalid": "Enter a valid email address.",
+      "passwordRequired": "Enter your password.",
+      "passwordTooShort": "Use at least 8 characters."
+    },
+    "errors": {
+      "invalidCredentials": "The email or password is incorrect.",
+      "emailTaken": "An account with this email already exists. Sign in instead.",
+      "invalidEmail": "Enter a valid email address.",
+      "passwordTooShort": "Use at least 8 characters.",
+      "passwordTooLong": "Use at most 128 characters.",
+      "wrongPassword": "The password is incorrect.",
+      "tooManyAttempts": "Too many attempts. Wait a minute and try again.",
+      "unavailable": "The service is temporarily unavailable. Please try again in a moment.",
+      "invalidToken": "This reset link is invalid or has expired. Request a new one.",
+      "resetDisabled": "Password recovery is not available on this server.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "forgot": {
+      "link": "Forgot password?",
+      "title": "Reset your password",
+      "description": "Enter the email for your account. If it exists, we will send a reset link.",
+      "submit": "Send reset link",
+      "sentTitle": "Check your email",
+      "sentBody": "If an account exists for that address, a reset link is on its way. The link expires in about an hour.",
+      "backToLogin": "Back to sign in",
+      "unavailable": "Password recovery is unavailable",
+      "unavailableBody": "This environment has no email delivery configured. Ask an administrator to set EMAIL_FROM and RESEND_API_KEY."
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "description": "Enter a new password for your StartupOS account.",
+      "confirm": "Confirm password",
+      "submit": "Update password",
+      "mismatch": "Passwords do not match.",
+      "invalidTitle": "Link expired or invalid",
+      "invalidBody": "Request a new reset link from the sign-in page.",
+      "successTitle": "Password updated",
+      "successBody": "You can sign in with your new password. Other devices were signed out."
+    },
+    "google": {
+      "continue": "Continue with Google",
+      "or": "or continue with email"
+    },
+    "expired": "Your session ended. Sign in again to continue.",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "account": {
+    "menuLabel": "Account menu for {name}",
+    "signOut": "Sign out",
+    "saved": "Saved.",
+    "profile": {
+      "title": "Profile",
+      "description": "How you appear in StartupOS.",
+      "emailHint": "Your email is used to sign in and cannot be changed here."
+    },
+    "security": {
+      "title": "Security",
+      "description": "Your password and sessions.",
+      "changePassword": "Change password",
+      "updatePassword": "Update password",
+      "passwordUpdated": "Password updated. Other devices were signed out.",
+      "signOutDescription": "Sign out of StartupOS on this device."
+    },
+    "delete": {
+      "title": "Delete account",
+      "description": "Permanently deletes your account and every business saved to it. Businesses saved in this browser before accounts existed are not affected.",
+      "button": "Delete account",
+      "dialogTitle": "Delete your account?",
+      "dialogDescription": "Your account and all of its businesses will be permanently deleted. Export a backup first if you might need them. This cannot be undone.",
+      "passwordLabel": "Enter your password to confirm",
+      "confirm": "Delete account"
+    }
+  },
+  "migration": {
+    "title": "Import businesses from this browser",
+    "found": {
+      "one": "We found {count} business saved in this browser.",
+      "other": "We found {count} businesses saved in this browser."
+    },
+    "description": "Import them into your account to keep them safe and open them on any device. Nothing in this browser is deleted.",
+    "import": "Import businesses",
+    "skip": "Skip for now",
+    "importing": "Importing…",
+    "progress": "Importing {done} of {total}…",
+    "imported": { "one": "{count} business imported into your account.", "other": "{count} businesses imported into your account." },
+    "someFailed": { "one": "{count} business could not be imported.", "other": "{count} businesses could not be imported." },
+    "reasonInvalid": "its saved data could not be read.",
+    "reasonRetry": "it could not be imported right now. Try again.",
+    "keptLocally": "The copies in this browser were not changed.",
+    "dismiss": "Dismiss",
+    "settingsTitle": "Businesses in this browser",
+    "settingsDescription": "Copy businesses created before accounts existed into your account. Importing twice never creates duplicates.",
+    "nothingToImport": "There are no businesses in this browser left to import."
+  },
+  "landing": {
+    "nav": {
+      "main": "Main",
+      "what": "What it is",
+      "capabilities": "What you get",
+      "how": "How it works",
+      "ventures": "My Ventures",
+      "generate": "Generate Venture",
+      "engineActive": "AI Engine Active",
+      "engineHint": "Brand indicator for the product experience — not a live provider health check.",
+      "openApp": "Open app",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    },
+    "hero": {
+      "title": "Turn an idea into a coordinated business system.",
+      "body": "Describe your venture. StartupOS assembles brand, website, marketing, pricing, growth and launch into one workspace — connected deliverables, not scattered drafts.",
+      "primary": "Generate Venture",
+      "secondary": "Open dashboard",
+      "note": "Illustrative preview below. Your workspace is built from your answers. Create a free account to save businesses."
+    },
+    "what": {
+      "title": "What it is",
+      "body": "A workspace that turns an idea into the first version of everything a new business needs, so you start from a draft instead of a blank page.",
+      "pillars": {
+        "onePlace": {
+          "title": "One place per business",
+          "body": "Brand, website, marketing, pricing and launch live together and stay consistent."
+        },
+        "sources": {
+          "title": "Clear about sources",
+          "body": "Drafts, template content, search results and estimates are labelled as such."
+        },
+        "yours": {
+          "title": "Yours to take",
+          "body": "Copy anything, download creatives and export the full business as a file."
+        }
+      }
+    },
+    "capabilities": {
+      "title": "What you get",
+      "body": "Each business gets its own workspace with these sections.",
+      "items": {
+        "brand": {
+          "title": "Brand",
+          "body": "Name, slogan, voice, values, a color palette and a typography system. A logo too, when image generation is connected."
+        },
+        "website": {
+          "title": "Website content",
+          "body": "Copy and structure for several pages, plus titles, meta descriptions and structured data for search engines."
+        },
+        "marketing": {
+          "title": "Marketing",
+          "body": "Positioning, a target customer profile, a four-week content plan, social posts, ads, an email sequence and a WhatsApp flow."
+        },
+        "competitors": {
+          "title": "Competitor research",
+          "body": "Real competitors and market signals from live web search, with sources. If search is not connected, it says so."
+        },
+        "pricing": {
+          "title": "Pricing",
+          "body": "A pricing model with tiers and the reasoning behind it, ready to check against your costs."
+        },
+        "growth": {
+          "title": "Growth plan",
+          "body": "A 90-day plan broken into weekly tasks, milestones and the customer journey."
+        },
+        "launch": {
+          "title": "Launch",
+          "body": "What to do before, on and after launch day, with a checklist that tracks your progress."
+        },
+        "export": {
+          "title": "Export",
+          "body": "Download creatives as PNG or SVG, emails as HTML, and the whole business as a JSON file."
+        }
+      }
+    },
+    "how": {
+      "title": "How it works",
+      "step": "Step {number}",
+      "steps": {
+        "describe": {
+          "title": "Describe the business",
+          "body": "Your idea, target customer, location, budget and the brand style you want."
+        },
+        "review": {
+          "title": "Review the draft",
+          "body": "StartupOS builds each part in sequence and shows its progress step by step."
+        },
+        "work": {
+          "title": "Work through it",
+          "body": "Every section is labelled with where it came from: the AI model, built-in templates or web search."
+        }
+      }
+    },
+    "cta": { "title": "Start with your idea.", "body": "It takes one short form to create your first workspace." },
+    "footer": "Generated content is a starting point. Review it before you publish or rely on it.",
+    "preview": {
+      "businessName": "Northfield Coffee",
+      "slogan": "Slow-roasted, close to home.",
+      "statusTitle": "Workspace status",
+      "readiness": "Launch readiness",
+      "caption": "Example workspace for a fictional business. Your workspace reflects your own inputs."
+    }
+  },
+  "discovery": {
+    "steps": {
+      "business": { "title": "Business", "description": "The basics: what you are building and where." },
+      "customer": { "title": "Customer", "description": "Who you serve and what they need." },
+      "offer": { "title": "Offer", "description": "What you sell and what makes it different." },
+      "model": { "title": "Business model", "description": "How the business makes money and reaches customers." },
+      "market": { "title": "Market", "description": "What you already know about competitors and the market." },
+      "brand": { "title": "Brand", "description": "How the brand should look and sound." },
+      "goals": { "title": "Goals", "description": "What you want to achieve first." },
+      "review": { "title": "Review", "description": "Check your answers before the workspace is created." }
+    },
+    "nav": {
+      "back": "Back",
+      "next": "Continue",
+      "toReview": "Save and review",
+      "stepOf": "Step {current} of {total}",
+      "stepsLabel": "Discovery steps"
+    },
+    "errors": {
+      "required": "This field is required.",
+      "tooShort": "Use at least {min} characters.",
+      "tooLong": "Keep this under {max} characters.",
+      "choose": "Choose an option.",
+      "chooseOne": "Choose at least one option."
+    },
+    "business": {
+      "name": {
+        "label": "Business name",
+        "hint": "Leave empty and StartupOS will suggest one.",
+        "placeholder": "e.g. Kafe Drita"
+      },
+      "idea": {
+        "label": "Business idea",
+        "hint": "One or two sentences about what you want to build.",
+        "placeholder": "A specialty coffee shop with a quiet space for remote workers"
+      },
+      "offering": { "label": "What it sells", "placeholder": "Coffee, pastries and coworking day passes" },
+      "stage": { "label": "Stage" },
+      "type": { "label": "Type of business" },
+      "category": { "label": "Category", "hint": "Used to ask a few more relevant questions." },
+      "location": { "label": "Location", "placeholder": "Tirana, Albania" }
+    },
+    "customer": {
+      "ideal": { "label": "Ideal customer", "placeholder": "Freelancers and remote workers, 25–40" },
+      "type": { "label": "Who do you sell to?" },
+      "problem": { "label": "Problem they have", "placeholder": "No calm place to work outside home" },
+      "need": { "label": "What they need", "placeholder": "Reliable Wi-Fi, good coffee and quiet" },
+      "geography": { "label": "Geographic target", "placeholder": "Tirana city centre" }
+    },
+    "offer": {
+      "main": { "label": "Main product or service", "placeholder": "Specialty coffee" },
+      "others": { "label": "Other important products or services", "placeholder": "Pastries, meeting room rental" },
+      "priceRange": { "label": "Expected price range", "placeholder": "€2–€6 per item" },
+      "priceUnknown": "I don't know yet",
+      "differentiator": { "label": "What makes it different", "placeholder": "Locally roasted beans and a dedicated quiet zone" },
+      "status": { "label": "Is the offer already available?" },
+      "adaptiveTitle": "A few details for {category}"
+    },
+    "model": {
+      "revenue": { "label": "How does it make money?", "hint": "Choose all that apply." },
+      "budget": { "label": "Starting budget", "hint": "Used to size pricing and the marketing mix.", "placeholder": "€10,000" },
+      "budgetUnknown": "I don't know yet",
+      "channels": { "label": "Sales channels", "hint": "Where customers will buy." },
+      "existingTitle": "Current business",
+      "existingHint": "Only if you want to share it. Approximate numbers are fine.",
+      "currentRevenue": { "label": "Monthly revenue", "placeholder": "About €4,000" },
+      "currentCustomers": { "label": "Current customers", "placeholder": "About 300 regulars" }
+    },
+    "market": {
+      "notice": "Share what you already know. These answers are your own view and will never be presented as research.",
+      "competitors": { "label": "Competitors you know", "placeholder": "Names of cafés or brands nearby" },
+      "alternatives": { "label": "What customers use today instead", "placeholder": "Working from home, chain cafés" },
+      "positioning": { "label": "How you want to be positioned", "placeholder": "The calm, premium place to work in the centre" },
+      "difference": { "label": "What you want to do differently", "placeholder": "Quiet hours, better seating, local roasts" },
+      "challenges": { "label": "Difficulties you already see", "placeholder": "High rent, seasonal tourist traffic" }
+    },
+    "brand": {
+      "style": { "label": "Brand style", "hint": "Sets the direction for naming, colours, typography and copy." },
+      "tone": { "label": "Tone of voice" },
+      "colors": { "label": "Preferred colours", "placeholder": "Warm browns, cream" },
+      "avoidColors": { "label": "Colours to avoid", "placeholder": "Neon green" },
+      "references": { "label": "Brands you like", "placeholder": "Aesop, Blue Bottle" },
+      "language": { "label": "Language of generated content", "hint": "The language customers will read." },
+      "notes": { "label": "Other notes", "placeholder": "Anything else the brand should reflect" }
+    },
+    "goals": {
+      "priority": { "label": "Top priority right now" },
+      "goal": { "label": "Main goal", "placeholder": "Open the café and build a regular customer base" },
+      "outcome": { "label": "Desired outcome", "placeholder": "200 regular customers in the first months" },
+      "timeframe": { "label": "Timeframe" }
+    },
+    "options": {
+      "stage": {
+        "idea": { "label": "Idea", "hint": "Still exploring the concept" },
+        "preparing": { "label": "Preparing", "hint": "Getting ready to launch" },
+        "operating": { "label": "Operating", "hint": "Already selling" },
+        "growing": { "label": "Growing", "hint": "Scaling an existing business" }
+      },
+      "type": {
+        "online": { "label": "Online", "hint": "Sells mainly online" },
+        "physical": { "label": "Physical", "hint": "A shop, venue or local service" },
+        "both": { "label": "Both", "hint": "Online and in person" }
+      },
+      "category": {
+        "food": "Food and hospitality",
+        "software": "Software / SaaS",
+        "services": "Services",
+        "ecommerce": "E-commerce",
+        "general": "Other"
+      },
+      "customerType": {
+        "b2c": { "label": "Consumers", "hint": "B2C" },
+        "b2b": { "label": "Businesses", "hint": "B2B" },
+        "both": { "label": "Both", "hint": "B2C and B2B" }
+      },
+      "offerStatus": { "planned": "Planned", "existing": "Already available" },
+      "revenue": {
+        "oneTime": "One-time sales",
+        "recurring": "Repeat purchases",
+        "subscription": "Subscription",
+        "commission": "Commission",
+        "custom": "Other"
+      },
+      "channels": {
+        "website": "Website",
+        "social": "Social media",
+        "marketplace": "Marketplaces",
+        "store": "Physical store",
+        "direct": "Direct sales",
+        "messaging": "WhatsApp / messaging",
+        "partners": "Partners / resellers"
+      },
+      "tone": {
+        "professional": "Professional",
+        "friendly": "Friendly",
+        "bold": "Bold",
+        "calm": "Calm",
+        "playful": "Playful",
+        "expert": "Expert"
+      },
+      "language": { "sq": "Albanian", "en": "English", "both": "Albanian and English" },
+      "priority": {
+        "launch": "Launch",
+        "customers": "Get customers",
+        "sales": "Increase sales",
+        "brand": "Build the brand",
+        "website": "Website",
+        "growth": "Grow"
+      },
+      "timeframe": { "1m": "1 month", "3m": "3 months", "6m": "6 months", "12m": "12 months" }
+    },
+    "adaptive": {
+      "food": { "service": "Service format", "cuisine": "Cuisine or menu focus", "serviceArea": "Delivery or service area" },
+      "software": { "targetCompanies": "Target companies", "productType": "Product type", "pricingModel": "Pricing approach" },
+      "services": {
+        "serviceType": "Type of service",
+        "serviceArea": "Service area",
+        "capacity": "Capacity (clients per week/month)"
+      },
+      "ecommerce": { "productCategory": "Product category", "fulfillment": "Fulfilment", "shipsTo": "Ships to" },
+      "options": {
+        "dineIn": "Dine-in",
+        "takeaway": "Takeaway",
+        "delivery": "Delivery",
+        "catering": "Catering",
+        "webApp": "Web app",
+        "mobileApp": "Mobile app",
+        "api": "API",
+        "desktop": "Desktop",
+        "freemium": "Freemium",
+        "trial": "Free trial",
+        "perSeat": "Per user",
+        "usage": "Usage-based",
+        "flat": "Flat price",
+        "ownStock": "Own stock",
+        "dropshipping": "Dropshipping",
+        "printOnDemand": "Print on demand",
+        "madeToOrder": "Made to order"
+      }
+    },
+    "review": {
+      "edit": "Edit",
+      "editAria": "Edit {section}",
+      "empty": "Nothing added.",
+      "notDecided": "Not decided yet",
+      "generate": "Generate my business",
+      "disclaimerTitle": "What happens next",
+      "disclaimer": "StartupOS prepares a first draft of your brand, website content, marketing and launch plan from these answers. Everything stays editable, and nothing in it is a guarantee of results.",
+      "contextGapsTitle": "Some details are still missing",
+      "contextGapsBody": "You can generate now. Missing material facts will be treated as assumptions, not invented as verified information.",
+      "contextGaps": {
+        "customers": "Customer description",
+        "market": "Market / location",
+        "industry": "Industry"
+      }
+    },
+    "edit": {
+      "action": "Edit business context",
+      "title": "Edit business context",
+      "description": "Update the information you provided about this business. Generated content is not changed.",
+      "stepDescription": "Update this section, then continue. Nothing is saved until you confirm on Review.",
+      "reviewTitle": "Review changes",
+      "reviewDescription": "Confirm the updated business context. Generated brand, website and plans stay as they are.",
+      "save": "Save changes",
+      "saving": "Saving…",
+      "saveFailed": "The business context could not be saved. Try again.",
+      "savedTitle": "Business context updated",
+      "savedDescription": "Your answers were saved. Generated content was not regenerated.",
+      "disclaimerTitle": "What this save does",
+      "disclaimer": "Only the business information you provided is updated. Brand, website, marketing and other generated output stay unchanged until you choose to regenerate them later."
+    }
+  },
+  "regeneration": {
+    "title": "Some generated sections may be outdated",
+    "description": "Your business context changed. Choose which sections to regenerate — everything else stays as it is.",
+    "hint": "Only the sections listed below were affected by your changes. Regeneration uses your updated business context.",
+    "incomplete": {
+      "title": "Try incomplete sections again",
+      "description": "Choose which sections to generate again. Everything else stays as it is.",
+      "hint": "These sections failed or fell back to reduced content last time. If a service was down, it may work now."
+    },
+    "confirm": "Regenerate selected",
+    "running": "Regenerating…",
+    "keepExisting": "Keep existing",
+    "failed": "Regeneration could not finish. Your previous generated content is still saved.",
+    "rateLimited": "You have regenerated a lot recently. Wait a while, then try again. Your current content is still saved.",
+    "partialFailed": "Some sections could not be regenerated. Those kept their previous content.",
+    "templateOnly": "The AI model did not write these sections, so they contain template content again.",
+    "status": {
+      "running": "Working…",
+      "done": "Updated",
+      "failed": "Kept previous",
+      "template": "Template only"
+    }
+  }
+}

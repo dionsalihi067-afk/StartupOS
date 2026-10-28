@@ -25,6 +25,10 @@ export function downloadJson(filename: string, data: unknown): void {
   downloadText(filename, JSON.stringify(data, null, 2), "application/json");
 }
 
+export function downloadHtml(filename: string, html: string): void {
+  downloadText(filename, html, "text/html");
+}
+
 /** Rasterizes an SVG string to a PNG and downloads it. */
 export async function downloadSvgAsPng(filename: string, svg: string, scale = 2): Promise<void> {
   const sized = ensureSvgSize(svg);

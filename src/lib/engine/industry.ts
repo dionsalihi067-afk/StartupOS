@@ -31,7 +31,7 @@ const PROFILES: IndustryProfile[] = [
     prefixes: ["Fresh", "Golden", "Urban", "Rustic", "Daily", "The"],
     suffixes: ["Kitchen", "& Co", "House", "Table", "Bar", "Collective"],
     roots: ["Ember", "Harvest", "Cocoa", "Saffron", "Maple", "Basil", "Hearth", "Crumb", "Verde"],
-    valueProps: ["Locally sourced ingredients", "Made fresh daily", "Crafted by hand", "Seasonal menu rotation", "Fast, friendly service"],
+    valueProps: ["A menu built around a few dishes done well", "Food prepared with care", "A welcoming place to come back to", "Seasonal ideas on the menu", "Friendly, unhurried service"],
     competitorArchetypes: [
       { name: "Established neighborhood favorite", descriptor: "Loyal regulars and strong word-of-mouth" },
       { name: "National chain", descriptor: "Aggressive pricing and brand recognition" },
@@ -55,7 +55,7 @@ const PROFILES: IndustryProfile[] = [
     prefixes: ["Pure", "Peak", "Vital", "Core", "Elevate", "Iron"],
     suffixes: ["Studio", "Lab", "Collective", "Method", "Co", "Club"],
     roots: ["Pulse", "Apex", "Forge", "Flow", "Summit", "Kinetic", "Thrive", "Ascend"],
-    valueProps: ["Expert-led programming", "Personalized plans", "Supportive community", "Results you can measure", "Flexible scheduling"],
+    valueProps: ["Programmes planned around your goals", "Personal attention", "A supportive community", "Progress you track yourself", "Flexible scheduling"],
     competitorArchetypes: [
       { name: "Big-box gym", descriptor: "Low prices, high churn, impersonal" },
       { name: "Boutique studio", descriptor: "Premium pricing, strong community" },
@@ -73,13 +73,37 @@ const PROFILES: IndustryProfile[] = [
     iconHints: ["bolt", "heart", "activity"],
   },
   {
+    key: "cosmetics",
+    label: "Cosmetics & Skincare",
+    keywords: ["cosmetic", "cosmetics", "skincare", "skin care", "makeup", "serum", "moisturizer", "moisturiser", "cream", "lotion", "fragrance", "perfume", "lipstick", "haircare", "soap", "sunscreen", "beauty products", "kozmetik", "kozmetike"],
+    prefixes: ["Pure", "Bare", "Glow", "True", "Clean", "Dew"],
+    suffixes: ["Skin", "Beauty", "Lab", "Botanics", "Care", "Studio"],
+    roots: ["Lumen", "Bloom", "Aura", "Petal", "Halo", "Dew", "Velour", "Sana"],
+    valueProps: ["Clear ingredient information", "Products chosen for different skin types", "Simple routine guidance", "Everyday care at a fair price", "A focused, uncomplicated range"],
+    competitorArchetypes: [
+      { name: "International beauty retailer", descriptor: "Wide range and brand recognition, little personal guidance" },
+      { name: "Pharmacy and drugstore brands", descriptor: "Trusted and accessible, generic advice" },
+      { name: "Instagram resellers", descriptor: "Low prices, uncertain authenticity and storage" },
+    ],
+    channels: ["Instagram", "TikTok", "Online store", "Creator partnerships", "Email"],
+    painPoints: ["Unsure which products suit their skin", "Worry about counterfeit or expired products", "Confusing ingredient claims", "Products that irritate sensitive skin"],
+    goals: ["A simple routine that works", "Products they can trust", "Visible, realistic results", "Good value for daily care"],
+    services: [
+      { title: "Product range", description: "Core products for a simple daily routine." },
+      { title: "Routine guidance", description: "Help choosing products for each skin type." },
+      { title: "Bundles", description: "Starter sets that combine products that work together." },
+    ],
+    contentTopics: ["Ingredient explainers", "Routine guides", "Skin-type advice", "Product comparisons", "Customer questions"],
+    iconHints: ["sparkle", "leaf", "heart"],
+  },
+  {
     key: "beauty",
     label: "Beauty & Personal Care",
-    keywords: ["salon", "barber", "beauty", "hair", "nails", "skincare", "cosmetics", "makeup", "lash", "aesthetics", "spa", "grooming", "tattoo"],
+    keywords: ["salon", "barber", "barbershop", "beauty salon", "hairdresser", "hair salon", "nails", "nail salon", "lash", "lashes", "brows", "aesthetics", "spa", "grooming", "tattoo", "manicure", "pedicure"],
     prefixes: ["Lush", "Velvet", "Luxe", "Glow", "Bare", "House of"],
     suffixes: ["Studio", "Atelier", "Beauty", "Lab", "Bar", "Salon"],
     roots: ["Lumen", "Bloom", "Sable", "Aura", "Petal", "Gloss", "Muse", "Halo"],
-    valueProps: ["Licensed specialists", "Premium products", "Tailored to you", "Relaxing atmosphere", "Visible results"],
+    valueProps: ["Treatments tailored to you", "Careful, attentive service", "A relaxing atmosphere", "Clear advice before every treatment", "Time set aside for you"],
     competitorArchetypes: [
       { name: "High-street chain salon", descriptor: "Convenient but generic experience" },
       { name: "Independent stylist", descriptor: "Personal but limited capacity" },
@@ -103,7 +127,7 @@ const PROFILES: IndustryProfile[] = [
     prefixes: ["Get", "Use", "Try", "Hyper", "Next", "Open"],
     suffixes: ["Labs", "AI", "HQ", "Stack", "Flow", "OS"],
     roots: ["Nova", "Vertex", "Quanta", "Cortex", "Pulse", "Orbit", "Cipher", "Lumen"],
-    valueProps: ["Save hours every week", "Built for scale", "Secure by design", "Integrates with your stack", "No-code setup"],
+    valueProps: ["Less time on repetitive work", "Built around one clear job", "Simple to set up", "Fits the way your team works", "Straightforward to learn"],
     competitorArchetypes: [
       { name: "Incumbent enterprise suite", descriptor: "Feature-rich but bloated and expensive" },
       { name: "Open-source alternative", descriptor: "Free but requires heavy setup" },
@@ -127,7 +151,7 @@ const PROFILES: IndustryProfile[] = [
     prefixes: ["The", "Shop", "Maison", "House of", "Wear", "Daily"],
     suffixes: ["Co", "Goods", "Supply", "Studio", "Label", "Collective"],
     roots: ["Linen", "Atlas", "Ivory", "Nomad", "Stitch", "Ember", "Onyx", "Wilder"],
-    valueProps: ["Premium materials", "Ethically made", "Free & easy returns", "Designed to last", "Fast shipping"],
+    valueProps: ["Thoughtfully chosen materials", "Designed to be worn often", "Clear sizing and care information", "A focused collection", "Easy ordering"],
     competitorArchetypes: [
       { name: "Fast-fashion giant", descriptor: "Cheap, trend-driven, low quality" },
       { name: "Marketplace seller", descriptor: "Wide selection, weak brand" },
@@ -151,7 +175,7 @@ const PROFILES: IndustryProfile[] = [
     prefixes: ["The", "North", "Meridian", "Summit", "Cardinal", "Atlas"],
     suffixes: ["Group", "Partners", "Advisory", "Studio", "& Associates", "Collective"],
     roots: ["Meridian", "Beacon", "Anchor", "Keystone", "Vantage", "Compass", "Sterling", "Haven"],
-    valueProps: ["Senior-level expertise", "Tailored strategy", "Transparent pricing", "Proven track record", "Hands-on partnership"],
+    valueProps: ["Advice tailored to your situation", "Clear scope and pricing up front", "Direct access to the person doing the work", "Practical, actionable recommendations", "A hands-on working relationship"],
     competitorArchetypes: [
       { name: "Big-name firm", descriptor: "Prestige and reach, premium fees" },
       { name: "Solo freelancer", descriptor: "Affordable but limited bandwidth" },
@@ -175,7 +199,7 @@ const PROFILES: IndustryProfile[] = [
     prefixes: ["The", "Bright", "Learn", "Master", "Open", "Future"],
     suffixes: ["Academy", "School", "Lab", "Institute", "Collective", "Method"],
     roots: ["Lumina", "Scholar", "Beacon", "Ascend", "Mentor", "Catalyst", "Forge", "Atlas"],
-    valueProps: ["Learn by doing", "Expert instructors", "Real outcomes", "Flexible & self-paced", "Supportive cohort"],
+    valueProps: ["Learn by doing", "Lessons built around practice", "Clear learning goals", "Flexible pacing", "A supportive group"],
     competitorArchetypes: [
       { name: "Massive online platform", descriptor: "Huge catalog, low completion rates" },
       { name: "Traditional institution", descriptor: "Credible but slow and expensive" },
@@ -193,61 +217,13 @@ const PROFILES: IndustryProfile[] = [
     iconHints: ["star", "grid", "compass"],
   },
   {
-    key: "health",
-    label: "Health & Medical",
-    keywords: ["dental", "dentist", "clinic", "medical", "doctor", "therapy", "therapist", "physio", "chiropractic", "health", "healthcare", "orthodontic", "optometry", "veterinary", "vet", "psychology", "counseling", "nurse", "pharmacy", "wellness clinic", "mental health"],
-    prefixes: ["Bright", "Pure", "Care", "Vital", "Gentle", "True"],
-    suffixes: ["Health", "Care", "Clinic", "Medical", "Dental", "Practice"],
-    roots: ["Aria", "Lumen", "Vita", "Serene", "Pillar", "Haven", "Cedar", "Meridian"],
-    valueProps: ["Patient-first care", "Gentle, modern approach", "Same-week appointments", "Transparent treatment plans", "Highly qualified specialists"],
-    competitorArchetypes: [
-      { name: "Established local practice", descriptor: "Trusted but often booked out and dated" },
-      { name: "Corporate clinic chain", descriptor: "Convenient hours, impersonal experience" },
-      { name: "Budget provider", descriptor: "Low prices, variable quality of care" },
-    ],
-    channels: ["Google Business Profile", "Local SEO", "Referrals", "Instagram", "Email reminders"],
-    painPoints: ["Long wait times for appointments", "Anxiety about visits", "Surprise out-of-pocket costs", "Feeling rushed by providers"],
-    goals: ["Feel healthy and cared for", "A provider they can trust", "Clear, affordable treatment", "A calm, comfortable experience"],
-    services: [
-      { title: "New Patient Consultations", description: "A thorough, unhurried first visit and care plan." },
-      { title: "Routine & Preventive Care", description: "Stay ahead of problems with regular visits." },
-      { title: "Specialist Treatments", description: "Advanced care delivered with a gentle touch." },
-    ],
-    contentTopics: ["Patient education", "Meet the practitioners", "Care tips", "What to expect", "Patient stories"],
-    iconHints: ["shield", "heart", "leaf"],
-  },
-  {
-    key: "hospitality",
-    label: "Hospitality & Travel",
-    keywords: ["hotel", "hostel", "resort", "bnb", "airbnb", "travel", "tour", "tours", "tourism", "guesthouse", "lodge", "vacation", "rental", "experience", "retreat", "events", "venue", "wedding"],
-    prefixes: ["The", "Casa", "Stay", "Wander", "Coastal", "Urban"],
-    suffixes: ["Stays", "Retreats", "Collective", "House", "Escapes", "Co"],
-    roots: ["Azure", "Solace", "Haven", "Lumen", "Voyage", "Terra", "Marisol", "Aurora"],
-    valueProps: ["Unforgettable local experiences", "Effortless booking", "Thoughtful hospitality", "Hand-picked locations", "Hassle-free stays"],
-    competitorArchetypes: [
-      { name: "Global booking platform", descriptor: "Huge inventory, generic and impersonal" },
-      { name: "Legacy hotel brand", descriptor: "Reliable but uninspiring and pricey" },
-      { name: "Independent host", descriptor: "Characterful but inconsistent service" },
-    ],
-    channels: ["Instagram", "TikTok", "Booking platforms", "Google", "Email"],
-    painPoints: ["Hidden fees and surprises", "Disappointing vs. photos", "Complicated booking", "Generic, touristy experiences"],
-    goals: ["A memorable trip", "Stress-free planning", "Authentic local experiences", "Great value for money"],
-    services: [
-      { title: "Stays & Bookings", description: "Hand-picked places to stay, easy to book." },
-      { title: "Curated Experiences", description: "Local experiences you'll actually remember." },
-      { title: "Events & Groups", description: "Tailored hospitality for groups and occasions." },
-    ],
-    contentTopics: ["Destination guides", "Guest stories", "Behind the experience", "Local tips", "Seasonal offers"],
-    iconHints: ["compass", "star", "wave"],
-  },
-  {
     key: "home",
     label: "Home & Trades",
     keywords: ["cleaning", "plumbing", "electrician", "landscaping", "construction", "renovation", "handyman", "hvac", "roofing", "painting", "moving", "repair", "garden", "interior"],
     prefixes: ["Pro", "Reliable", "Premier", "All", "Solid", "Clear"],
     suffixes: ["Services", "Co", "Pros", "Works", "Solutions", "& Sons"],
     roots: ["Cornerstone", "Anchor", "Bluepeak", "Homestead", "Trueline", "Hearth", "Granite", "Maple"],
-    valueProps: ["Licensed & insured", "Upfront pricing", "On-time, every time", "Satisfaction guaranteed", "Local & trusted"],
+    valueProps: ["Clear quotes before work starts", "Turning up when agreed", "Tidy, careful work", "Easy to reach", "Serving the local area"],
     competitorArchetypes: [
       { name: "Large franchise", descriptor: "Recognizable but impersonal" },
       { name: "Independent operator", descriptor: "Cheap but inconsistent availability" },
@@ -264,7 +240,151 @@ const PROFILES: IndustryProfile[] = [
     contentTopics: ["Before & after projects", "Maintenance tips", "Cost guides", "Customer reviews", "Seasonal checklists"],
     iconHints: ["shield", "grid", "compass"],
   },
+  {
+    key: "automotive",
+    label: "Automotive",
+    keywords: ["car", "cars", "vehicle", "vehicles", "automotive", "auto", "dealership", "detailing", "mechanic", "garage", "tyre", "tire", "car wash", "car import", "used cars", "makina", "vetura"],
+    prefixes: ["Auto", "Drive", "Prime", "Road", "Motor", "Swift"],
+    suffixes: ["Motors", "Auto", "Garage", "Cars", "Works", "Drive"],
+    roots: ["Torque", "Axle", "Velo", "Piston", "Rally", "Gear", "Route", "Chassis"],
+    valueProps: ["Clear information on every vehicle", "Fees explained up front", "Straight answers about repairs", "Updates while the work is done", "Help with the paperwork"],
+    competitorArchetypes: [
+      { name: "Franchised dealership", descriptor: "Warranty and trust, higher prices" },
+      { name: "Private sellers and classifieds", descriptor: "Low prices, uncertain condition" },
+      { name: "Independent workshop", descriptor: "Personal service, variable quality" },
+    ],
+    channels: ["Classified listing sites", "Facebook", "Google Business Profile", "Instagram", "Referrals"],
+    painPoints: ["Hidden defects and unclear history", "Unexpected fees", "Slow paperwork", "Not knowing who to trust"],
+    goals: ["A reliable vehicle at a fair price", "Clear, honest information", "Fast, hassle-free service", "Peace of mind"],
+    services: [
+      { title: "Vehicle sourcing", description: "Find and check vehicles that match the brief." },
+      { title: "Inspection and history", description: "Condition checks before purchase." },
+      { title: "Registration support", description: "Help with paperwork and handover." },
+    ],
+    contentTopics: ["Buying guides", "Inspection checklists", "Running-cost comparisons", "Maintenance tips", "Customer handovers"],
+    iconHints: ["shield", "compass", "bolt"],
+  },
+  {
+    key: "travel",
+    label: "Travel & Hospitality",
+    keywords: ["travel", "tour", "tours", "tourism", "hotel", "hostel", "guesthouse", "guest house", "bed and breakfast", "apartment rental", "excursion", "trekking", "hiking tours", "travel agency"],
+    prefixes: ["Wander", "Go", "Trail", "Stay", "Explore", "The"],
+    suffixes: ["Tours", "Travel", "Stays", "Trails", "House", "Journeys"],
+    roots: ["Nomad", "Atlas", "Horizon", "Vista", "Compass", "Summit", "Harbor", "Ridge"],
+    valueProps: ["Local knowledge of the area", "Clear itineraries and prices", "Small groups", "Flexible booking", "Experiences shaped by the place"],
+    competitorArchetypes: [
+      { name: "Online travel agency", descriptor: "Huge inventory, impersonal" },
+      { name: "Local tour operator", descriptor: "Local knowledge, limited online presence" },
+      { name: "Self-guided travel", descriptor: "Cheap, but time-consuming to plan" },
+    ],
+    channels: ["Booking platforms", "Instagram", "Google Business Profile", "TripAdvisor-style review sites", "Partnerships with hotels"],
+    painPoints: ["Hard to judge quality before booking", "Hidden costs", "Overcrowded tourist experiences", "Language barriers"],
+    goals: ["A memorable trip", "Good value", "Feeling safe and looked after", "Discovering something authentic"],
+    services: [
+      { title: "Signature experiences", description: "The trips and stays the business is known for." },
+      { title: "Private bookings", description: "Tailored options for groups and families." },
+      { title: "Travel support", description: "Help before and during the trip." },
+    ],
+    contentTopics: ["Destination guides", "Itinerary ideas", "Guest stories", "Seasonal highlights", "Practical travel tips"],
+    iconHints: ["compass", "star", "leaf"],
+  },
+  {
+    key: "logistics",
+    label: "Logistics & Delivery",
+    keywords: ["logistics", "courier", "delivery service", "last mile", "freight", "shipping company", "transport company", "trucking", "warehousing", "warehouse", "dispatch", "moving company"],
+    prefixes: ["Swift", "Rapid", "Direct", "Prime", "Route", "On"],
+    suffixes: ["Logistics", "Express", "Couriers", "Freight", "Delivery", "Transport"],
+    roots: ["Relay", "Courier", "Vector", "Transit", "Arrow", "Cargo", "Dispatch", "Lane"],
+    valueProps: ["Clear delivery windows", "Updates on each delivery", "Rates explained up front", "Careful handling", "Service planned around your routes"],
+    competitorArchetypes: [
+      { name: "National postal service", descriptor: "Wide coverage, slow and inflexible" },
+      { name: "International courier", descriptor: "Fast and trusted, expensive" },
+      { name: "Informal drivers", descriptor: "Cheap, unreliable and uninsured" },
+    ],
+    channels: ["Direct sales to businesses", "LinkedIn", "Google Business Profile", "Partnerships with online stores", "Referrals"],
+    painPoints: ["Missed or late deliveries", "No tracking", "Damaged goods", "Unclear pricing"],
+    goals: ["Deliveries that arrive on time", "Predictable costs", "Fewer customer complaints", "Simple booking"],
+    services: [
+      { title: "Same-day delivery", description: "Local deliveries within agreed windows." },
+      { title: "Business accounts", description: "Regular collections for online stores and shops." },
+      { title: "Tracking and proof of delivery", description: "Visibility for every parcel." },
+    ],
+    contentTopics: ["Delivery tips for sellers", "Coverage updates", "Customer case studies", "Packaging advice", "Behind the route"],
+    iconHints: ["bolt", "grid", "compass"],
+  },
+  {
+    key: "agriculture",
+    label: "Agriculture & Food Production",
+    keywords: ["farm", "farming", "agriculture", "agricultural", "greenhouse", "orchard", "honey", "beekeeping", "livestock", "dairy", "olive oil", "vineyard", "organic produce", "crops", "fruit", "vegetables"],
+    prefixes: ["Green", "Fresh", "Field", "Valley", "Golden", "Wild"],
+    suffixes: ["Farm", "Fields", "Harvest", "Produce", "Growers", "Orchards"],
+    roots: ["Harvest", "Meadow", "Orchard", "Terra", "Furrow", "Sprout", "Grove", "Acre"],
+    valueProps: ["Clear information on where produce comes from", "Seasonal produce", "Grown with care", "Buying direct from the producer", "Planned, regular supply"],
+    competitorArchetypes: [
+      { name: "Imported supermarket produce", descriptor: "Cheap and constant, less fresh" },
+      { name: "Market stall producers", descriptor: "Fresh and local, inconsistent supply" },
+      { name: "Industrial producer", descriptor: "Volume and price, little story" },
+    ],
+    channels: ["Direct to restaurants and shops", "Farmers' markets", "Facebook", "Instagram", "Wholesale buyers"],
+    painPoints: ["Unclear origin of food", "Inconsistent quality", "Short shelf life", "Hard to buy directly from producers"],
+    goals: ["Fresh, trustworthy food", "Supporting local producers", "Reliable supply", "Fair prices"],
+    services: [
+      { title: "Seasonal produce", description: "What the farm grows and when it is available." },
+      { title: "Supply for businesses", description: "Regular orders for shops and restaurants." },
+      { title: "Direct orders", description: "Boxes or pickups for households." },
+    ],
+    contentTopics: ["Harvest updates", "Meet the farm", "Recipes with seasonal produce", "How it's grown", "Buyer stories"],
+    iconHints: ["leaf", "star", "heart"],
+  },
+  {
+    key: "realEstate",
+    label: "Real Estate & Property",
+    keywords: ["real estate", "property", "properties", "realtor", "estate agent", "property management", "rentals", "apartments", "lettings", "property development"],
+    prefixes: ["Prime", "Key", "Urban", "Home", "Capital", "The"],
+    suffixes: ["Properties", "Estates", "Realty", "Homes", "Living", "Partners"],
+    roots: ["Keystone", "Cornerstone", "Haven", "Vantage", "Domus", "Arch", "Crest", "Landmark"],
+    valueProps: ["Clear, complete listings", "Fees explained up front", "Local market knowledge", "Prompt replies", "Support through the paperwork"],
+    competitorArchetypes: [
+      { name: "Established agency", descriptor: "Large portfolio, slow and impersonal" },
+      { name: "Listing portals", descriptor: "Lots of choice, unverified listings" },
+      { name: "Private owners", descriptor: "No fees, little support" },
+    ],
+    channels: ["Property portals", "Facebook", "Instagram", "Google Business Profile", "Referrals"],
+    painPoints: ["Outdated or fake listings", "Unclear fees", "Slow responses", "Complicated paperwork"],
+    goals: ["Find the right property quickly", "A fair deal", "Trustworthy advice", "A smooth transaction"],
+    services: [
+      { title: "Sales and lettings", description: "Listing and matching properties with buyers and tenants." },
+      { title: "Property management", description: "Day-to-day care for owners." },
+      { title: "Valuations", description: "Market-based price guidance." },
+    ],
+    contentTopics: ["Neighbourhood guides", "Market updates", "Buyer and renter tips", "Featured listings", "Owner advice"],
+    iconHints: ["shield", "grid", "compass"],
+  },
 ];
+
+/** Discovery categories that tell the classifier which family of profiles to favour. */
+const CATEGORY_HINTS: Record<string, Record<string, number>> = {
+  software: { tech: 4 },
+  food: { food: 4, agriculture: 1 },
+  ecommerce: { ecommerce: 1, cosmetics: 1 },
+  services: { services: 1, home: 1, beauty: 1, logistics: 1, realEstate: 1, automotive: 1, travel: 1, education: 1, fitness: 1 },
+};
+
+/** Whole-word match (with simple plurals), so "ai" never matches "retail" and "app" never matches "apparel". */
+function keywordPattern(keyword: string): RegExp {
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+  return new RegExp(`(?:^|[^\\p{L}\\p{N}])${escaped}(?:s|es)?(?=$|[^\\p{L}\\p{N}])`, "iu");
+}
+
+const KEYWORD_PATTERNS = new Map<string, RegExp>();
+function matchesKeyword(text: string, keyword: string): boolean {
+  let pattern = KEYWORD_PATTERNS.get(keyword);
+  if (!pattern) {
+    pattern = keywordPattern(keyword);
+    KEYWORD_PATTERNS.set(keyword, pattern);
+  }
+  return pattern.test(text);
+}
 
 const GENERIC: IndustryProfile = {
   key: "generic",
@@ -273,7 +393,7 @@ const GENERIC: IndustryProfile = {
   prefixes: ["The", "Get", "Go", "New", "Bright", "True"],
   suffixes: ["Co", "Studio", "Group", "Labs", "Collective", "HQ"],
   roots: ["Nova", "Vertex", "Beacon", "Atlas", "Lumen", "Apex", "Haven", "Orbit"],
-  valueProps: ["Customer-first approach", "Quality you can trust", "Transparent and fair", "Built around your needs", "Reliable results"],
+  valueProps: ["Customer-first approach", "Careful attention to detail", "Transparent and fair", "Built around your needs", "Clear communication"],
   competitorArchetypes: [
     { name: "Established market leader", descriptor: "Strong brand, slow to innovate" },
     { name: "Budget alternative", descriptor: "Low price, low differentiation" },
@@ -291,17 +411,33 @@ const GENERIC: IndustryProfile = {
   iconHints: ["star", "grid", "bolt"],
 };
 
-export function detectIndustry(idea: string): IndustryProfile {
-  const text = idea.toLowerCase();
+/** Every built-in profile, including the generic fallback. */
+export const ALL_INDUSTRY_PROFILES: readonly IndustryProfile[] = [...PROFILES, GENERIC];
+
+/**
+ * Picks the closest industry profile for a business description. `category` is
+ * the owner's own discovery category; it only breaks ties toward the profiles
+ * that category covers and never overrides clear keyword evidence.
+ */
+export function detectIndustry(text: string, category?: string): IndustryProfile {
+  const hints = (category && CATEGORY_HINTS[category]) || {};
   let best: { profile: IndustryProfile; score: number } | null = null;
   for (const profile of PROFILES) {
     let score = 0;
     for (const kw of profile.keywords) {
-      if (text.includes(kw)) score += kw.length > 5 ? 2 : 1;
+      if (matchesKeyword(text, kw)) score += kw.length > 5 ? 2 : 1;
     }
+    if (score > 0) score += hints[profile.key] ?? 0;
     if (score > 0 && (!best || score > best.score)) best = { profile, score };
   }
+  if (!best && category === "software") return PROFILES.find((p) => p.key === "tech")!;
   return best?.profile ?? GENERIC;
+}
+
+/** Industry for a business input: idea plus the owner's offering, guided by their discovery category. */
+export function detectInputIndustry(input: { idea: string; discovery?: { business: { offering: string; category: string } } }): IndustryProfile {
+  const offering = input.discovery?.business.offering ?? "";
+  return detectIndustry(`${input.idea} ${offering}`, input.discovery?.business.category);
 }
 
 export { GENERIC as GENERIC_INDUSTRY };

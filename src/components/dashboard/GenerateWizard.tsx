@@ -1,310 +1,391 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { AlertCircle, Check, Loader2, RotateCcw, Sparkles, Wand2 } from "lucide-react";
-import { BUSINESS_STYLES, businessInputSchema } from "@/lib/schemas";
-import type { BusinessInput, BusinessStyle } from "@/lib/types";
-import { useGeneration } from "@/lib/client/useGeneration";
-import { saveProject } from "@/lib/client/store";
-import { Button, Badge } from "@/components/ui/primitives";
+import { AlertCircle, Check, ChevronDown, Loader2 } from "lucide-react";
+import type { BusinessInput } from "@/lib/types";
+import { retryAfterMinutes, useGeneration, type AgentState } from "@/lib/client/useGeneration";
+import { Button, Card, CardBody, CardHeader, ProgressBar } from "@/components/ui/primitives";
+import { Provenance } from "@/components/ui/Provenance";
+import { InlineNotice } from "@/components/dashboard/EmptyState";
+import { DiscoveryWizard, resetDiscoveryDraft } from "@/components/discovery/DiscoveryWizard";
+import { useT } from "@/i18n/client";
+import type { StepKey } from "@/i18n/labels";
+import type { MessageKey } from "@/i18n/messages";
+import { useRouter } from "@/i18n/navigation";
+import type { Translator } from "@/i18n/translator";
+import { isChatCapabilityReady, isImageCapabilityReady, isSearchCapabilityReady, type ProviderStatusPayload } from "@/lib/client/provider-status";
 import { cn } from "@/lib/utils";
 
-const EXAMPLES = [
-  "An organic coffee roastery and café for remote workers",
-  "A boutique pilates studio for busy professionals",
-  "An AI scheduling app for independent barbershops",
-  "A premium skincare brand for sensitive skin",
+function stepLabel(agent: AgentState, t: Translator): string {
+  return t.optional(`steps.${agent.key as StepKey}`) ?? agent.label;
+}
+
+/** Groups real orchestration steps into human-readable phases (keys match backend AgentKey). */
+const PHASES: { id: "identity" | "research" | "strategy" | "presence" | "launch"; keys: string[] }[] = [
+  { id: "identity", keys: ["brand", "design", "logo", "persona"] },
+  { id: "research", keys: ["competitor", "market"] },
+  { id: "strategy", keys: ["pricing", "strategy"] },
+  { id: "presence", keys: ["website", "seo", "marketing", "email", "whatsapp"] },
+  { id: "launch", keys: ["growth", "launch", "publisher"] },
 ];
 
-const STYLE_HINTS: Record<BusinessStyle, string> = {
-  "Premium / Luxury": "Elegant, exclusive, refined",
-  "Modern / Minimal": "Clean, calm, considered",
-  "Bold / Energetic": "Punchy, vibrant, high-impact",
-  "Friendly / Approachable": "Warm, human, welcoming",
-  "Corporate / Professional": "Trustworthy, precise, established",
-  "Playful / Creative": "Fun, imaginative, original",
-  "Tech / Futuristic": "Sharp, innovative, forward",
-  "Organic / Natural": "Earthy, honest, grounded",
-};
+type PhaseStatus = "pending" | "running" | "done" | "partial";
 
-type FormState = {
-  idea: string;
-  audience: string;
-  location: string;
-  budget: string;
-  style: BusinessStyle;
-};
+function phaseStatus(agents: AgentState[], keys: string[]): PhaseStatus {
+  const subset = agents.filter((a) => keys.includes(a.key));
+  if (subset.length === 0) return "pending";
+  if (subset.some((a) => a.status === "running")) return "running";
+  const finished = subset.every((a) => a.status === "done" || a.status === "error");
+  if (!finished) return "pending";
+  if (subset.some((a) => a.status === "error")) return "partial";
+  return "done";
+}
+
+/** Last submitted answers, so "Try again" after a failure re-sends exactly the same input. */
+let lastInput: BusinessInput | null = null;
 
 export function GenerateWizard() {
   const router = useRouter();
-  const { state, run } = useGeneration();
-  const [form, setForm] = React.useState<FormState>({
-    idea: "",
-    audience: "",
-    location: "",
-    budget: "",
-    style: "Modern / Minimal",
-  });
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
-  const savedRef = React.useRef(false);
+  const t = useT();
+  const { state, run, reset } = useGeneration();
+  const [status, setStatus] = React.useState<ProviderStatusPayload | null>(null);
+  const errorRef = React.useRef<HTMLDivElement>(null);
 
-  // Persist + redirect on completion.
   React.useEffect(() => {
-    if (state.status === "complete" && state.result && !savedRef.current) {
-      savedRef.current = true;
-      saveProject(state.result);
+    fetch("/api/status")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s: ProviderStatusPayload | null) => s && setStatus(s))
+      .catch(() => {});
+  }, []);
+
+  React.useEffect(() => {
+    if (state.status === "complete" && state.result) {
       const id = state.result.id;
-      const t = setTimeout(() => router.push(`/dashboard/projects/${id}`), 900);
-      return () => clearTimeout(t);
+      const timer = setTimeout(() => {
+        resetDiscoveryDraft();
+        lastInput = null;
+        reset();
+        router.push(`/dashboard/projects/${id}`);
+      }, 900);
+      return () => clearTimeout(timer);
     }
-  }, [state.status, state.result, router]);
+  }, [state.status, state.result, router, reset]);
 
-  function update<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((f) => ({ ...f, [key]: value }));
-  }
+  React.useEffect(() => {
+    if (state.status === "error") errorRef.current?.focus();
+  }, [state.status]);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const parsed = businessInputSchema.safeParse(form);
-    if (!parsed.success) {
-      const fieldErrors = parsed.error.flatten().fieldErrors;
-      const next: Record<string, string> = {};
-      for (const [k, v] of Object.entries(fieldErrors)) if (v?.[0]) next[k] = v[0];
-      setErrors(next);
-      return;
-    }
-    setErrors({});
-    savedRef.current = false;
-    void run(parsed.data as BusinessInput);
+  function generate(input: BusinessInput) {
+    lastInput = input;
+    void run(input);
   }
 
   if (state.status === "running" || state.status === "complete") {
-    return <GenerationProgress state={state} />;
+    const title = lastInput?.discovery?.business.name || lastInput?.idea || "";
+    return <GenerationProgress state={state} businessIdea={title} />;
   }
 
+  // Retrying immediately after a rate limit is always rejected, so only offer "Try again" for other failures.
+  const rateLimited = state.error === "rateLimited";
+  const errorMessage =
+    rateLimited && state.retryAfterSeconds
+      ? t("errors.generation.rateLimitedRetry", { minutes: retryAfterMinutes(state.retryAfterSeconds) })
+      : t(`errors.generation.${state.error ?? "server"}`);
+
+  // Until /api/status loads, do not claim logo/research are available (chat ≠ image).
+  const chatReady = status ? isChatCapabilityReady(status) : false;
+  const imageReady = status ? isImageCapabilityReady(status) : false;
+  const searchReady = status ? isSearchCapabilityReady(status) : false;
+  const outputs: { key: MessageKey; available: boolean }[] = [
+    { key: "generate.outputs.brand", available: true },
+    { key: "generate.outputs.logo", available: imageReady },
+    { key: "generate.outputs.website", available: true },
+    { key: "generate.outputs.marketing", available: true },
+    { key: "generate.outputs.research", available: searchReady },
+    { key: "generate.outputs.plan", available: true },
+  ];
+
   return (
-    <form onSubmit={handleSubmit} className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
-      <div className="space-y-6">
-        <Field label="Business idea" error={errors.idea} hint="Describe what you want to build in a sentence or two.">
-          <textarea
-            value={form.idea}
-            onChange={(e) => update("idea", e.target.value)}
-            rows={3}
-            placeholder="e.g. An organic coffee roastery and café for remote workers"
-            className="w-full resize-none rounded-xl border border-border bg-surface px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-ink-subtle focus:border-brand focus:ring-2 focus:ring-brand/30"
-          />
-          <div className="mt-2.5 flex flex-wrap gap-2">
-            {EXAMPLES.map((ex) => (
-              <button
-                key={ex}
-                type="button"
-                onClick={() => update("idea", ex)}
-                className="rounded-full border border-border bg-surface px-3 py-1 text-[12px] text-ink-muted transition hover:border-brand/40 hover:text-ink"
-              >
-                {ex}
-              </button>
-            ))}
-          </div>
-        </Field>
-
-        <div className="grid gap-6 sm:grid-cols-2">
-          <Field label="Target audience" error={errors.audience}>
-            <Input value={form.audience} onChange={(v) => update("audience", v)} placeholder="e.g. Remote workers, 25–40" />
-          </Field>
-          <Field label="Location" error={errors.location}>
-            <Input value={form.location} onChange={(v) => update("location", v)} placeholder="e.g. Austin, Texas" />
-          </Field>
+    <div className="space-y-4">
+      {state.status === "error" && (
+        <div ref={errorRef} tabIndex={-1} className="mx-auto max-w-3xl outline-none">
+          <InlineNotice
+            tone="danger"
+            title={t("generate.errorTitle")}
+            action={
+              lastInput && !rateLimited ? (
+                <Button size="sm" variant="secondary" onClick={() => lastInput && generate(lastInput)}>
+                  {t("common.tryAgain")}
+                </Button>
+              ) : undefined
+            }
+          >
+            {errorMessage}
+          </InlineNotice>
         </div>
+      )}
+      <DiscoveryWizard
+        onSubmit={generate}
+        aside={
+          <Card>
+            <CardHeader title={t("generate.whatWillBeCreated")} />
+            <CardBody className="space-y-4">
+              <ul className="grid gap-2 text-[13px] text-ink-muted sm:grid-cols-2">
+                {outputs.map((x) => (
+                  <li key={x.key} className={cn("flex gap-2.5", !x.available && "text-ink-subtle")}>
+                    <span aria-hidden className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-ink-subtle" />
+                    <span>
+                      {t(x.key)}
+                      {!x.available && <span className="ml-1.5 text-[12px]">{t("common.notAvailable")}</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              {status && (
+                <div className="space-y-1.5 rounded-lg bg-surface-2 p-3 text-[12.5px] text-ink-muted">
+                  <p>{chatReady ? t("generate.aiOn") : t("generate.aiOff")}</p>
+                  {status.llmConfigReason === "localhost-in-production" && (
+                    <p>{t("generate.aiLocalhostBlocked")}</p>
+                  )}
+                  {status.engine === "deterministic" && !chatReady && (
+                    <p>{t("generate.aiDeterministicNote")}</p>
+                  )}
+                  {chatReady && !imageReady && <p>{t("generate.imageOff")}</p>}
+                  {!searchReady && <p>{t("generate.searchOff")}</p>}
+                </div>
+              )}
+            </CardBody>
+          </Card>
+        }
+      />
+    </div>
+  );
+}
 
-        <Field label="Budget" error={errors.budget} hint="Used to calibrate pricing and channel mix.">
-          <Input value={form.budget} onChange={(v) => update("budget", v)} placeholder="e.g. $10,000" />
-        </Field>
+function GenerationProgress({
+  state,
+  businessIdea,
+}: {
+  state: ReturnType<typeof useGeneration>["state"];
+  businessIdea: string;
+}) {
+  const t = useT();
+  const complete = state.status === "complete";
+  const outcome = state.result?.meta.quality?.outcome;
+  const degraded = complete && outcome === "degraded";
+  const provisional = complete && outcome === "provisional";
+  const limited = degraded || provisional;
+  // Avoid Array.prototype.findLast — not available in every embedded browser runtime.
+  const current = [...state.agents].reverse().find((a) => a.status === "running");
+  const doneCount = state.agents.filter((a) => a.status === "done" || a.status === "error").length;
+  const [detailsOpen, setDetailsOpen] = React.useState(false);
 
-        <Field label="Brand style" error={errors.style}>
-          <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2">
-            {BUSINESS_STYLES.map((style) => (
-              <button
-                key={style}
-                type="button"
-                onClick={() => update("style", style)}
+  const phases = PHASES.map((p) => ({
+    ...p,
+    status: complete ? (phaseStatus(state.agents, p.keys) === "partial" ? "partial" : "done") : phaseStatus(state.agents, p.keys),
+  }));
+
+  return (
+    <div className="mx-auto max-w-3xl motion-enter">
+      <Card className="overflow-hidden border-border/80 shadow-[var(--shadow-elevated)]">
+        <div className="relative overflow-hidden border-b border-border">
+          <div aria-hidden className="gen-blueprint absolute inset-0 opacity-40" />
+          {!complete && <div aria-hidden className="gen-sweep absolute inset-y-0 left-0 w-1/3 opacity-60" />}
+          <CardBody className="relative p-6 sm:p-7">
+            <div className="flex items-start gap-3">
+              <span
                 className={cn(
-                  "rounded-xl border p-3 text-left transition-all",
-                  form.style === style
-                    ? "border-brand bg-brand-soft shadow-[inset_0_0_0_1px_rgba(109,94,252,0.4)]"
-                    : "border-border bg-surface hover:border-border-strong",
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border",
+                  complete && !limited
+                    ? "bg-success/10 text-success"
+                    : limited
+                      ? "bg-warning/10 text-warning"
+                      : "bg-brand-soft text-brand shadow-[0_0_24px_-8px_color-mix(in_srgb,var(--color-brand)_55%,transparent)]",
                 )}
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-[13px] font-semibold">{style}</span>
-                  {form.style === style && <Check size={14} className="text-brand-2" />}
-                </div>
-                <span className="mt-0.5 block text-[11px] text-ink-subtle">{STYLE_HINTS[style]}</span>
-              </button>
-            ))}
-          </div>
-        </Field>
-      </div>
-
-      {/* Summary / action panel */}
-      <div className="lg:sticky lg:top-8 lg:self-start">
-        <div className="card overflow-hidden">
-          <div className="border-b border-border bg-bg-elevated p-5">
-            <div className="flex items-center gap-2 text-sm font-semibold">
-              <Sparkles size={16} className="text-brand-2" /> Generation summary
-            </div>
-          </div>
-          <div className="space-y-3 p-5 text-sm">
-            <SummaryRow label="Idea" value={form.idea || "—"} />
-            <SummaryRow label="Audience" value={form.audience || "—"} />
-            <SummaryRow label="Location" value={form.location || "—"} />
-            <SummaryRow label="Budget" value={form.budget || "—"} />
-            <SummaryRow label="Style" value={form.style} />
-          </div>
-          <div className="border-t border-border p-5">
-            <Button type="submit" size="lg" className="w-full">
-              <Wand2 size={17} /> Generate business
-            </Button>
-            <p className="mt-3 text-center text-[12px] text-ink-subtle">
-              Multi-agent · 30 deliverables · live web research
-            </p>
-          </div>
-        </div>
-      </div>
-    </form>
-  );
-}
-
-function GenerationProgress({ state }: { state: ReturnType<typeof useGeneration>["state"] }) {
-  const isError = state.status === "error";
-  return (
-    <div className="mx-auto max-w-2xl">
-      <div className="card overflow-hidden">
-        <div className="bg-radial-brand p-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-white shadow-glow">
-            {state.status === "complete" ? <Check size={26} /> : <Loader2 size={26} className="animate-spin" />}
-          </div>
-          <h2 className="text-xl font-bold">
-            {state.status === "complete" ? "Your business is ready!" : "Building your business…"}
-          </h2>
-          <p className="mt-1.5 text-sm text-ink-muted">
-            {state.status === "complete"
-              ? "Opening your workspace…"
-              : state.currentLabel
-                ? `Running ${state.currentLabel}`
-                : "Orchestrating agents…"}
-          </p>
-
-          <div className="mx-auto mt-6 h-2 w-full max-w-sm overflow-hidden rounded-full bg-surface-2">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-brand to-accent"
-              animate={{ width: `${state.progress}%` }}
-              transition={{ ease: "easeOut", duration: 0.4 }}
-            />
-          </div>
-          <div className="mt-2 text-[12px] font-medium text-ink-subtle">{state.progress}%</div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-1.5 p-5 sm:grid-cols-2">
-          {state.agents.map((a) => (
-            <div
-              key={a.key}
-              className={cn(
-                "flex items-center justify-between rounded-lg border px-3 py-2 text-sm transition",
-                a.status === "running"
-                  ? "border-brand/40 bg-brand-soft/40"
-                  : a.status === "done"
-                    ? "border-border bg-surface"
-                    : a.status === "error"
-                      ? "border-warning/30 bg-warning/5"
-                      : "border-border/60 bg-transparent opacity-60",
-              )}
-            >
-              <span className="flex items-center gap-2.5">
-                <StatusDot status={a.status} />
-                <span className={cn(a.status === "pending" && "text-ink-muted")}>{a.label}</span>
+                {complete && !limited ? (
+                  <Check size={18} aria-hidden />
+                ) : limited ? (
+                  <AlertCircle size={18} aria-hidden />
+                ) : (
+                  <Loader2 size={18} className="animate-spin" aria-hidden />
+                )}
               </span>
-              {a.status === "done" && a.source && (
-                <Badge tone={a.source === "llm" ? "brand" : "neutral"} className="!text-[9px]">
-                  {a.source === "llm" ? "AI" : "Engine"}
-                </Badge>
-              )}
+              <div className="min-w-0">
+                <h2 className="text-[16px] font-semibold tracking-tight text-ink">
+                  {complete
+                    ? provisional
+                      ? t("generate.progress.readyProvisional")
+                      : degraded
+                        ? t("generate.progress.readyLimited")
+                        : t("generate.progress.ready")
+                    : t("generate.progress.creating")}
+                </h2>
+                <p className="mt-0.5 line-clamp-2 text-[13px] text-ink-muted">{businessIdea}</p>
+                {degraded && (
+                  <p className="mt-1.5 text-[12.5px] text-ink-muted">{t("generate.progress.readyLimitedBody")}</p>
+                )}
+                {provisional && (
+                  <p className="mt-1.5 text-[12.5px] text-ink-muted">{t("generate.progress.readyProvisionalBody")}</p>
+                )}
+              </div>
             </div>
-          ))}
+
+            <div
+              className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-5"
+              aria-hidden={complete}
+            >
+              {phases.map((phase) => (
+                <div
+                  key={phase.id}
+                  className={cn(
+                    "rounded-lg border px-2.5 py-2.5 transition-[border-color,background-color,box-shadow] duration-[var(--duration-base)]",
+                    phase.status === "done" || phase.status === "partial"
+                      ? "border-brand/35 bg-brand-soft/80 shadow-[0_0_20px_-12px_color-mix(in_srgb,var(--color-brand)_50%,transparent)]"
+                      : phase.status === "running"
+                        ? "border-brand/50 bg-surface-2 ring-1 ring-brand/25"
+                        : "border-border/80 bg-surface/60",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "mb-1.5 block h-1 w-8 rounded-full",
+                      phase.status === "done"
+                        ? "bg-success"
+                        : phase.status === "running"
+                          ? "bg-brand"
+                          : phase.status === "partial"
+                            ? "bg-warning"
+                            : "bg-border-strong",
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "block truncate text-[11px] font-medium",
+                      phase.status === "pending" ? "text-ink-subtle" : "text-ink",
+                    )}
+                  >
+                    {t(`generate.progress.phases.${phase.id}.title`)}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5">
+              <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 text-[12.5px]">
+                <span className="text-ink-muted" aria-live="polite">
+                  {complete
+                    ? limited
+                      ? t("generate.progress.openingLimited")
+                      : t("generate.progress.opening")
+                    : current
+                      ? t("generate.progress.current", { step: stepLabel(current, t) })
+                      : t("generate.progress.starting")}
+                </span>
+                <span className="tabular-nums text-ink-subtle">
+                  {t("generate.progress.stepCount", { done: doneCount, total: state.agents.length })}
+                </span>
+              </div>
+              <ProgressBar value={state.progress} label={t("generate.progress.progressAria")} />
+            </div>
+          </CardBody>
         </div>
-      </div>
 
-      <AnimatePresence>
-        {isError && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 flex items-start gap-3 rounded-xl border border-danger/30 bg-danger/10 p-4 text-sm"
+        <ol className="space-y-0" aria-label={t("generate.progress.phasesLabel")}>
+          {phases.map((phase) => (
+            <PhaseRow key={phase.id} id={phase.id} status={phase.status} />
+          ))}
+        </ol>
+
+        <div className="border-t border-border">
+          <button
+            type="button"
+            onClick={() => setDetailsOpen((o) => !o)}
+            aria-expanded={detailsOpen}
+            className="flex w-full items-center justify-between gap-2 px-5 py-3 text-left text-[13px] font-medium text-ink-muted hover:bg-surface-2 hover:text-ink"
           >
-            <AlertCircle size={18} className="mt-0.5 shrink-0 text-danger" />
-            <div>
-              <div className="font-semibold text-danger">Generation failed</div>
-              <p className="mt-0.5 text-ink-muted">{state.error}</p>
-              <Button size="sm" variant="secondary" className="mt-3" onClick={() => window.location.reload()}>
-                <RotateCcw size={14} /> Try again
-              </Button>
-            </div>
-          </motion.div>
+            {t("generate.progress.showSteps")}
+            <ChevronDown size={15} className={cn("shrink-0 transition-transform", detailsOpen && "rotate-180")} aria-hidden />
+          </button>
+          {detailsOpen && (
+            <ol className="grid border-t border-border sm:grid-cols-2">
+              {state.agents.map((a) => (
+                <StepRow key={a.key} agent={a} />
+              ))}
+            </ol>
+          )}
+        </div>
+      </Card>
+      <p className="mt-3 text-center text-[12.5px] text-ink-subtle">{t("generate.progress.keepOpen")}</p>
+    </div>
+  );
+}
+
+function PhaseRow({ id, status }: { id: (typeof PHASES)[number]["id"]; status: PhaseStatus }) {
+  const t = useT();
+  const statusText =
+    status === "done"
+      ? t("generate.progress.done")
+      : status === "running"
+        ? t("generate.progress.inProgress")
+        : status === "partial"
+          ? t("generate.progress.fallback")
+          : t("generate.progress.waiting");
+
+  return (
+    <li className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 last:border-b-0">
+      <span className="flex min-w-0 items-center gap-3">
+        {status === "done" ? (
+          <Check size={15} className="shrink-0 text-success" aria-hidden />
+        ) : status === "running" ? (
+          <Loader2 size={15} className="shrink-0 animate-spin text-brand" aria-hidden />
+        ) : status === "partial" ? (
+          <AlertCircle size={15} className="shrink-0 text-warning" aria-hidden />
+        ) : (
+          <span aria-hidden className="mx-[3.5px] h-2 w-2 shrink-0 rounded-full border border-border-strong" />
         )}
-      </AnimatePresence>
-    </div>
+        <span>
+          <span className={cn("block text-[13.5px] font-medium", status === "pending" ? "text-ink-subtle" : "text-ink")}>
+            {t(`generate.progress.phases.${id}.title`)}
+          </span>
+          <span className="block text-[12px] text-ink-subtle">{t(`generate.progress.phases.${id}.body`)}</span>
+        </span>
+        <span className="sr-only">{statusText}</span>
+      </span>
+      {status === "partial" && (
+        <span className="shrink-0 text-[12px] text-ink-subtle">{t("generate.progress.fallbackUsed")}</span>
+      )}
+    </li>
   );
 }
 
-function StatusDot({ status }: { status: AgentStatusType }) {
-  if (status === "done") return <Check size={15} className="text-success" />;
-  if (status === "running") return <Loader2 size={15} className="animate-spin text-brand-2" />;
-  if (status === "error") return <AlertCircle size={15} className="text-warning" />;
-  return <span className="h-2.5 w-2.5 rounded-full border border-border-strong" />;
-}
-
-type AgentStatusType = "pending" | "running" | "done" | "error";
-
-function Field({
-  label,
-  hint,
-  error,
-  children,
-}: {
-  label: string;
-  hint?: string;
-  error?: string;
-  children: React.ReactNode;
-}) {
+function StepRow({ agent }: { agent: AgentState }) {
+  const t = useT();
+  const statusText =
+    agent.status === "done"
+      ? t("generate.progress.done")
+      : agent.status === "running"
+        ? t("generate.progress.inProgress")
+        : agent.status === "error"
+          ? t("generate.progress.fallback")
+          : t("generate.progress.waiting");
   return (
-    <div>
-      <div className="mb-2 flex items-baseline justify-between">
-        <label className="text-sm font-semibold">{label}</label>
-        {hint && !error && <span className="text-[12px] text-ink-subtle">{hint}</span>}
-        {error && <span className="text-[12px] font-medium text-danger">{error}</span>}
-      </div>
-      {children}
-    </div>
-  );
-}
-
-function Input({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder?: string }) {
-  return (
-    <input
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      className="h-11 w-full rounded-xl border border-border bg-surface px-4 text-[15px] text-ink outline-none transition placeholder:text-ink-subtle focus:border-brand focus:ring-2 focus:ring-brand/30"
-    />
-  );
-}
-
-function SummaryRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-start justify-between gap-4">
-      <span className="shrink-0 text-ink-subtle">{label}</span>
-      <span className="line-clamp-2 text-right font-medium">{value}</span>
-    </div>
+    <li className="flex items-center justify-between gap-3 border-b border-border px-5 py-2.5 text-[13px] sm:odd:border-r">
+      <span className="flex min-w-0 items-center gap-2.5">
+        {agent.status === "done" ? (
+          <Check size={14} className="shrink-0 text-success" aria-hidden />
+        ) : agent.status === "running" ? (
+          <Loader2 size={14} className="shrink-0 animate-spin text-ink" aria-hidden />
+        ) : agent.status === "error" ? (
+          <AlertCircle size={14} className="shrink-0 text-warning" aria-hidden />
+        ) : (
+          <span aria-hidden className="mx-[3px] h-2 w-2 shrink-0 rounded-full border border-border-strong" />
+        )}
+        <span className={cn("truncate", agent.status === "pending" ? "text-ink-subtle" : "text-ink")}>{stepLabel(agent, t)}</span>
+        <span className="sr-only">{statusText}</span>
+      </span>
+      {agent.status === "done" && agent.source && <Provenance kind={agent.source === "llm" ? "ai" : "template"} />}
+      {agent.status === "error" && <span className="shrink-0 text-[12px] text-ink-subtle">{t("generate.progress.fallbackUsed")}</span>}
+    </li>
   );
 }

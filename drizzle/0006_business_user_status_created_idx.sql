@@ -1,0 +1,1 @@
+CREATE INDEX "business_user_status_created_idx" ON "business" USING btree ("user_id","status","created_at" DESC NULLS LAST,"id" DESC NULLS LAST);

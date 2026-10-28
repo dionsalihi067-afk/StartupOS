@@ -1,101 +1,143 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Zap, X } from "lucide-react";
-import { MODULES } from "@/lib/content";
-import { Icon } from "@/components/ui/Icon";
-import { useProjects } from "@/lib/client/store";
+import { Plus, X, type LucideIcon } from "lucide-react";
+import { ProductWordmark } from "@/components/ui/ProductMark";
+import { BusinessSwitcher } from "@/components/dashboard/BusinessSwitcher";
+import { BUSINESS_NAV, BUSINESSES_NAV, HOME_NAV, SETTINGS_NAV, type NavItem } from "@/components/dashboard/navigation";
+import { useBusinesses } from "@/lib/client/businesses";
+import { sectionHref } from "@/lib/client/insights";
+import { useT } from "@/i18n/client";
+import { Link, usePathname } from "@/i18n/navigation";
+import type { Translator } from "@/i18n/translator";
 import { cn } from "@/lib/utils";
 
-const GROUPS: { id: "main" | "centers" | "system"; label: string }[] = [
-  { id: "main", label: "Workspace" },
-  { id: "centers", label: "Centers" },
-  { id: "system", label: "System" },
-];
+function NavLink({
+  href,
+  label,
+  icon: Icon,
+  active,
+  onNavigate,
+}: {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  active: boolean;
+  onNavigate?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "flex min-h-10 items-center gap-2.5 rounded-lg px-3 py-2 text-[13.5px] transition-colors duration-150",
+        active
+          ? "bg-brand-soft font-medium text-brand-2"
+          : "text-ink-muted hover:bg-surface-3 hover:text-ink",
+      )}
+    >
+      <Icon size={16} strokeWidth={1.75} className={cn("shrink-0", active ? "text-brand" : "text-ink-subtle")} aria-hidden />
+      <span className="min-w-0 truncate">{label}</span>
+    </Link>
+  );
+}
+
+function linkProps(item: NavItem, t: Translator) {
+  return { href: item.href, label: t(item.labelKey), icon: item.icon };
+}
+
+function GroupLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="px-3 pb-1.5 pt-5 text-[11px] font-semibold uppercase tracking-[0.06em] text-ink-subtle">
+      {children}
+    </div>
+  );
+}
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = usePathname();
-  const { active, projects } = useProjects();
+  const { active } = useBusinesses();
+  const t = useT();
 
   return (
     <>
-      {/* Mobile backdrop */}
       {open && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-[rgba(18,32,28,0.42)] backdrop-blur-[2px] transition-opacity duration-150 lg:hidden"
           onClick={onClose}
           aria-hidden
         />
       )}
 
       <aside
+        id="app-sidebar"
+        aria-label={t("navigation.mainNavigation")}
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col border-r border-border bg-bg-elevated transition-transform duration-300 lg:translate-x-0",
-          open ? "translate-x-0" : "-translate-x-full",
+          "fixed inset-y-0 left-0 z-50 flex w-[252px] flex-col border-r border-border bg-surface duration-200 lg:visible lg:translate-x-0",
+          open ? "visible translate-x-0 transition-transform" : "invisible -translate-x-full transition-[transform,visibility]",
         )}
       >
-        <div className="flex h-16 items-center justify-between border-b border-border px-5">
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand to-accent text-white">
-              <Zap size={16} strokeWidth={2.5} />
-            </span>
-            <span className="text-[16px] font-bold tracking-tight">StartupOS</span>
+        <div className="flex h-16 shrink-0 items-center justify-between px-4">
+          <Link href="/dashboard" onClick={onClose} aria-label={t("common.productHome")} className="min-w-0">
+            <ProductWordmark />
           </Link>
-          <button onClick={onClose} className="text-ink-muted hover:text-ink lg:hidden" aria-label="Close menu">
-            <X size={20} />
+          <button
+            type="button"
+            onClick={onClose}
+            data-sidebar-close
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-ink-muted hover:bg-surface-3 hover:text-ink lg:hidden"
+            aria-label={t("navigation.closeNavigation")}
+          >
+            <X size={18} aria-hidden />
           </button>
         </div>
 
-        <nav className="flex-1 space-y-6 overflow-y-auto px-3 py-5">
-          {GROUPS.map((group) => (
-            <div key={group.id}>
-              <div className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-subtle">
-                {group.label}
-              </div>
+        <div className="px-3 pb-1">
+          <BusinessSwitcher onNavigate={onClose} />
+        </div>
+
+        <nav className="flex-1 overflow-y-auto px-3 pb-4 pt-1" aria-label={t("navigation.sections")}>
+          <NavLink {...linkProps(HOME_NAV, t)} active={pathname === HOME_NAV.href} onNavigate={onClose} />
+
+          {active && (
+            <>
+              <GroupLabel>{t("navigation.groupBusiness")}</GroupLabel>
               <div className="space-y-0.5">
-                {MODULES.filter((m) => m.group === group.id).map((m) => {
+                {BUSINESS_NAV.map((item) => {
+                  const href = sectionHref(item.key, active.id);
                   const isActive =
-                    m.href === "/dashboard" ? pathname === "/dashboard" : pathname.startsWith(m.href);
+                    item.key === "overview" ? pathname.startsWith("/dashboard/projects/") : pathname === href;
                   return (
-                    <Link
-                      key={m.key}
-                      href={m.href}
-                      onClick={onClose}
-                      className={cn(
-                        "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all",
-                        isActive
-                          ? "bg-brand-soft text-white shadow-[inset_0_0_0_1px_rgba(109,94,252,0.35)]"
-                          : "text-ink-muted hover:bg-surface hover:text-ink",
-                      )}
-                    >
-                      <Icon
-                        name={m.icon}
-                        size={18}
-                        className={cn(isActive ? "text-brand-2" : "text-ink-subtle group-hover:text-ink-muted")}
-                      />
-                      {m.label}
-                    </Link>
+                    <NavLink
+                      key={item.key}
+                      href={href}
+                      label={t(item.labelKey)}
+                      icon={item.icon}
+                      active={isActive}
+                      onNavigate={onClose}
+                    />
                   );
                 })}
               </div>
-            </div>
-          ))}
+            </>
+          )}
+
+          <GroupLabel>{t("navigation.groupWorkspace")}</GroupLabel>
+          <div className="space-y-0.5">
+            <NavLink {...linkProps(BUSINESSES_NAV, t)} active={pathname === BUSINESSES_NAV.href} onNavigate={onClose} />
+            <NavLink
+              href="/dashboard/generate"
+              label={t("navigation.newBusiness")}
+              icon={Plus}
+              active={pathname === "/dashboard/generate"}
+              onNavigate={onClose}
+            />
+          </div>
         </nav>
 
-        <div className="border-t border-border p-3">
-          <div className="rounded-xl border border-border bg-surface p-3.5">
-            <div className="text-[11px] font-semibold uppercase tracking-wide text-ink-subtle">
-              Active project
-            </div>
-            <div className="mt-1 truncate text-sm font-semibold">
-              {active ? active.brand.name : "None yet"}
-            </div>
-            <div className="mt-0.5 text-[12px] text-ink-subtle">
-              {projects.length} project{projects.length === 1 ? "" : "s"} saved
-            </div>
-          </div>
+        <div className="border-t border-border px-3 py-3">
+          <NavLink {...linkProps(SETTINGS_NAV, t)} active={pathname.startsWith(SETTINGS_NAV.href)} onNavigate={onClose} />
         </div>
       </aside>
     </>

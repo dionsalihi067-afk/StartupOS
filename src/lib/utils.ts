@@ -22,6 +22,17 @@ export function titleCase(input: string): string {
     .join(" ");
 }
 
+/**
+ * Lowercases only the first letter so owner text reads naturally mid-sentence
+ * without destroying proper nouns ("Women in Kosovo" → "women in Kosovo").
+ * Acronyms such as "SMEs" or "B2B" are left as typed.
+ */
+export function midSentence(input: string): string {
+  const text = input.trim();
+  if (/^\p{Lu}[\p{Ll}\s'-]/u.test(text)) return text.charAt(0).toLowerCase() + text.slice(1);
+  return text;
+}
+
 export function uid(prefix = "id"): string {
   const rand = Math.random().toString(36).slice(2, 10);
   return `${prefix}_${Date.now().toString(36)}_${rand}`;
@@ -129,16 +140,6 @@ function tryLooseParse<T>(candidate: string): T | null {
   } catch {
     return null;
   }
-}
-
-export function formatCurrencyHint(budget: string): string {
-  const num = Number(budget.replace(/[^0-9.]/g, ""));
-  if (!Number.isFinite(num) || num <= 0) return budget;
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(num);
 }
 
 /** Escapes a string for safe inclusion in trusted SVG/HTML markup (creatives, emails). */

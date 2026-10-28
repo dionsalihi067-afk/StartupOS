@@ -5,6 +5,7 @@
 
 # next.js
 /.next/
+/.next-*/
 /out/
 next-env.d.ts
 
@@ -18,6 +19,10 @@ next-env.d.ts
 # generated runtime assets (real AI logo images)
 /public/generated/
 
+# local development database (npm run db:local)
+/.local-db/
+/.local-postgres/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -25,8 +30,11 @@ yarn-error.log*
 *.log
 
 # env files
+
 .env
-.env*.local
+.env.*
+!.env.example
+
 
 # typescript
 *.tsbuildinfo
@@ -35,3 +43,13 @@ yarn-error.log*
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+
+# Local verification reports
+/build-verify.txt
+/lint-verify.txt
+/live-acceptance-run.txt
+/test-semantic-verify.txt
+/test-verify.txt
+/typecheck-verify.txt
+/tmp-live-full-generation-report.json
